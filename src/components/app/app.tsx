@@ -1,8 +1,13 @@
 import MainPage from '../../pages/main-page/main-page';
+import { PromoFilm } from '../../types/promo-film';
 
-function App(): JSX.Element {
+type AppProps = {
+  promoFilm: PromoFilm;
+}
+
+function App({ promoFilm }: AppProps): JSX.Element {
   return (
-    <MainPage />
+    <MainPage promoFilm={promoFilm} />
   );
 }
 
