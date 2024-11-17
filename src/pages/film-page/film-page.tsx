@@ -1,8 +1,13 @@
+import { Helmet } from 'react-helmet-async';
+
 import FilmCard from '../../components/film-card/film-card';
 
 function FilmPage(): JSX.Element {
   return (
     <>
+      <Helmet>
+        <title>WTW: Film</title>
+      </Helmet>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">

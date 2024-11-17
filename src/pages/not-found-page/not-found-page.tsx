@@ -1,6 +1,11 @@
+import { Helmet } from 'react-helmet-async';
+
 function NotFoundPage(): JSX.Element {
   return (
     <div className="user-page">
+      <Helmet>
+        <title>WTW: Page not found</title>
+      </Helmet>
       <header className="page-header user-page__head">
         <div className="logo">
           <a href="main.html" className="logo__link">
