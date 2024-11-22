@@ -2,14 +2,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from '../../const';
 
-import MainPage from '../../pages/main-page/main-page';
-import LoginPage from '../../pages/login-page/login-page';
-import FilmPage from '../../pages/film-page/film-page';
-import MyListPage from '../../pages/my-list-page/my-list-page';
-import ReviewPage from '../../pages/review-page/review-page';
-import PlayerPage from '../../pages/player-page/player-page';
-import NotFoundPage from '../../pages/not-found-page/not-found-page';
-import PrivateRoute from '../private-route/private-route';
+import MainPage from '../../pages/main-page';
+import LoginPage from '../../pages/login-page';
+import FilmPage from '../../pages/film-page';
+import MyListPage from '../../pages/my-list-page';
+import ReviewPage from '../../pages/review-page';
+import PlayerPage from '../../pages/player-page';
+import NotFoundPage from '../../pages/not-found-page';
+import PrivateRoute from '../private-route';
 
 import { PromoFilm } from '../../types/promo-film';
 import { Films } from '../../types/films';

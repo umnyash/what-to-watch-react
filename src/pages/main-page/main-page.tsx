@@ -1,6 +1,6 @@
 import { PromoFilm } from '../../types/promo-film';
 import { Films } from '../../types/films';
-import FilmsList from '../../components/films-list/films-list';
+import FilmsList from '../../components/films-list';
 
 type MainPageProps = {
   promoFilm: PromoFilm;

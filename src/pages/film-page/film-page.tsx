@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Films } from '../../types/films';
 import { SIMILAR_FILMS_MAX_COUNT } from '../../const';
-import FilmsList from '../../components/films-list/films-list';
+import FilmsList from '../../components/films-list';
 
 type FilmPageProps = {
   similarFilms: Films;
