@@ -12,19 +12,21 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 
 import { PromoFilm } from '../../types/promo-film';
+import { Films } from '../../types/films';
 
 type AppProps = {
   promoFilm: PromoFilm;
+  films: Films;
 }
 
-function App({ promoFilm }: AppProps): JSX.Element {
+function App({ promoFilm, films }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage promoFilm={promoFilm} />}
+            element={<MainPage promoFilm={promoFilm} films={films} />}
           />
           <Route
             path={AppRoute.Login}
@@ -32,13 +34,13 @@ function App({ promoFilm }: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Film}
-            element={<FilmPage />}
+            element={<FilmPage similarFilms={films} />}
           />
           <Route
             path={AppRoute.MyList}
             element={
               <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                <MyListPage />
+                <MyListPage films={films} />
               </PrivateRoute>
             }
           />

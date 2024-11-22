@@ -1,8 +1,12 @@
 import { Helmet } from 'react-helmet-async';
+import { Films } from '../../types/films';
+import FilmsList from '../../components/films-list/films-list';
 
-import FilmCard from '../../components/film-card/film-card';
+type MyListPageProps = {
+  films: Films;
+}
 
-function MyListPage(): JSX.Element {
+function MyListPage({ films }: MyListPageProps): JSX.Element {
   return (
     <div className="user-page">
       <Helmet>
@@ -32,18 +36,7 @@ function MyListPage(): JSX.Element {
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-        <div className="catalog__films-list">
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-        </div>
+        <FilmsList films={films} />
       </section>
 
       <footer className="page-footer">

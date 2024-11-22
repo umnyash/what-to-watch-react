@@ -1,8 +1,13 @@
 import { Helmet } from 'react-helmet-async';
+import { Films } from '../../types/films';
+import { SIMILAR_FILMS_MAX_COUNT } from '../../const';
+import FilmsList from '../../components/films-list/films-list';
 
-import FilmCard from '../../components/film-card/film-card';
+type FilmPageProps = {
+  similarFilms: Films;
+}
 
-function FilmPage(): JSX.Element {
+function FilmPage({ similarFilms }: FilmPageProps): JSX.Element {
   return (
     <>
       <Helmet>
@@ -111,13 +116,7 @@ function FilmPage(): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-
-          <div className="catalog__films-list">
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-          </div>
+          <FilmsList films={similarFilms.slice(0, SIMILAR_FILMS_MAX_COUNT)} />
         </section>
 
         <footer className="page-footer">

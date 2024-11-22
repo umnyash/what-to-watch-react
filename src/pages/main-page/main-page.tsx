@@ -1,12 +1,13 @@
-import FilmCard from '../../components/film-card/film-card';
 import { PromoFilm } from '../../types/promo-film';
-import { FILMS_PER_LOAD } from '../../const';
+import { Films } from '../../types/films';
+import FilmsList from '../../components/films-list/films-list';
 
 type MainPageProps = {
   promoFilm: PromoFilm;
+  films: Films;
 }
 
-function MainPage({ promoFilm }: MainPageProps): JSX.Element {
+function MainPage({ promoFilm, films }: MainPageProps): JSX.Element {
   return (
     <>
       <section className="film-card">
@@ -107,9 +108,7 @@ function MainPage({ promoFilm }: MainPageProps): JSX.Element {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {Array.from({ length: FILMS_PER_LOAD }, () => <FilmCard key={crypto.randomUUID()} />)}
-          </div>
+          <FilmsList films={films} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

@@ -1,4 +1,5 @@
 export const FILMS_PER_LOAD = 8;
+export const SIMILAR_FILMS_MAX_COUNT = 4;
 
 export enum AppRoute {
   Root = '/',
