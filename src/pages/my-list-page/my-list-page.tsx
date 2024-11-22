@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Films } from '../../types/films';
+import Logo from '../../components/logo';
 import FilmsList from '../../components/films-list';
 
 type MyListPageProps = {
@@ -13,13 +14,7 @@ function MyListPage({ films }: MyListPageProps): JSX.Element {
         <title>WTW: My list</title>
       </Helmet>
       <header className="page-header user-page__head">
-        <div className="logo">
-          <a href="main.html" className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
-        </div>
+        <Logo />
 
         <h1 className="page-title user-page__title">My list <span className="user-page__film-count">9</span></h1>
         <ul className="user-block">
@@ -40,13 +35,7 @@ function MyListPage({ films }: MyListPageProps): JSX.Element {
       </section>
 
       <footer className="page-footer">
-        <div className="logo">
-          <a href="main.html" className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
-        </div>
+        <Logo isLight />
 
         <div className="copyright">
           <p>© 2019 What to watch Ltd.</p>
