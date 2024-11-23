@@ -10,6 +10,7 @@ import ReviewPage from '../../pages/review-page';
 import PlayerPage from '../../pages/player-page';
 import NotFoundPage from '../../pages/not-found-page';
 import PrivateRoute from '../private-route';
+import AnonymousRoute from '../anonymous-route';
 
 import { PromoFilm } from '../../types/promo-film';
 import { Films } from '../../types/films';
@@ -30,7 +31,11 @@ function App({ promoFilm, films }: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Login}
-            element={<LoginPage />}
+            element={
+              <AnonymousRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+                <LoginPage />
+              </AnonymousRoute>
+            }
           />
           <Route
             path={AppRoute.Film}
