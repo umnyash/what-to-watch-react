@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import { Films } from '../../types/films';
-import { SIMILAR_FILMS_MAX_COUNT } from '../../const';
+import { AppRoute, SIMILAR_FILMS_MAX_COUNT } from '../../const';
 import Logo from '../../components/logo';
 import FilmsList from '../../components/films-list';
 
@@ -59,7 +60,7 @@ function FilmPage({ similarFilms }: FilmPageProps): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+                <Link to={AppRoute.Review} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>

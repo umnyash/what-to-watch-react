@@ -1,4 +1,6 @@
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import Logo from '../../components/logo';
 
 function NotFoundPage(): JSX.Element {
@@ -14,7 +16,7 @@ function NotFoundPage(): JSX.Element {
       </header>
 
       <div className="sign-in user-page__content">
-        <a className="sign-in__btn" href="main.html" style={{ textDecoration: 'none' }}>Go to Homepage</a>
+        <Link className="sign-in__btn" to={AppRoute.Root} style={{ textDecoration: 'none' }}>Go to Homepage</Link>
       </div>
 
       <footer className="page-footer">
