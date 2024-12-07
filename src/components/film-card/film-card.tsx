@@ -2,15 +2,16 @@ import { useState, useEffect } from 'react';
 import { AppRoute, ROUTE_PARAM_ID } from '../../const';
 import { CardFilm } from '../../types/films';
 import { Link } from 'react-router-dom';
-import Video from '../video';
+import { VideoProps } from '../video';
 
 const DELAY_BEFORE_PLAY = 1000;
 
 type FilmCardProps = {
   film: CardFilm;
+  renderVideo: (options: VideoProps) => JSX.Element;
 }
 
-function FilmCard({ film }: FilmCardProps): JSX.Element {
+function FilmCard({ film, renderVideo }: FilmCardProps): JSX.Element {
   const [isMouseOver, setIsMouseOver] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
@@ -32,7 +33,6 @@ function FilmCard({ film }: FilmCardProps): JSX.Element {
     };
   }, [isMouseOver]);
 
-
   return (
     <article
       className="small-film-card catalog__films-card"
@@ -41,7 +41,12 @@ function FilmCard({ film }: FilmCardProps): JSX.Element {
     >
       <div className="small-film-card__image">
         {isVideoPlaying ? (
-          <Video src={film.previewVideoLink} isPlaying muted loop />
+          renderVideo({
+            src: film.previewVideoLink,
+            isPlaying: true,
+            muted: true,
+            loop: true
+          })
         ) : (
           <img src={previewImage} width="280" height="175" alt={name} />
         )}

@@ -1,11 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-
-type VideoProps = {
-  src: string;
-  isPlaying?: boolean;
-  muted?: boolean;
-  loop?: boolean;
-}
+import { VideoProps } from './types';
 
 function Video(props: VideoProps): JSX.Element {
   const { isPlaying, ...restProps } = props;
