@@ -17,3 +17,18 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export enum RatingLevel {
+  Bad = 'Bad',
+  Normal = 'Normal',
+  Good = 'Good',
+  VeryGood = 'Very good',
+  Awesome = 'Awesome',
+}
+
+export const RatingTreshold = {
+  [RatingLevel.Awesome]: 10,
+  [RatingLevel.VeryGood]: 8,
+  [RatingLevel.Good]: 5,
+  [RatingLevel.Normal]: 3,
+} as const;

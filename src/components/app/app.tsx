@@ -13,16 +13,17 @@ import PrivateRoute from '../private-route';
 import AnonymousRoute from '../anonymous-route';
 
 import { PromoFilm } from '../../types/promo-film';
-import { Films } from '../../types/films';
+import { PageFilm, Films } from '../../types/films';
 import { Reviews } from '../../types/reviews';
 
 type AppProps = {
   promoFilm: PromoFilm;
+  film: PageFilm;
   films: Films;
   reviews: Reviews;
 }
 
-function App({ promoFilm, films, reviews }: AppProps): JSX.Element {
+function App({ promoFilm, film, films, reviews }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -41,7 +42,7 @@ function App({ promoFilm, films, reviews }: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Film}
-            element={<FilmPage similarFilms={films} reviews={reviews} />}
+            element={<FilmPage film={film} reviews={reviews} similarFilms={films} />}
           />
           <Route
             path={AppRoute.MyList}
