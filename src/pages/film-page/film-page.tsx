@@ -18,6 +18,8 @@ type FilmPageProps = {
 }
 
 function FilmPage({ film, reviews, similarFilms }: FilmPageProps): JSX.Element {
+  const { name, genre, released, posterImage, backgroundImage } = film;
+
   const tabs: Tabs = [
     {
       title: 'Overview',
@@ -41,7 +43,7 @@ function FilmPage({ film, reviews, similarFilms }: FilmPageProps): JSX.Element {
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+            <img src={backgroundImage} alt={name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -63,10 +65,10 @@ function FilmPage({ film, reviews, similarFilms }: FilmPageProps): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{genre}</span>
+                <span className="film-card__year">{released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -92,7 +94,7 @@ function FilmPage({ film, reviews, similarFilms }: FilmPageProps): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
             </div>
 
             <FilmTaber tabs={tabs} />
