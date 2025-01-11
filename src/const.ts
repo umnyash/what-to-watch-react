@@ -2,6 +2,7 @@ export const FILMS_PER_LOAD = 8;
 export const SIMILAR_FILMS_MAX_COUNT = 4;
 export const MINUTES_PER_HOUR = 60;
 export const ALL_GENRES = 'all';
+export const GENRES_MAX_COUNT = 9;
 
 export const ROUTE_PARAM_ID = ':id';
 
