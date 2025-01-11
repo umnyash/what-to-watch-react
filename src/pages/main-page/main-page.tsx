@@ -1,14 +1,25 @@
+import { useEffect } from 'react';
+import useAppDispatch from '../../hooks/use-app-dispatch';
+import useAppSelector from '../../hooks/use-app-selector';
+import { setFilms } from '../../store/action';
 import { PromoFilm } from '../../types/promo-film';
-import { Films } from '../../types/films';
 import Logo from '../../components/logo';
 import FilmsList from '../../components/films-list';
+import { films as filmsData } from '../../mocks/films';
 
 type MainPageProps = {
   promoFilm: PromoFilm;
-  films: Films;
 }
 
-function MainPage({ promoFilm, films }: MainPageProps): JSX.Element {
+function MainPage({ promoFilm }: MainPageProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setFilms(filmsData));
+  }, [dispatch]);
+
+  const films = useAppSelector((state) => state.films);
+
   return (
     <>
       <section className="film-card">
