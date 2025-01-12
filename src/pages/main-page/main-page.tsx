@@ -6,6 +6,7 @@ import { PromoFilm } from '../../types/promo-film';
 import Logo from '../../components/logo';
 import GenresList from '../../components/genres-list';
 import FilmsList from '../../components/films-list';
+import Button from '../../components/button';
 import { films as filmsData } from '../../mocks/films';
 import { Films, FilmsByGenre } from '../../types/films';
 import { ALL_GENRES } from '../../const';
@@ -104,7 +105,7 @@ function MainPage({ promoFilm }: MainPageProps): JSX.Element {
           <FilmsList films={filmsByActiveGenre} />
 
           <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
+            <Button>Show more</Button>
           </div>
         </section>
 
