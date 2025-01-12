@@ -8,6 +8,7 @@ import { ALL_GENRES, GENRES_MAX_COUNT } from '../../const';
 type GenresListProps = {
   activeGenre: string;
   filmsByGenre: FilmsByGenre;
+  onGenreClick: () => void;
 }
 
 function getTopGenres(filmsByGenre: FilmsByGenre) {
@@ -25,7 +26,7 @@ function getItemClassName(genre: string, activeGenre: string) {
   );
 }
 
-function GenresList({ activeGenre, filmsByGenre }: GenresListProps): JSX.Element {
+function GenresList({ activeGenre, filmsByGenre, onGenreClick }: GenresListProps): JSX.Element {
   const genres = getTopGenres(filmsByGenre);
 
   const dispatch = useAppDispatch();
@@ -34,6 +35,7 @@ function GenresList({ activeGenre, filmsByGenre }: GenresListProps): JSX.Element
     return (evt: MouseEvent<HTMLAnchorElement>) => {
       evt.preventDefault();
       dispatch(setGenre(genre));
+      onGenreClick();
     };
   }
 

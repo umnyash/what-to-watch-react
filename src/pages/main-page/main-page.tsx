@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
 import { setFilms } from '../../store/action';
@@ -9,7 +9,7 @@ import FilmsList from '../../components/films-list';
 import Button from '../../components/button';
 import { films as filmsData } from '../../mocks/films';
 import { Films, FilmsByGenre } from '../../types/films';
-import { ALL_GENRES } from '../../const';
+import { ALL_GENRES, FILMS_PER_LOAD } from '../../const';
 
 type MainPageProps = {
   promoFilm: PromoFilm;
@@ -29,6 +29,8 @@ function groupFilmsByGenre(films: Films) {
 }
 
 function MainPage({ promoFilm }: MainPageProps): JSX.Element {
+  const [displayedFilmsMaxCount, setDisplayedFilmsMaxCount] = useState(FILMS_PER_LOAD);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -39,6 +41,14 @@ function MainPage({ promoFilm }: MainPageProps): JSX.Element {
   const films = useAppSelector((state) => state.films);
   const filmsByGenre = groupFilmsByGenre(films);
   const filmsByActiveGenre = (activeGenre === ALL_GENRES) ? films : filmsByGenre[activeGenre];
+
+  const handleShowMoreButtonClick = () => {
+    setDisplayedFilmsMaxCount((count) => count + FILMS_PER_LOAD);
+  };
+
+  const handleGenreClick = () => {
+    setDisplayedFilmsMaxCount(FILMS_PER_LOAD);
+  };
 
   return (
     <>
@@ -101,12 +111,14 @@ function MainPage({ promoFilm }: MainPageProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList activeGenre={activeGenre} filmsByGenre={filmsByGenre} />
-          <FilmsList films={filmsByActiveGenre} />
+          <GenresList activeGenre={activeGenre} filmsByGenre={filmsByGenre} onGenreClick={handleGenreClick} />
+          <FilmsList films={filmsByActiveGenre.slice(0, displayedFilmsMaxCount)} />
 
-          <div className="catalog__more">
-            <Button>Show more</Button>
-          </div>
+          {filmsByActiveGenre.length > displayedFilmsMaxCount && (
+            <div className="catalog__more">
+              <Button onClick={handleShowMoreButtonClick}>Show more</Button>
+            </div>
+          )}
         </section>
 
         <footer className="page-footer">
