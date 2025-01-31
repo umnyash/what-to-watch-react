@@ -1,0 +1,45 @@
+.spinner {
+  text-align: center;
+}
+
+.spinner circle {
+  animation: spinner-circle 2s cubic-bezier(0.36, 0.6, 0.31, 1) infinite;
+}
+
+.spinner circle:nth-child(2) {
+  animation-delay: -0.5s;
+}
+
+.spinner circle:nth-child(3) {
+  animation-delay: -1s;
+}
+
+.spinner circle:nth-child(4) {
+  animation-delay: -1.5s;
+}
+
+@keyframes spinner-circle {
+  0% {
+    r: 0;
+  }
+
+  25% {
+    r: 3px;
+    cx: 4px;
+  }
+
+  50% {
+    r: 3px;
+    cx: 12px;
+  }
+
+  75% {
+    r: 3px;
+    cx: 20px;
+  }
+
+  100% {
+    r: 0;
+    cx: 20px;
+  }
+}
