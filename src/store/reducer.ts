@@ -3,10 +3,12 @@ import { setFilms, setGenre } from './actions';
 import { Films } from '../types/films';
 import { ALL_GENRES } from '../const';
 
-const initialState: {
+type InitialState = {
   films: Films;
   genre: string;
-} = {
+}
+
+const initialState: InitialState = {
   films: [],
   genre: ALL_GENRES,
 };
