@@ -35,3 +35,7 @@ export const RatingTreshold = {
   [RatingLevel.Good]: 5,
   [RatingLevel.Normal]: 3,
 } as const;
+
+export enum APIRoute {
+  Films = '/films',
+}

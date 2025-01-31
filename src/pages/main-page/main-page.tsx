@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
-import { setFilms } from '../../store/actions';
+import { fetchFilms } from '../../store/async-actions';
 import { PromoFilm } from '../../types/promo-film';
 import Logo from '../../components/logo';
+import Spinner from '../../components/spinner';
 import GenresList from '../../components/genres-list';
 import FilmsList from '../../components/films-list';
 import Button from '../../components/button';
-import { films as filmsData } from '../../mocks/films';
 import { Films, FilmsByGenre } from '../../types/films';
 import { ALL_GENRES, FILMS_PER_LOAD } from '../../const';
 
@@ -34,11 +34,12 @@ function MainPage({ promoFilm }: MainPageProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setFilms(filmsData));
+    dispatch(fetchFilms());
   }, [dispatch]);
 
   const activeGenre = useAppSelector((state) => state.genre);
   const films = useAppSelector((state) => state.films);
+  const isFilmsLoading = useAppSelector((state) => state.isFilmsLoading);
   const filmsByGenre = groupFilmsByGenre(films);
   const filmsByActiveGenre = (activeGenre === ALL_GENRES) ? films : filmsByGenre[activeGenre];
 
@@ -111,13 +112,19 @@ function MainPage({ promoFilm }: MainPageProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList activeGenre={activeGenre} filmsByGenre={filmsByGenre} onGenreClick={handleGenreClick} />
-          <FilmsList films={filmsByActiveGenre.slice(0, displayedFilmsMaxCount)} />
+          {isFilmsLoading && <Spinner />}
 
-          {filmsByActiveGenre.length > displayedFilmsMaxCount && (
-            <div className="catalog__more">
-              <Button onClick={handleShowMoreButtonClick}>Show more</Button>
-            </div>
+          {!isFilmsLoading && (
+            <>
+              <GenresList activeGenre={activeGenre} filmsByGenre={filmsByGenre} onGenreClick={handleGenreClick} />
+              <FilmsList films={filmsByActiveGenre.slice(0, displayedFilmsMaxCount)} />
+
+              {filmsByActiveGenre.length > displayedFilmsMaxCount && (
+                <div className="catalog__more">
+                  <Button onClick={handleShowMoreButtonClick}>Show more</Button>
+                </div>
+              )}
+            </>
           )}
         </section>
 
