@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
-import { setFilms } from '../../store/action';
+import { setFilms } from '../../store/actions';
 import { PromoFilm } from '../../types/promo-film';
 import Logo from '../../components/logo';
 import GenresList from '../../components/genres-list';

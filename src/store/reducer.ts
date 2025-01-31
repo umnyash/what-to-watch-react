@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setFilms, setGenre } from './action';
+import { setFilms, setGenre } from './actions';
 import { Films } from '../types/films';
 import { ALL_GENRES } from '../const';
 

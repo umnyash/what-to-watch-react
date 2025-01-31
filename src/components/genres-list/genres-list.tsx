@@ -1,6 +1,6 @@
 import { MouseEvent } from 'react';
 import useAppDispatch from '../../hooks/use-app-dispatch';
-import { setGenre } from '../../store/action';
+import { setGenre } from '../../store/actions';
 import { FilmsByGenre } from '../../types/films';
 import clsx from 'clsx';
 import { ALL_GENRES, GENRES_MAX_COUNT } from '../../const';
