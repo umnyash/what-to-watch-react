@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 
 import MainPage from '../../pages/main-page';
 import LoginPage from '../../pages/login-page';
@@ -35,7 +35,7 @@ function App({ promoFilm, film, films, reviews }: AppProps): JSX.Element {
           <Route
             path={AppRoute.Login}
             element={
-              <AnonymousRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <AnonymousRoute>
                 <LoginPage />
               </AnonymousRoute>
             }
@@ -47,7 +47,7 @@ function App({ promoFilm, film, films, reviews }: AppProps): JSX.Element {
           <Route
             path={AppRoute.MyList}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <PrivateRoute>
                 <MyListPage films={films} />
               </PrivateRoute>
             }
@@ -55,7 +55,7 @@ function App({ promoFilm, film, films, reviews }: AppProps): JSX.Element {
           <Route
             path={AppRoute.Review}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              <PrivateRoute>
                 <ReviewPage />
               </PrivateRoute>
             }

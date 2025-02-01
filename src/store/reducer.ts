@@ -1,15 +1,17 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { setFilms, setFilmsLoadingStatus, setGenre } from './actions';
 import { Films } from '../types/films';
-import { ALL_GENRES } from '../const';
+import { AuthorizationStatus, ALL_GENRES } from '../const';
 
 type InitialState = {
+  authorizationStatus: AuthorizationStatus;
   films: Films;
   isFilmsLoading: boolean;
   genre: string;
 }
 
 const initialState: InitialState = {
+  authorizationStatus: AuthorizationStatus.Unknown,
   films: [],
   isFilmsLoading: false,
   genre: ALL_GENRES,
