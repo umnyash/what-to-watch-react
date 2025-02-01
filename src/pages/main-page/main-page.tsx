@@ -4,6 +4,7 @@ import useAppSelector from '../../hooks/use-app-selector';
 import { fetchFilms } from '../../store/async-actions';
 import { PromoFilm } from '../../types/promo-film';
 import Logo from '../../components/logo';
+import UserNavigation from '../../components/user-navigation';
 import Spinner from '../../components/spinner';
 import GenresList from '../../components/genres-list';
 import FilmsList from '../../components/films-list';
@@ -63,16 +64,7 @@ function MainPage({ promoFilm }: MainPageProps): JSX.Element {
         <header className="page-header film-card__head">
           <Logo />
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <UserNavigation />
         </header>
 
         <div className="film-card__wrap">
