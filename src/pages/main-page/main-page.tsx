@@ -11,6 +11,7 @@ import FilmsList from '../../components/films-list';
 import Button from '../../components/button';
 import { Films, FilmsByGenre } from '../../types/films';
 import { ALL_GENRES, FILMS_PER_LOAD } from '../../const';
+import { Helmet } from 'react-helmet-async';
 
 type MainPageProps = {
   promoFilm: PromoFilm;
@@ -54,6 +55,9 @@ function MainPage({ promoFilm }: MainPageProps): JSX.Element {
 
   return (
     <>
+      <Helmet>
+        <title>WTW</title>
+      </Helmet>
       <section className="film-card">
         <div className="film-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
