@@ -6,6 +6,9 @@ import { films } from './mocks/films';
 import { reviews } from './mocks/reviews';
 import { film } from './mocks/film';
 import { store } from './store';
+import { checkUserAuth } from './store/async-actions';
+
+store.dispatch(checkUserAuth());
 
 const promoFilm = {
   name: 'The Grand Budapest Hotel',

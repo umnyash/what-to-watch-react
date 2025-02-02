@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import useAppSelector from '../../hooks/use-app-selector';
 
 import MainPage from '../../pages/main-page';
 import LoginPage from '../../pages/login-page';
@@ -9,6 +10,7 @@ import MyListPage from '../../pages/my-list-page';
 import ReviewPage from '../../pages/review-page';
 import PlayerPage from '../../pages/player-page';
 import NotFoundPage from '../../pages/not-found-page';
+import LoadingPage from '../../pages/loading-page';
 import PrivateRoute from '../private-route';
 import AnonymousRoute from '../anonymous-route';
 
@@ -24,6 +26,16 @@ type AppProps = {
 }
 
 function App({ promoFilm, film, films, reviews }: AppProps): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown) {
+    return (
+      <HelmetProvider>
+        <LoadingPage />
+      </HelmetProvider>
+    );
+  }
+
   return (
     <HelmetProvider>
       <BrowserRouter>
