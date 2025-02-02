@@ -7,6 +7,8 @@ import { reviews } from './mocks/reviews';
 import { film } from './mocks/film';
 import { store } from './store';
 import { checkUserAuth } from './store/async-actions';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 store.dispatch(checkUserAuth());
 
@@ -23,6 +25,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ToastContainer />
       <App promoFilm={promoFilm} film={film} films={films} reviews={reviews} />
     </Provider>
   </React.StrictMode>
