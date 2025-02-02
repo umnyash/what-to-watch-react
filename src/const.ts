@@ -37,5 +37,7 @@ export const RatingTreshold = {
 } as const;
 
 export enum APIRoute {
+  Login = '/login',
+  Logout = '/logout',
   Films = '/films',
 }

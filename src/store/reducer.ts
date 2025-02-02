@@ -1,8 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setFilms, setFilmsLoadingStatus, setGenre } from './actions';
 import { User } from '../types/user';
 import { Films } from '../types/films';
 import { AuthorizationStatus, ALL_GENRES } from '../const';
+
+import {
+  setAuthorizationStatus,
+  setUser,
+  setFilms,
+  setFilmsLoadingStatus,
+  setGenre
+} from './actions';
 
 type InitialState = {
   authorizationStatus: AuthorizationStatus;
@@ -22,6 +29,12 @@ const initialState: InitialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(setAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setUser, (state, action) => {
+      state.user = action.payload;
+    })
     .addCase(setFilms, (state, action) => {
       state.films = action.payload;
     })
