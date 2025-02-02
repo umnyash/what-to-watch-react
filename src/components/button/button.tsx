@@ -1,10 +1,11 @@
 import { PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
-import { ButtonType } from '../../types/button';
+import { ButtonType, ButtonSize } from '../../types/button';
 import clsx from 'clsx';
 
 type ButtonProps = PropsWithChildren<{
   type?: ButtonType;
+  size?: ButtonSize;
   className?: string;
   href?: string;
   to?: string;
@@ -15,8 +16,13 @@ type ButtonProps = PropsWithChildren<{
 }>
 
 function Button(props: ButtonProps): JSX.Element {
-  const { children, type = ButtonType.Button, className, to, ...otherProps } = props;
-  const buttonClassName = clsx('catalog__button', className);
+  const { children, type = ButtonType.Button, size = ButtonSize.M, className, to, ...otherProps } = props;
+
+  const buttonClassName = clsx(
+    size === ButtonSize.M && 'catalog__button',
+    size === ButtonSize.L && 'sign-in__btn',
+    className
+  );
 
   switch (type) {
     case ButtonType.Button:

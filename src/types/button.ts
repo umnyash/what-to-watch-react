@@ -5,3 +5,8 @@ export enum ButtonType {
   Link = 'link',
   Route = 'route',
 }
+
+export enum ButtonSize {
+  M = 'm',
+  L = 'l',
+}
