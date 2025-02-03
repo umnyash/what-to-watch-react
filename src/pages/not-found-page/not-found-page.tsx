@@ -1,7 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Logo from '../../components/logo';
+import Button from '../../components/button';
+import { ButtonType, ButtonSize } from '../../types/button';
 
 function NotFoundPage(): JSX.Element {
   return (
@@ -16,7 +17,7 @@ function NotFoundPage(): JSX.Element {
       </header>
 
       <div className="sign-in user-page__content">
-        <Link className="sign-in__btn" to={AppRoute.Root} style={{ textDecoration: 'none' }}>Go to Homepage</Link>
+        <Button type={ButtonType.Route} size={ButtonSize.L} to={AppRoute.Root}>Go to Homepage</Button>
       </div>
 
       <footer className="page-footer">
