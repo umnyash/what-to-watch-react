@@ -1,4 +1,6 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
+import useAppDispatch from '../../hooks/use-app-dispatch';
+import { loginUser } from '../../store/async-actions';
 import Button from '../button';
 import { ButtonType, ButtonSize } from '../../types/button';
 
@@ -8,13 +10,20 @@ function LoginForm(): JSX.Element {
     password: '',
   });
 
+  const dispatch = useAppDispatch();
+
   const handleFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    dispatch(loginUser(formData));
+  };
+
   return (
-    <form className="sign-in__form" method="post" action="#">
+    <form className="sign-in__form" method="post" action="#" onSubmit={handleFormSubmit}>
       <div className="sign-in__fields">
         <div className="sign-in__field">
           <input
