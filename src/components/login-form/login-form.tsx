@@ -48,6 +48,8 @@ function LoginForm(): JSX.Element {
             placeholder="Password"
             required
             onChange={handleFieldChange}
+            pattern="(?=.*[a-zA-Z])(?=.*\d).*"
+            title="Пароль должен состоять минимум из одной буквы и цифры."
           />
           <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
         </div>
