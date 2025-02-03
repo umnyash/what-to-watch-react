@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { PageFilm } from '../../types/films';
 import { MINUTES_PER_HOUR } from '../../const';
 import clsx from 'clsx';
@@ -33,9 +34,13 @@ function FilmDetails({ film }: FilmDetailsProps): JSX.Element {
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
-            {starring.map((item, index) => (index === starring.length - 1)
-              ? item
-              : <>{item}, <br /></>)}
+            {starring.map((item, index) => (
+              <Fragment key={item}>
+                {(index === starring.length - 1)
+                  ? item
+                  : <>{item},<br /></>}
+              </Fragment>
+            ))}
           </span>
         </p>
       </div>
