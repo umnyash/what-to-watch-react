@@ -16,15 +16,13 @@ import AnonymousRoute from '../anonymous-route';
 
 import { PromoFilm } from '../../types/promo-film';
 import { Films } from '../../types/films';
-import { Reviews } from '../../types/reviews';
 
 type AppProps = {
   promoFilm: PromoFilm;
   films: Films;
-  reviews: Reviews;
 }
 
-function App({ promoFilm, films, reviews }: AppProps): JSX.Element {
+function App({ promoFilm, films }: AppProps): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   if (authorizationStatus === AuthorizationStatus.Unknown) {
@@ -53,7 +51,7 @@ function App({ promoFilm, films, reviews }: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Film}
-            element={<FilmPage reviews={reviews} similarFilms={films} />}
+            element={<FilmPage similarFilms={films} />}
           />
           <Route
             path={AppRoute.MyList}

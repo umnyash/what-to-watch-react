@@ -2,6 +2,7 @@ import createAppAsyncThunk from '../hooks/create-app-async-thunk';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { AuthUser, AuthData } from '../types/user';
 import { Films, PageFilm } from '../types/films';
+import { Reviews } from '../types/reviews';
 import { saveToken, dropToken } from '../services/token';
 
 import {
@@ -11,6 +12,7 @@ import {
   setFilmsLoadingStatus,
   setFilm,
   setFilmLoadingStatus,
+  setReviews,
 } from './actions';
 
 export const checkUserAuth = createAppAsyncThunk<void, undefined>(
@@ -69,5 +71,14 @@ export const fetchFilm = createAppAsyncThunk<void, string>(
     } finally {
       dispatch(setFilmLoadingStatus(false));
     }
+  }
+);
+
+export const fetchReviews = createAppAsyncThunk<void, string>(
+  'reviews/fetch',
+  async (filmId, { dispatch, extra: { api } }) => {
+    const apiRoute = `${APIRoute.Reviews}/${filmId}`;
+    const { data } = await api.get<Reviews>(apiRoute);
+    dispatch(setReviews(data));
   }
 );
