@@ -16,7 +16,7 @@ import FilmTaber from '../../components/film-taber';
 import FilmOverview from '../../components/film-overview';
 import FilmDetails from '../../components/film-details';
 import ReviewsList from '../../components/reviews-list';
-import FilmsList from '../../components/films-list';
+import Films from '../../components/films';
 
 function FilmPage(): JSX.Element {
   const filmId = useParams().id as string;
@@ -120,10 +120,7 @@ function FilmPage(): JSX.Element {
       </section>
 
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-          <FilmsList films={similarFilms.slice(0, SIMILAR_FILMS_MAX_COUNT)} />
-        </section>
+        <Films heading="More like this" films={similarFilms.slice(0, SIMILAR_FILMS_MAX_COUNT)} />
 
         <footer className="page-footer">
           <Logo isLight />
