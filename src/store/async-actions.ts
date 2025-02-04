@@ -1,9 +1,17 @@
 import createAppAsyncThunk from '../hooks/create-app-async-thunk';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { AuthUser, AuthData } from '../types/user';
-import { Films } from '../types/films';
+import { Films, PageFilm } from '../types/films';
 import { saveToken, dropToken } from '../services/token';
-import { setAuthorizationStatus, setUser, setFilms, setFilmsLoadingStatus } from './actions';
+
+import {
+  setAuthorizationStatus,
+  setUser,
+  setFilms,
+  setFilmsLoadingStatus,
+  setFilm,
+  setFilmLoadingStatus,
+} from './actions';
 
 export const checkUserAuth = createAppAsyncThunk<void, undefined>(
   'user/checkAuth',
@@ -45,4 +53,21 @@ export const fetchFilms = createAppAsyncThunk<void, undefined>(
     dispatch(setFilms(data));
     dispatch(setFilmsLoadingStatus(false));
   },
+);
+
+export const fetchFilm = createAppAsyncThunk<void, string>(
+  'film/fetch',
+  async (filmId, { dispatch, extra: { api } }) => {
+    dispatch(setFilmLoadingStatus(true));
+    const apiRoute = `${APIRoute.Films}/${filmId}`;
+
+    try {
+      const { data } = await api.get<PageFilm>(apiRoute);
+      dispatch(setFilm(data));
+    } catch {
+      dispatch(setFilm(null));
+    } finally {
+      dispatch(setFilmLoadingStatus(false));
+    }
+  }
 );

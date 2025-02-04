@@ -30,3 +30,5 @@ export type PageFilm = PromoFilm & {
 export type Films = CardFilm[];
 
 export type FilmsByGenre = Record<string, Films>;
+
+export type FilmState = null | PageFilm;
