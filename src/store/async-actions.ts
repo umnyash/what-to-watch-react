@@ -10,6 +10,7 @@ import {
   setUser,
   setFilms,
   setFilmsLoadingStatus,
+  setSimilarFilms,
   setFilm,
   setFilmLoadingStatus,
   setReviews,
@@ -54,6 +55,15 @@ export const fetchFilms = createAppAsyncThunk<void, undefined>(
     const { data } = await api.get<Films>(APIRoute.Films);
     dispatch(setFilms(data));
     dispatch(setFilmsLoadingStatus(false));
+  },
+);
+
+export const fetchSimilarFilms = createAppAsyncThunk<void, string>(
+  'films/fetchSimilar',
+  async (filmId, { dispatch, extra: { api } }) => {
+    const apiRoute = `${APIRoute.Films}/${filmId}/similar`;
+    const { data } = await api.get<Films>(apiRoute);
+    dispatch(setSimilarFilms(data));
   },
 );
 

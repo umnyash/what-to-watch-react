@@ -10,6 +10,7 @@ export const setUser = createAction<User>('user/set');
 
 export const setFilms = createAction<Films>('films/set');
 export const setFilmsLoadingStatus = createAction<boolean>('films/setLoadingStatus');
+export const setSimilarFilms = createAction<Films>('films/setSimilar');
 
 export const setFilm = createAction<FilmState>('film/set');
 export const setFilmLoadingStatus = createAction<boolean>('film/setLoadingStatus');

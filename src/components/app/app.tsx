@@ -51,7 +51,7 @@ function App({ promoFilm, films }: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Film}
-            element={<FilmPage similarFilms={films} />}
+            element={<FilmPage />}
           />
           <Route
             path={AppRoute.MyList}

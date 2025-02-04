@@ -11,6 +11,7 @@ import {
   setFilmsLoadingStatus,
   setFilm,
   setFilmLoadingStatus,
+  setSimilarFilms,
   setReviews,
   setGenre
 } from './actions';
@@ -22,6 +23,7 @@ type InitialState = {
   isFilmsLoading: boolean;
   film: FilmState;
   isFilmLoading: boolean;
+  similarFilms: Films;
   reviews: Reviews;
   genre: string;
 }
@@ -33,6 +35,7 @@ const initialState: InitialState = {
   isFilmsLoading: false,
   film: null,
   isFilmLoading: false,
+  similarFilms: [],
   reviews: [],
   genre: ALL_GENRES,
 };
@@ -56,6 +59,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setFilmLoadingStatus, (state, action) => {
       state.isFilmLoading = action.payload;
+    })
+    .addCase(setSimilarFilms, (state, action) => {
+      state.similarFilms = action.payload;
     })
     .addCase(setReviews, (state, action) => {
       state.reviews = action.payload;

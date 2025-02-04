@@ -2,12 +2,11 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { Films } from '../../types/films';
 import { Tabs } from '../../types/tabs';
 import { AppRoute, ROUTE_PARAM_ID, SIMILAR_FILMS_MAX_COUNT, AuthorizationStatus } from '../../const';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
-import { fetchFilm, fetchReviews } from '../../store/async-actions';
+import { fetchFilm, fetchSimilarFilms, fetchReviews } from '../../store/async-actions';
 
 import LoadingPage from '../loading-page';
 import NotFoundPage from '../not-found-page';
@@ -19,21 +18,19 @@ import FilmDetails from '../../components/film-details';
 import ReviewsList from '../../components/reviews-list';
 import FilmsList from '../../components/films-list';
 
-type FilmPageProps = {
-  similarFilms: Films;
-}
-
-function FilmPage({ similarFilms }: FilmPageProps): JSX.Element {
+function FilmPage(): JSX.Element {
   const filmId = useParams().id as string;
   const dispatch = useAppDispatch();
 
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const film = useAppSelector((state) => state.film);
   const isFilmLoading = useAppSelector((state) => state.isFilmLoading);
+  const similarFilms = useAppSelector((state) => state.similarFilms);
   const reviews = useAppSelector((state) => state.reviews);
 
   useEffect(() => {
     dispatch(fetchFilm(filmId));
+    dispatch(fetchSimilarFilms(filmId));
     dispatch(fetchReviews(filmId));
   }, [filmId, dispatch]);
 
