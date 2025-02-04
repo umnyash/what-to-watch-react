@@ -2,7 +2,7 @@ import createAppAsyncThunk from '../hooks/create-app-async-thunk';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { AuthUser, AuthData } from '../types/user';
 import { Films, PageFilm } from '../types/films';
-import { Reviews } from '../types/reviews';
+import { Reviews, Review, ReviewContent } from '../types/reviews';
 import { saveToken, dropToken } from '../services/token';
 
 import {
@@ -80,5 +80,21 @@ export const fetchReviews = createAppAsyncThunk<void, string>(
     const apiRoute = `${APIRoute.Reviews}/${filmId}`;
     const { data } = await api.get<Reviews>(apiRoute);
     dispatch(setReviews(data));
+  }
+);
+
+export const sendReview = createAppAsyncThunk<
+  void,
+  {
+    filmId: string;
+    content: ReviewContent;
+  }
+>(
+  'review/send',
+  async ({ filmId, content }, { dispatch, getState, extra: { api } }) => {
+    const apiRoute = `${APIRoute.Reviews}/${filmId}`;
+    const { data } = await api.post<Review>(apiRoute, content);
+    const reviews = getState().reviews;
+    dispatch(setReviews([data, ...reviews]));
   }
 );

@@ -1,4 +1,6 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
+import useAppDispatch from '../../hooks/use-app-dispatch';
+import { sendReview } from '../../store/async-actions';
 
 const MAX_RATING = 10;
 const CommentLength = {
@@ -6,19 +8,35 @@ const CommentLength = {
   Max: 400
 } as const;
 
-function ReviewForm(): JSX.Element {
-  const [formData, setFormData] = useState({
+type ReviewFormProps = {
+  filmId: string;
+}
+
+function ReviewForm({ filmId }: ReviewFormProps): JSX.Element {
+  const initialFormData = {
     comment: '',
     rating: 0
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
+
+  const dispatch = useAppDispatch();
+
+  const resetForm = () => setFormData(initialFormData);
 
   const handleFieldChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = evt.target;
     setFormData({ ...formData, [name]: name === 'rating' ? +value : value });
   };
 
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    dispatch(sendReview({ filmId, content: formData }));
+    resetForm();
+  };
+
   return (
-    <form action="#" className="add-review__form">
+    <form action="#" className="add-review__form" onSubmit={handleFormSubmit}>
       <div className="rating">
         <div className="rating__stars">
           {Array.from({ length: MAX_RATING }, (_item, index) => {
@@ -49,6 +67,7 @@ function ReviewForm(): JSX.Element {
           placeholder="Review text"
           value={formData.comment}
           onChange={handleFieldChange}
+          maxLength={CommentLength.Max}
         />
         <div className="add-review__submit">
           <button
