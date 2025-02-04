@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Films } from '../../types/films';
 import { Reviews } from '../../types/reviews';
 import { Tabs } from '../../types/tabs';
-import { AppRoute, SIMILAR_FILMS_MAX_COUNT } from '../../const';
+import { AppRoute, ROUTE_PARAM_ID, SIMILAR_FILMS_MAX_COUNT, AuthorizationStatus } from '../../const';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
 import { fetchFilm } from '../../store/async-actions';
@@ -29,6 +29,7 @@ function FilmPage({ reviews, similarFilms }: FilmPageProps): JSX.Element {
   const filmId = useParams().id as string;
   const dispatch = useAppDispatch();
 
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const film = useAppSelector((state) => state.film);
   const isFilmLoading = useAppSelector((state) => state.isFilmLoading);
 
@@ -45,6 +46,7 @@ function FilmPage({ reviews, similarFilms }: FilmPageProps): JSX.Element {
   }
 
   const { name, genre, released, posterImage, backgroundImage } = film;
+  const reviewPageRoute = AppRoute.Review.replace(ROUTE_PARAM_ID, filmId);
 
   const tabs: Tabs = [
     {
@@ -101,7 +103,9 @@ function FilmPage({ reviews, similarFilms }: FilmPageProps): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={AppRoute.Review} className="btn film-card__button">Add review</Link>
+                {authorizationStatus === AuthorizationStatus.Auth && (
+                  <Link to={reviewPageRoute} className="btn film-card__button">Add review</Link>
+                )}
               </div>
             </div>
           </div>
