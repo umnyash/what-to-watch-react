@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { User } from '../types/user';
-import { Films, FilmState } from '../types/films';
+import { Films, FilmState, PromoFilm } from '../types/films';
 import { Reviews } from '../types/reviews';
 import { AuthorizationStatus, ALL_GENRES } from '../const';
 
@@ -11,6 +11,7 @@ import {
   setFilmsLoadingStatus,
   setFilm,
   setFilmLoadingStatus,
+  setPromoFilm,
   setSimilarFilms,
   setReviews,
   setGenre
@@ -23,6 +24,7 @@ type InitialState = {
   isFilmsLoading: boolean;
   film: FilmState;
   isFilmLoading: boolean;
+  promoFilm: PromoFilm | null;
   similarFilms: Films;
   reviews: Reviews;
   genre: string;
@@ -35,6 +37,7 @@ const initialState: InitialState = {
   isFilmsLoading: false,
   film: null,
   isFilmLoading: false,
+  promoFilm: null,
   similarFilms: [],
   reviews: [],
   genre: ALL_GENRES,
@@ -59,6 +62,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setFilmLoadingStatus, (state, action) => {
       state.isFilmLoading = action.payload;
+    })
+    .addCase(setPromoFilm, (state, action) => {
+      state.promoFilm = action.payload;
     })
     .addCase(setSimilarFilms, (state, action) => {
       state.similarFilms = action.payload;

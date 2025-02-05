@@ -14,15 +14,13 @@ import LoadingPage from '../../pages/loading-page';
 import PrivateRoute from '../private-route';
 import AnonymousRoute from '../anonymous-route';
 
-import { PromoFilm } from '../../types/promo-film';
 import { Films } from '../../types/films';
 
 type AppProps = {
-  promoFilm: PromoFilm;
   films: Films;
 }
 
-function App({ promoFilm, films }: AppProps): JSX.Element {
+function App({ films }: AppProps): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   if (authorizationStatus === AuthorizationStatus.Unknown) {
@@ -39,7 +37,7 @@ function App({ promoFilm, films }: AppProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage promoFilm={promoFilm} />}
+            element={<MainPage />}
           />
           <Route
             path={AppRoute.Login}

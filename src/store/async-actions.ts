@@ -1,7 +1,7 @@
 import createAppAsyncThunk from '../hooks/create-app-async-thunk';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { AuthUser, AuthData } from '../types/user';
-import { Films, PageFilm } from '../types/films';
+import { Films, PageFilm, PromoFilm } from '../types/films';
 import { Reviews, Review, ReviewContent } from '../types/reviews';
 import { saveToken, dropToken } from '../services/token';
 
@@ -13,6 +13,7 @@ import {
   setSimilarFilms,
   setFilm,
   setFilmLoadingStatus,
+  setPromoFilm,
   setReviews,
 } from './actions';
 
@@ -82,6 +83,14 @@ export const fetchFilm = createAppAsyncThunk<void, string>(
       dispatch(setFilmLoadingStatus(false));
     }
   }
+);
+
+export const fetchPromoFilm = createAppAsyncThunk<void, undefined>(
+  'film/fetchPromo',
+  async (_arg, { dispatch, extra: { api } }) => {
+    const { data } = await api.get<PromoFilm>(APIRoute.Promo);
+    dispatch(setPromoFilm(data));
+  },
 );
 
 export const fetchReviews = createAppAsyncThunk<void, string>(
