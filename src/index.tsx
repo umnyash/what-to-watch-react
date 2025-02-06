@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app';
-import { films } from './mocks/films';
 import { store } from './store';
-import { checkUserAuth } from './store/async-actions';
+import { checkUserAuth, fetchFavorites } from './store/async-actions';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 store.dispatch(checkUserAuth());
+store.dispatch(fetchFavorites());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,7 +18,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer />
-      <App films={films} />
+      <App />
     </Provider>
   </React.StrictMode>
 );

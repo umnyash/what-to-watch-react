@@ -9,6 +9,7 @@ type FilmHeaderProps = {
 
 function FilmHeader({ film }: FilmHeaderProps): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const favorites = useAppSelector((state) => state.favorites);
 
   const { id, name, genre, released } = film;
   const reviewPageRoute = AppRoute.Review.replace(ROUTE_PARAM_ID, id);
@@ -34,7 +35,7 @@ function FilmHeader({ film }: FilmHeaderProps): JSX.Element {
             <use xlinkHref="#add" />
           </svg>
           <span>My list</span>
-          <span className="film-card__count">9</span>
+          <span className="film-card__count">{favorites.length}</span>
         </button>
 
         {authorizationStatus === AuthorizationStatus.Auth && (

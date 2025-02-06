@@ -14,6 +14,7 @@ import {
   setFilm,
   setFilmLoadingStatus,
   setPromoFilm,
+  setFavorites,
   setReviews,
 } from './actions';
 
@@ -91,6 +92,14 @@ export const fetchPromoFilm = createAppAsyncThunk<void, undefined>(
     const { data } = await api.get<PromoFilm>(APIRoute.Promo);
     dispatch(setPromoFilm(data));
   },
+);
+
+export const fetchFavorites = createAppAsyncThunk<void, undefined>(
+  'favorites/fetch',
+  async (_arg, { dispatch, extra: { api } }) => {
+    const { data } = await api.get<Films>(APIRoute.Favorites);
+    dispatch(setFavorites(data));
+  }
 );
 
 export const fetchReviews = createAppAsyncThunk<void, string>(

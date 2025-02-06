@@ -16,6 +16,8 @@ export const setFilm = createAction<FilmState>('film/set');
 export const setFilmLoadingStatus = createAction<boolean>('film/setLoadingStatus');
 export const setPromoFilm = createAction<PromoFilm>('film/setPromo');
 
+export const setFavorites = createAction<Films>('favorites/set');
+
 export const setReviews = createAction<Reviews>('reviews/set');
 
 export const setGenre = createAction<string>('filter/setGenre');

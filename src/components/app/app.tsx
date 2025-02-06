@@ -14,13 +14,7 @@ import LoadingPage from '../../pages/loading-page';
 import PrivateRoute from '../private-route';
 import AnonymousRoute from '../anonymous-route';
 
-import { Films } from '../../types/films';
-
-type AppProps = {
-  films: Films;
-}
-
-function App({ films }: AppProps): JSX.Element {
+function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   if (authorizationStatus === AuthorizationStatus.Unknown) {
@@ -55,7 +49,7 @@ function App({ films }: AppProps): JSX.Element {
             path={AppRoute.MyList}
             element={
               <PrivateRoute>
-                <MyListPage films={films} />
+                <MyListPage />
               </PrivateRoute>
             }
           />
