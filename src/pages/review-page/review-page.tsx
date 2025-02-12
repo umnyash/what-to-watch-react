@@ -9,7 +9,7 @@ import LoadingPage from '../loading-page';
 import NotFoundPage from '../not-found-page';
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo';
-import { Link } from 'react-router-dom';
+import Breadcrumbs from '../../components/breadcrumbs';
 import UserNavigation from '../../components/user-navigation';
 import ReviewForm from '../../components/review-form';
 
@@ -38,6 +38,11 @@ function ReviewPage(): JSX.Element {
   const { name, posterImage, backgroundImage } = film;
   const filmPageRoute = AppRoute.Film.replace(ROUTE_PARAM_ID, filmId);
 
+  const breadcrumbs = [
+    { text: name, href: filmPageRoute },
+    { text: 'Add review' }
+  ];
+
   return (
     <section className="film-card film-card--full">
       <Helmet>
@@ -52,18 +57,7 @@ function ReviewPage(): JSX.Element {
 
         <header className="page-header">
           <Logo />
-
-          <nav className="breadcrumbs">
-            <ul className="breadcrumbs__list">
-              <li className="breadcrumbs__item">
-                <Link to={filmPageRoute} className="breadcrumbs__link">{name}</Link>
-              </li>
-              <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link">Add review</a>
-              </li>
-            </ul>
-          </nav>
-
+          <Breadcrumbs links={breadcrumbs} />
           <UserNavigation />
         </header>
 
