@@ -8,9 +8,7 @@ import { AppRoute, ROUTE_PARAM_ID } from '../../const';
 import LoadingPage from '../loading-page';
 import NotFoundPage from '../not-found-page';
 import { Helmet } from 'react-helmet-async';
-import Logo from '../../components/logo';
-import Breadcrumbs from '../../components/breadcrumbs';
-import UserNavigation from '../../components/user-navigation';
+import SiteHeader from '../../components/site-header';
 import ReviewForm from '../../components/review-form';
 
 function ReviewPage(): JSX.Element {
@@ -52,15 +50,8 @@ function ReviewPage(): JSX.Element {
         <div className="film-card__bg">
           <img src={backgroundImage} alt={name} />
         </div>
-
         <h1 className="visually-hidden">WTW</h1>
-
-        <header className="page-header">
-          <Logo />
-          <Breadcrumbs links={breadcrumbs} />
-          <UserNavigation />
-        </header>
-
+        <SiteHeader breadcrumbs={breadcrumbs} withUserNavigation />
         <div className="film-card__poster film-card__poster--small">
           <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
         </div>

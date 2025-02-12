@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { AppRoute } from '../../const';
+import SiteHeader from '../../components/site-header';
 import Logo from '../../components/logo';
 import Button from '../../components/button';
 import { ButtonType, ButtonSize } from '../../types/button';
@@ -10,11 +11,8 @@ function NotFoundPage(): JSX.Element {
       <Helmet>
         <title>WTW: Page not found</title>
       </Helmet>
-      <header className="page-header user-page__head">
-        <Logo />
 
-        <h1 className="page-title user-page__title">404 Not Found</h1>
-      </header>
+      <SiteHeader className="user-page__head" heading="404 Not Found" />
 
       <div className="sign-in user-page__content">
         <Button type={ButtonType.Route} size={ButtonSize.L} to={AppRoute.Root}>Go to Homepage</Button>

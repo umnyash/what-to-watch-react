@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo';
+import SiteHeader from '../../components/site-header';
 import LoginForm from '../../components/login-form';
 
 function LoginPage(): JSX.Element {
@@ -8,11 +9,8 @@ function LoginPage(): JSX.Element {
       <Helmet>
         <title>WTW: Sign in</title>
       </Helmet>
-      <header className="page-header user-page__head">
-        <Logo />
 
-        <h1 className="page-title user-page__title">Sign in</h1>
-      </header>
+      <SiteHeader className="user-page__head" heading="Sign in" />
 
       <div className="sign-in user-page__content">
         <LoginForm />

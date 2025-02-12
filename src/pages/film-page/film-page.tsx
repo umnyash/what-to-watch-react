@@ -9,8 +9,8 @@ import { fetchFilm, fetchSimilarFilms, fetchReviews } from '../../store/async-ac
 
 import LoadingPage from '../loading-page';
 import NotFoundPage from '../not-found-page';
+import SiteHeader from '../../components/site-header';
 import Logo from '../../components/logo';
-import UserNavigation from '../../components/user-navigation';
 import FilmHeader from '../../components/film-header';
 import FilmTaber from '../../components/film-taber';
 import FilmOverview from '../../components/film-overview';
@@ -68,14 +68,8 @@ function FilmPage(): JSX.Element {
           <div className="film-card__bg">
             <img src={backgroundImage} alt={name} />
           </div>
-
           <h1 className="visually-hidden">WTW</h1>
-
-          <header className="page-header film-card__head">
-            <Logo />
-            <UserNavigation />
-          </header>
-
+          <SiteHeader className="film-card__head" withUserNavigation />
           <div className="film-card__wrap">
             <FilmHeader film={film} />
           </div>

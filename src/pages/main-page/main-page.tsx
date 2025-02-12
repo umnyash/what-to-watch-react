@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
 import { fetchPromoFilm, fetchFilms } from '../../store/async-actions';
+import SiteHeader from '../../components/site-header';
 import Logo from '../../components/logo';
-import UserNavigation from '../../components/user-navigation';
 import FilmHeader from '../../components/film-header';
 import Spinner from '../../components/spinner';
 import GenresList from '../../components/genres-list';
@@ -64,12 +64,7 @@ function MainPage(): JSX.Element {
         )}
 
         <h1 className="visually-hidden">WTW</h1>
-
-        <header className="page-header film-card__head">
-          <Logo />
-
-          <UserNavigation />
-        </header>
+        <SiteHeader className="film-card__head" withUserNavigation />
 
         {promoFilm && (
           <div className="film-card__wrap">
