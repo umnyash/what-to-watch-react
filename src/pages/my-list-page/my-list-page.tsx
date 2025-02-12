@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import useAppSelector from '../../hooks/use-app-selector';
-import Logo from '../../components/logo';
 import SiteHeader from '../../components/site-header';
 import FilmsList from '../../components/films-list';
+import SiteFooter from '../../components/site-footer';
 
 function MyListPage(): JSX.Element {
   const favorites = useAppSelector((state) => state.favorites);
@@ -22,13 +22,7 @@ function MyListPage(): JSX.Element {
         {!!favoritesCount && <FilmsList films={favorites} />}
       </section>
 
-      <footer className="page-footer">
-        <Logo isLight />
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

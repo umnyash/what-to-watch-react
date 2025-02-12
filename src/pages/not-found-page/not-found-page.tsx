@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import { AppRoute } from '../../const';
 import SiteHeader from '../../components/site-header';
-import Logo from '../../components/logo';
 import Button from '../../components/button';
+import SiteFooter from '../../components/site-footer';
 import { ButtonType, ButtonSize } from '../../types/button';
 
 function NotFoundPage(): JSX.Element {
@@ -18,13 +18,7 @@ function NotFoundPage(): JSX.Element {
         <Button type={ButtonType.Route} size={ButtonSize.L} to={AppRoute.Root}>Go to Homepage</Button>
       </div>
 
-      <footer className="page-footer">
-        <Logo isLight />
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

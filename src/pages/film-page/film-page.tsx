@@ -10,13 +10,13 @@ import { fetchFilm, fetchSimilarFilms, fetchReviews } from '../../store/async-ac
 import LoadingPage from '../loading-page';
 import NotFoundPage from '../not-found-page';
 import SiteHeader from '../../components/site-header';
-import Logo from '../../components/logo';
 import FilmHeader from '../../components/film-header';
 import FilmTaber from '../../components/film-taber';
 import FilmOverview from '../../components/film-overview';
 import FilmDetails from '../../components/film-details';
 import ReviewsList from '../../components/reviews-list';
 import Films from '../../components/films';
+import SiteFooter from '../../components/site-footer';
 
 function FilmPage(): JSX.Element {
   const filmId = useParams().id as string;
@@ -88,14 +88,7 @@ function FilmPage(): JSX.Element {
 
       <div className="page-content">
         <Films heading="More like this" films={similarFilms.slice(0, SIMILAR_FILMS_MAX_COUNT)} />
-
-        <footer className="page-footer">
-          <Logo isLight />
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <SiteFooter />
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
-import Logo from '../../components/logo';
 import SiteHeader from '../../components/site-header';
 import LoginForm from '../../components/login-form';
+import SiteFooter from '../../components/site-footer';
 
 function LoginPage(): JSX.Element {
   return (
@@ -16,13 +16,7 @@ function LoginPage(): JSX.Element {
         <LoginForm />
       </div>
 
-      <footer className="page-footer">
-        <Logo isLight />
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

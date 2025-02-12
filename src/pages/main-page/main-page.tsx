@@ -3,7 +3,6 @@ import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
 import { fetchPromoFilm, fetchFilms } from '../../store/async-actions';
 import SiteHeader from '../../components/site-header';
-import Logo from '../../components/logo';
 import FilmHeader from '../../components/film-header';
 import Spinner from '../../components/spinner';
 import GenresList from '../../components/genres-list';
@@ -12,6 +11,7 @@ import Button from '../../components/button';
 import { Films, FilmsByGenre } from '../../types/films';
 import { ALL_GENRES, FILMS_PER_LOAD } from '../../const';
 import { Helmet } from 'react-helmet-async';
+import SiteFooter from '../../components/site-footer';
 
 function groupFilmsByGenre(films: Films) {
   return films.reduce((genreMap: FilmsByGenre, film) => {
@@ -99,13 +99,7 @@ function MainPage(): JSX.Element {
           )}
         </section>
 
-        <footer className="page-footer">
-          <Logo isLight />
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <SiteFooter />
       </div>
     </>
   );
