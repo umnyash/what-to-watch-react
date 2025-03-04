@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import useAppDispatch from '../../hooks/use-app-dispatch';
-import { sendReview } from '../../store/async-actions';
+import { submitReview } from '../../store/async-actions';
 
 const MAX_RATING = 10;
 const CommentLength = {
@@ -31,7 +31,7 @@ function ReviewForm({ filmId }: ReviewFormProps): JSX.Element {
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(sendReview({ filmId, content: formData }));
+    dispatch(submitReview({ filmId, content: formData }));
     resetForm();
   };
 

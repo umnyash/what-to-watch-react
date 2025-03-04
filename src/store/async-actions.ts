@@ -111,14 +111,14 @@ export const fetchReviews = createAppAsyncThunk<void, string>(
   }
 );
 
-export const sendReview = createAppAsyncThunk<
+export const submitReview = createAppAsyncThunk<
   void,
   {
     filmId: string;
     content: ReviewContent;
   }
 >(
-  'review/send',
+  'review/submit',
   async ({ filmId, content }, { dispatch, getState, extra: { api } }) => {
     const apiRoute = `${APIRoute.Reviews}/${filmId}`;
     const { data } = await api.post<Review>(apiRoute, content);
