@@ -1,128 +1,97 @@
 import createAppAsyncThunk from '../hooks/create-app-async-thunk';
-import { APIRoute, AuthorizationStatus } from '../const';
-import { AuthUser, AuthData } from '../types/user';
+import { APIRoute } from '../const';
+import { AuthUser, User, AuthData } from '../types/user';
 import { Films, PageFilm, PromoFilm } from '../types/films';
 import { Reviews, Review, ReviewContent } from '../types/reviews';
 import { saveToken, dropToken } from '../services/token';
 
-import {
-  setAuthorizationStatus,
-  setUser,
-  setFilms,
-  setFilmsLoadingStatus,
-  setSimilarFilms,
-  setFilm,
-  setFilmLoadingStatus,
-  setPromoFilm,
-  setFavorites,
-  setReviews,
-} from './actions';
-
-export const checkUserAuth = createAppAsyncThunk<void, undefined>(
+export const checkUserAuth = createAppAsyncThunk<User, undefined>(
   'user/checkAuth',
-  async (_arg, { dispatch, extra: { api } }) => {
-    try {
-      const { data: { name, email, avatarUrl } } = await api.get<AuthUser>(APIRoute.Login);
-      dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
-      dispatch(setUser({ name, email, avatarUrl }));
-    } catch {
-      dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
-    }
+  async (_arg, { extra: { api } }) => {
+    const { data: { name, email, avatarUrl } } = await api.get<AuthUser>(APIRoute.Login);
+    return { name, email, avatarUrl };
   },
 );
 
-export const loginUser = createAppAsyncThunk<void, AuthData>(
+export const loginUser = createAppAsyncThunk<User, AuthData>(
   'user/login',
-  async (authData, { dispatch, extra: { api } }) => {
+  async (authData, { extra: { api } }) => {
     const { data: { token, ...user } } = await api.post<AuthUser>(APIRoute.Login, authData);
     saveToken(token);
-    dispatch(setUser(user));
-    dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
-  }
+    return user;
+  },
 );
 
 export const logoutUser = createAppAsyncThunk<void, undefined>(
   'user/logout',
-  async (_arg, { dispatch, extra: { api } }) => {
+  async (_arg, { extra: { api } }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
-  }
-);
-
-export const fetchFilms = createAppAsyncThunk<void, undefined>(
-  'films/fetch',
-  async (_arg, { dispatch, extra: { api } }) => {
-    dispatch(setFilmsLoadingStatus(true));
-    const { data } = await api.get<Films>(APIRoute.Films);
-    dispatch(setFilms(data));
-    dispatch(setFilmsLoadingStatus(false));
   },
 );
 
-export const fetchSimilarFilms = createAppAsyncThunk<void, string>(
+export const fetchFilms = createAppAsyncThunk<Films, undefined>(
+  'films/fetch',
+  async (_arg, { extra: { api } }) => {
+    const { data } = await api.get<Films>(APIRoute.Films);
+    return data;
+  },
+);
+
+export const fetchSimilarFilms = createAppAsyncThunk<Films, string>(
   'films/fetchSimilar',
-  async (filmId, { dispatch, extra: { api } }) => {
+  async (filmId, { extra: { api } }) => {
     const apiRoute = `${APIRoute.Films}/${filmId}/similar`;
     const { data } = await api.get<Films>(apiRoute);
-    dispatch(setSimilarFilms(data));
+    return data;
   },
 );
 
-export const fetchFilm = createAppAsyncThunk<void, string>(
+export const fetchFilm = createAppAsyncThunk<PageFilm, string>(
   'film/fetch',
-  async (filmId, { dispatch, extra: { api } }) => {
-    dispatch(setFilmLoadingStatus(true));
+  async (filmId, { extra: { api } }) => {
     const apiRoute = `${APIRoute.Films}/${filmId}`;
-
-    try {
-      const { data } = await api.get<PageFilm>(apiRoute);
-      dispatch(setFilm(data));
-    } catch {
-      dispatch(setFilm(null));
-    } finally {
-      dispatch(setFilmLoadingStatus(false));
-    }
-  }
-);
-
-export const fetchPromoFilm = createAppAsyncThunk<void, undefined>(
-  'film/fetchPromo',
-  async (_arg, { dispatch, extra: { api } }) => {
-    const { data } = await api.get<PromoFilm>(APIRoute.Promo);
-    dispatch(setPromoFilm(data));
+    const { data } = await api.get<PageFilm>(apiRoute);
+    return data;
   },
 );
 
-export const fetchFavorites = createAppAsyncThunk<void, undefined>(
-  'favorites/fetch',
-  async (_arg, { dispatch, extra: { api } }) => {
-    const { data } = await api.get<Films>(APIRoute.Favorites);
-    dispatch(setFavorites(data));
-  }
+export const fetchPromoFilm = createAppAsyncThunk<PromoFilm, undefined>(
+  'film/fetchPromo',
+  async (_arg, { extra: { api } }) => {
+    const { data } = await api.get<PromoFilm>(APIRoute.Promo);
+    return data;
+  },
 );
 
-export const fetchReviews = createAppAsyncThunk<void, string>(
+export const fetchFavorites = createAppAsyncThunk<Films, undefined>(
+  'favorites/fetch',
+  async (_arg, { extra: { api } }) => {
+    const { data } = await api.get<Films>(APIRoute.Favorites);
+    return data;
+  },
+);
+
+export const fetchReviews = createAppAsyncThunk<Reviews, string>(
   'reviews/fetch',
-  async (filmId, { dispatch, extra: { api } }) => {
+  async (filmId, { extra: { api } }) => {
     const apiRoute = `${APIRoute.Reviews}/${filmId}`;
     const { data } = await api.get<Reviews>(apiRoute);
-    dispatch(setReviews(data));
-  }
+    return data;
+  },
 );
 
 export const submitReview = createAppAsyncThunk<
-  void,
+  Review,
   {
     filmId: string;
     content: ReviewContent;
   }
 >(
   'review/submit',
-  async ({ filmId, content }, { dispatch, getState, extra: { api } }) => {
+  async ({ filmId, content }, { extra: { api } }) => {
     const apiRoute = `${APIRoute.Reviews}/${filmId}`;
     const { data } = await api.post<Review>(apiRoute, content);
-    const reviews = getState().reviews;
-    dispatch(setReviews([data, ...reviews]));
-  }
+    return data;
+  },
 );

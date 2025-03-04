@@ -1,29 +1,29 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { User } from '../types/user';
-import { Films, FilmState, PromoFilm } from '../types/films';
+import { Films, PageFilm, PromoFilm } from '../types/films';
 import { Reviews } from '../types/reviews';
 import { AuthorizationStatus, ALL_GENRES } from '../const';
+import { setGenre } from './actions';
 
 import {
-  setAuthorizationStatus,
-  setUser,
-  setFilms,
-  setFilmsLoadingStatus,
-  setFilm,
-  setFilmLoadingStatus,
-  setPromoFilm,
-  setSimilarFilms,
-  setFavorites,
-  setReviews,
-  setGenre
-} from './actions';
+  checkUserAuth,
+  loginUser,
+  logoutUser,
+  fetchFilms,
+  fetchFilm,
+  fetchPromoFilm,
+  fetchSimilarFilms,
+  fetchFavorites,
+  fetchReviews,
+  submitReview,
+} from './async-actions';
 
 type InitialState = {
   authorizationStatus: AuthorizationStatus;
   user: User | null;
   films: Films;
   isFilmsLoading: boolean;
-  film: FilmState;
+  film: PageFilm | null;
   isFilmLoading: boolean;
   promoFilm: PromoFilm | null;
   similarFilms: Films;
@@ -48,36 +48,67 @@ const initialState: InitialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(setAuthorizationStatus, (state, action) => {
-      state.authorizationStatus = action.payload;
-    })
-    .addCase(setUser, (state, action) => {
+    .addCase(checkUserAuth.fulfilled, (state, action) => {
+      state.authorizationStatus = AuthorizationStatus.Auth;
       state.user = action.payload;
     })
-    .addCase(setFilms, (state, action) => {
+    .addCase(checkUserAuth.rejected, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+
+    .addCase(loginUser.fulfilled, (state, action) => {
+      state.authorizationStatus = AuthorizationStatus.Auth;
+      state.user = action.payload;
+    })
+
+    .addCase(logoutUser.fulfilled, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+      state.user = null;
+    })
+
+    .addCase(fetchFilms.pending, (state) => {
+      state.isFilmsLoading = true;
+    })
+    .addCase(fetchFilms.fulfilled, (state, action) => {
       state.films = action.payload;
+      state.isFilmsLoading = false;
     })
-    .addCase(setFilmsLoadingStatus, (state, action) => {
-      state.isFilmsLoading = action.payload;
+    .addCase(fetchFilms.rejected, (state) => {
+      state.isFilmsLoading = false;
     })
-    .addCase(setFilm, (state, action) => {
+
+    .addCase(fetchFilm.pending, (state) => {
+      state.isFilmLoading = true;
+    })
+    .addCase(fetchFilm.fulfilled, (state, action) => {
       state.film = action.payload;
+      state.isFilmLoading = false;
     })
-    .addCase(setFilmLoadingStatus, (state, action) => {
-      state.isFilmLoading = action.payload;
+    .addCase(fetchFilm.rejected, (state) => {
+      state.film = null;
+      state.isFilmLoading = false;
     })
-    .addCase(setPromoFilm, (state, action) => {
+
+    .addCase(fetchPromoFilm.fulfilled, (state, action) => {
       state.promoFilm = action.payload;
     })
-    .addCase(setSimilarFilms, (state, action) => {
+
+    .addCase(fetchSimilarFilms.fulfilled, (state, action) => {
       state.similarFilms = action.payload;
     })
-    .addCase(setFavorites, (state, action) => {
+
+    .addCase(fetchFavorites.fulfilled, (state, action) => {
       state.favorites = action.payload;
     })
-    .addCase(setReviews, (state, action) => {
+
+    .addCase(fetchReviews.fulfilled, (state, action) => {
       state.reviews = action.payload;
     })
+
+    .addCase(submitReview.fulfilled, (state, action) => {
+      state.reviews.push(action.payload);
+    })
+
     .addCase(setGenre, (state, action) => {
       state.genre = action.payload;
     });
