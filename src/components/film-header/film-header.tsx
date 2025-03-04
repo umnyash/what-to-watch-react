@@ -1,15 +1,16 @@
 import useAppSelector from '../../hooks/use-app-selector';
 import { PromoFilm } from '../../types/films';
 import { Link } from 'react-router-dom';
-import { AuthorizationStatus, AppRoute, ROUTE_PARAM_ID } from '../../const';
+import { AppRoute, ROUTE_PARAM_ID } from '../../const';
+import { selectors } from '../../store/selectors';
 
 type FilmHeaderProps = {
   film: PromoFilm;
 }
 
 function FilmHeader({ film }: FilmHeaderProps): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const favorites = useAppSelector((state) => state.favorites);
+  const isAuth = useAppSelector(selectors.isAuth);
+  const favorites = useAppSelector(selectors.favorites);
 
   const { id, name, genre, released } = film;
   const reviewPageRoute = AppRoute.Review.replace(ROUTE_PARAM_ID, id);
@@ -38,7 +39,7 @@ function FilmHeader({ film }: FilmHeaderProps): JSX.Element {
           <span className="film-card__count">{favorites.length}</span>
         </button>
 
-        {authorizationStatus === AuthorizationStatus.Auth && (
+        {isAuth && (
           <Link to={reviewPageRoute} className="btn film-card__button">Add review</Link>
         )}
       </div>

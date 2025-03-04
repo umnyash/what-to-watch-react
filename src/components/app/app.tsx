@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import useAppSelector from '../../hooks/use-app-selector';
+import { selectors } from '../../store/selectors';
 
 import MainPage from '../../pages/main-page';
 import LoginPage from '../../pages/login-page';
@@ -15,9 +16,9 @@ import PrivateRoute from '../private-route';
 import AnonymousRoute from '../anonymous-route';
 
 function App(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isAuthChecked = useAppSelector(selectors.isAuthChecked);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown) {
+  if (!isAuthChecked) {
     return (
       <HelmetProvider>
         <LoadingPage />

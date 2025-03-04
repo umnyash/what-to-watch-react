@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useAppSelector from '../../hooks/use-app-selector';
+import { selectors } from '../../store/selectors';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import { fetchFilm } from '../../store/async-actions';
 import { AppRoute, ROUTE_PARAM_ID } from '../../const';
@@ -13,8 +14,8 @@ import ReviewForm from '../../components/review-form';
 
 function ReviewPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const film = useAppSelector((state) => state.film);
-  const isFilmLoading = useAppSelector((state) => state.isFilmLoading);
+  const film = useAppSelector(selectors.film);
+  const isFilmLoading = useAppSelector(selectors.isFilmLoading);
   const filmId = useParams().id as string;
 
   useEffect(() => {

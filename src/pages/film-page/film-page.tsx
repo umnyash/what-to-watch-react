@@ -5,6 +5,7 @@ import { Tabs } from '../../types/tabs';
 import { SIMILAR_FILMS_MAX_COUNT } from '../../const';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
+import { selectors } from '../../store/selectors';
 import { fetchFilm, fetchSimilarFilms, fetchReviews } from '../../store/async-actions';
 
 import LoadingPage from '../loading-page';
@@ -22,10 +23,10 @@ function FilmPage(): JSX.Element {
   const filmId = useParams().id as string;
   const dispatch = useAppDispatch();
 
-  const film = useAppSelector((state) => state.film);
-  const isFilmLoading = useAppSelector((state) => state.isFilmLoading);
-  const similarFilms = useAppSelector((state) => state.similarFilms);
-  const reviews = useAppSelector((state) => state.reviews);
+  const film = useAppSelector(selectors.film);
+  const isFilmLoading = useAppSelector(selectors.isFilmLoading);
+  const similarFilms = useAppSelector(selectors.similarFilms);
+  const reviews = useAppSelector(selectors.reviews);
 
   useEffect(() => {
     dispatch(fetchFilm(filmId));

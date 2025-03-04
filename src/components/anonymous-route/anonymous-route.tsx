@@ -1,16 +1,17 @@
 import { Navigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import useAppSelector from '../../hooks/use-app-selector';
+import { selectors } from '../../store/selectors';
 
 type PrivateRouteProps = {
   children: JSX.Element;
 }
 
 function AnonymousRoute({ children }: PrivateRouteProps): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isNoAuth = useAppSelector(selectors.isNoAuth);
 
   return (
-    authorizationStatus === AuthorizationStatus.NoAuth
+    isNoAuth
       ? children
       : <Navigate to={AppRoute.Root} />
   );

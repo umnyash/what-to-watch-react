@@ -1,13 +1,15 @@
 import { MouseEvent } from 'react';
-import { AuthorizationStatus, AppRoute } from '../../const';
+import { AppRoute } from '../../const';
 import useAppSelector from '../../hooks/use-app-selector';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import { logoutUser } from '../../store/async-actions';
 import { Link } from 'react-router-dom';
+import { selectors } from '../../store/selectors';
 
 function UserNavigation(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const user = useAppSelector((state) => state.user);
+  const isAuth = useAppSelector(selectors.isAuth);
+  const isNoAuth = useAppSelector(selectors.isNoAuth);
+  const user = useAppSelector(selectors.user);
 
   const dispatch = useAppDispatch();
 
@@ -18,7 +20,7 @@ function UserNavigation(): JSX.Element {
 
   return (
     <ul className="user-block">
-      {authorizationStatus === AuthorizationStatus.Auth && user && (
+      {isAuth && user && (
         <>
           <li className="user-block__item">
             <Link className="user-block__avatar" style={{ display: 'block' }} to={AppRoute.MyList}>
@@ -31,7 +33,7 @@ function UserNavigation(): JSX.Element {
         </>
       )}
 
-      {authorizationStatus === AuthorizationStatus.NoAuth && (
+      {isNoAuth && (
         <Link className="user-block__link" to={AppRoute.Login}>Sign in</Link>
       )}
     </ul>
