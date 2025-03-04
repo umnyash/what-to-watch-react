@@ -1,8 +1,7 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import { loginUser } from '../../store/async-actions';
-import Button from '../button';
-import { ButtonType, ButtonSize } from '../../types/button';
+import Button, { ButtonType, ButtonSize } from '../button';
 
 function LoginForm(): JSX.Element {
   const [formData, setFormData] = useState({

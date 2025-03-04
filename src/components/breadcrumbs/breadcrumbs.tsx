@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { BreadcrumbLinks } from '../../types/breadcrumbs';
+import { BreadcrumbLinks } from './types';
 
 type BreadcrumbsProps = {
   links: BreadcrumbLinks;

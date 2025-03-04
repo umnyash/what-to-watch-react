@@ -1,9 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import { AppRoute } from '../../const';
 import SiteHeader from '../../components/site-header';
-import Button from '../../components/button';
+import Button, { ButtonType, ButtonSize } from '../../components/button';
 import SiteFooter from '../../components/site-footer';
-import { ButtonType, ButtonSize } from '../../types/button';
 
 function NotFoundPage(): JSX.Element {
   return (

@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
-import { ButtonType, ButtonSize } from '../../types/button';
+import { ButtonType, ButtonSize } from './const';
 import clsx from 'clsx';
 
 type ButtonProps = PropsWithChildren<{

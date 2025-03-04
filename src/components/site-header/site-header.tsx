@@ -1,7 +1,6 @@
 import clsx from 'clsx';
-import { BreadcrumbLinks } from '../../types/breadcrumbs';
 import Logo from '../logo';
-import Breadcrumbs from '../breadcrumbs';
+import Breadcrumbs, { BreadcrumbLinks } from '../breadcrumbs';
 import UserNavigation from '../user-navigation';
 
 import React from 'react';

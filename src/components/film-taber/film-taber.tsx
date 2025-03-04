@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Tabs } from '../../types/tabs';
+import { Tabs } from './types';
 
 type FilmTaberProps = {
   tabs: Tabs;

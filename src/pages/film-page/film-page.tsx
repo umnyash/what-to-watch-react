@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Tabs } from '../../types/tabs';
 import { SIMILAR_FILMS_MAX_COUNT } from '../../const';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
@@ -12,7 +11,7 @@ import LoadingPage from '../loading-page';
 import NotFoundPage from '../not-found-page';
 import SiteHeader from '../../components/site-header';
 import FilmHeader from '../../components/film-header';
-import FilmTaber from '../../components/film-taber';
+import FilmTaber, { Tabs } from '../../components/film-taber';
 import FilmOverview from '../../components/film-overview';
 import FilmDetails from '../../components/film-details';
 import ReviewsList from '../../components/reviews-list';
