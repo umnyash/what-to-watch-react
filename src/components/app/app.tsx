@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import useAppSelector from '../../hooks/use-app-selector';
 import { selectors } from '../../store/selectors';
 
@@ -12,8 +12,7 @@ import ReviewPage from '../../pages/review-page';
 import PlayerPage from '../../pages/player-page';
 import NotFoundPage from '../../pages/not-found-page';
 import LoadingPage from '../../pages/loading-page';
-import PrivateRoute from '../private-route';
-import AnonymousRoute from '../anonymous-route';
+import ExclusiveRoute from '../exclusive-route';
 
 function App(): JSX.Element {
   const isAuthChecked = useAppSelector(selectors.isAuthChecked);
@@ -37,9 +36,9 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Login}
             element={
-              <AnonymousRoute>
+              <ExclusiveRoute onlyFor={AuthorizationStatus.NoAuth}>
                 <LoginPage />
-              </AnonymousRoute>
+              </ExclusiveRoute>
             }
           />
           <Route
@@ -49,17 +48,17 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.MyList}
             element={
-              <PrivateRoute>
+              <ExclusiveRoute onlyFor={AuthorizationStatus.Auth}>
                 <MyListPage />
-              </PrivateRoute>
+              </ExclusiveRoute>
             }
           />
           <Route
             path={AppRoute.Review}
             element={
-              <PrivateRoute>
+              <ExclusiveRoute onlyFor={AuthorizationStatus.Auth}>
                 <ReviewPage />
-              </PrivateRoute>
+              </ExclusiveRoute>
             }
           />
           <Route
