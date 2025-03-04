@@ -15,6 +15,13 @@ export enum AppRoute {
   Player = `/player/${ROUTE_PARAM_ID}`,
 }
 
+export enum RequestStatus {
+  Idle = 'Idle',
+  Pending = 'Pending',
+  Success = 'Success',
+  Error = 'Error',
+}
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',

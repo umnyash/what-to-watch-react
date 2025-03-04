@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { User } from '../types/user';
 import { Films, PageFilm, PromoFilm } from '../types/films';
 import { Reviews } from '../types/reviews';
-import { AuthorizationStatus, ALL_GENRES } from '../const';
+import { AuthorizationStatus, RequestStatus, ALL_GENRES } from '../const';
 import { setGenre } from './actions';
 
 import {
@@ -22,9 +22,9 @@ type InitialState = {
   authorizationStatus: AuthorizationStatus;
   user: User | null;
   films: Films;
-  isFilmsLoading: boolean;
+  isFilmsLoading: RequestStatus;
   film: PageFilm | null;
-  isFilmLoading: boolean;
+  isFilmLoading: RequestStatus;
   promoFilm: PromoFilm | null;
   similarFilms: Films;
   favorites: Films;
@@ -36,9 +36,9 @@ const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
   films: [],
-  isFilmsLoading: false,
+  isFilmsLoading: RequestStatus.Idle,
   film: null,
-  isFilmLoading: false,
+  isFilmLoading: RequestStatus.Idle,
   promoFilm: null,
   similarFilms: [],
   favorites: [],
@@ -67,26 +67,26 @@ const reducer = createReducer(initialState, (builder) => {
     })
 
     .addCase(fetchFilms.pending, (state) => {
-      state.isFilmsLoading = true;
+      state.isFilmsLoading = RequestStatus.Pending;
     })
     .addCase(fetchFilms.fulfilled, (state, action) => {
       state.films = action.payload;
-      state.isFilmsLoading = false;
+      state.isFilmsLoading = RequestStatus.Success;
     })
     .addCase(fetchFilms.rejected, (state) => {
-      state.isFilmsLoading = false;
+      state.isFilmsLoading = RequestStatus.Error;
     })
 
     .addCase(fetchFilm.pending, (state) => {
-      state.isFilmLoading = true;
+      state.isFilmLoading = RequestStatus.Pending;
     })
     .addCase(fetchFilm.fulfilled, (state, action) => {
       state.film = action.payload;
-      state.isFilmLoading = false;
+      state.isFilmLoading = RequestStatus.Success;
     })
     .addCase(fetchFilm.rejected, (state) => {
       state.film = null;
-      state.isFilmLoading = false;
+      state.isFilmLoading = RequestStatus.Error;
     })
 
     .addCase(fetchPromoFilm.fulfilled, (state, action) => {
