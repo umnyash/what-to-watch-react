@@ -3,13 +3,16 @@ import { AppRoute } from '../../const';
 import useAppSelector from '../../hooks/use-app-selector';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import { logoutUser } from '../../store/async-actions';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, Location } from 'react-router-dom';
+import { LocationState } from '../../types/location';
 import { selectors } from '../../store/selectors';
 
 function UserNavigation(): JSX.Element {
   const isAuth = useAppSelector(selectors.isAuth);
   const isNoAuth = useAppSelector(selectors.isNoAuth);
   const user = useAppSelector(selectors.user);
+
+  const location = useLocation() as Location<LocationState>;
 
   const dispatch = useAppDispatch();
 
@@ -34,7 +37,13 @@ function UserNavigation(): JSX.Element {
       )}
 
       {isNoAuth && (
-        <Link className="user-block__link" to={AppRoute.Login}>Sign in</Link>
+        <Link
+          className="user-block__link"
+          to={AppRoute.Login}
+          state={{ from: location.pathname }}
+        >
+          Sign in
+        </Link>
       )}
     </ul>
   );
