@@ -21,6 +21,7 @@ import {
 type InitialState = {
   authorizationStatus: AuthorizationStatus;
   user: User | null;
+  loggingInStatus: RequestStatus;
   films: Films;
   isFilmsLoading: RequestStatus;
   film: PageFilm | null;
@@ -29,12 +30,14 @@ type InitialState = {
   similarFilms: Films;
   favorites: Films;
   reviews: Reviews;
+  reviewSubmittingStatus: RequestStatus;
   genre: string;
 }
 
 const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
+  loggingInStatus: RequestStatus.Idle,
   films: [],
   isFilmsLoading: RequestStatus.Idle,
   film: null,
@@ -43,6 +46,7 @@ const initialState: InitialState = {
   similarFilms: [],
   favorites: [],
   reviews: [],
+  reviewSubmittingStatus: RequestStatus.Idle,
   genre: ALL_GENRES,
 };
 
@@ -56,9 +60,16 @@ const reducer = createReducer(initialState, (builder) => {
       state.authorizationStatus = AuthorizationStatus.NoAuth;
     })
 
+    .addCase(loginUser.pending, (state) => {
+      state.loggingInStatus = RequestStatus.Pending;
+    })
     .addCase(loginUser.fulfilled, (state, action) => {
       state.authorizationStatus = AuthorizationStatus.Auth;
       state.user = action.payload;
+      state.loggingInStatus = RequestStatus.Success;
+    })
+    .addCase(loginUser.rejected, (state) => {
+      state.loggingInStatus = RequestStatus.Error;
     })
 
     .addCase(logoutUser.fulfilled, (state) => {
@@ -105,8 +116,15 @@ const reducer = createReducer(initialState, (builder) => {
       state.reviews = action.payload;
     })
 
+    .addCase(submitReview.pending, (state) => {
+      state.reviewSubmittingStatus = RequestStatus.Pending;
+    })
     .addCase(submitReview.fulfilled, (state, action) => {
       state.reviews.push(action.payload);
+      state.reviewSubmittingStatus = RequestStatus.Success;
+    })
+    .addCase(submitReview.rejected, (state) => {
+      state.reviewSubmittingStatus = RequestStatus.Error;
     })
 
     .addCase(setGenre, (state, action) => {

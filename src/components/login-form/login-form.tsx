@@ -1,5 +1,7 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import useAppDispatch from '../../hooks/use-app-dispatch';
+import useAppSelector from '../../hooks/use-app-selector';
+import { selectors } from '../../store/selectors';
 import { loginUser } from '../../store/async-actions';
 import Button, { ButtonType, ButtonSize } from '../button';
 
@@ -8,6 +10,8 @@ function LoginForm(): JSX.Element {
     email: '',
     password: '',
   });
+
+  const isLoggingIn = useAppSelector(selectors.isLoggingIn);
 
   const dispatch = useAppDispatch();
 
@@ -33,6 +37,7 @@ function LoginForm(): JSX.Element {
             value={formData.email}
             placeholder="Email address"
             required
+            disabled={isLoggingIn}
             onChange={handleFieldChange}
           />
           <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
@@ -46,6 +51,7 @@ function LoginForm(): JSX.Element {
             value={formData.password}
             placeholder="Password"
             required
+            disabled={isLoggingIn}
             onChange={handleFieldChange}
             pattern="(?=.*[a-zA-Z])(?=.*\d).*"
             title="Пароль должен состоять минимум из одной буквы и цифры."
@@ -54,7 +60,7 @@ function LoginForm(): JSX.Element {
         </div>
       </div>
       <div className="sign-in__submit">
-        <Button type={ButtonType.Submit} size={ButtonSize.L}>Sign in</Button>
+        <Button type={ButtonType.Submit} size={ButtonSize.L} disabled={isLoggingIn}>Sign in</Button>
       </div>
     </form>
   );

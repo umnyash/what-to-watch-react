@@ -1,5 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import useAppDispatch from '../../hooks/use-app-dispatch';
+import useAppSelector from '../../hooks/use-app-selector';
+import { selectors } from '../../store/selectors';
 import { submitReview } from '../../store/async-actions';
 
 const MAX_RATING = 10;
@@ -19,9 +21,9 @@ function ReviewForm({ filmId }: ReviewFormProps): JSX.Element {
   };
 
   const [formData, setFormData] = useState(initialFormData);
+  const isReviewSumbitting = useAppSelector(selectors.isReviewSubmitting);
 
   const dispatch = useAppDispatch();
-
   const resetForm = () => setFormData(initialFormData);
 
   const handleFieldChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -50,6 +52,7 @@ function ReviewForm({ filmId }: ReviewFormProps): JSX.Element {
                   type="radio" name="rating"
                   value={ratingValue}
                   checked={formData.rating === ratingValue}
+                  disabled={isReviewSumbitting}
                   onChange={handleFieldChange}
                 />
                 <label className="rating__label" htmlFor={`star-${ratingValue}`}>Rating {ratingValue}</label>
@@ -68,6 +71,7 @@ function ReviewForm({ filmId }: ReviewFormProps): JSX.Element {
           value={formData.comment}
           onChange={handleFieldChange}
           maxLength={CommentLength.Max}
+          disabled={isReviewSumbitting}
         />
         <div className="add-review__submit">
           <button
@@ -75,7 +79,8 @@ function ReviewForm({ filmId }: ReviewFormProps): JSX.Element {
             type="submit"
             disabled={!formData.rating
               || formData.comment.length < CommentLength.Min
-              || formData.comment.length > CommentLength.Max}
+              || formData.comment.length > CommentLength.Max
+              || isReviewSumbitting}
           >
             Post
           </button>
