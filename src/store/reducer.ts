@@ -1,9 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { User } from '../types/user';
+import { ErrorResponseData } from '../types/api';
 import { Films, PageFilm, PromoFilm } from '../types/films';
 import { Reviews } from '../types/reviews';
-import { AuthorizationStatus, RequestStatus, ALL_GENRES } from '../const';
-import { setGenre } from './actions';
+import { AuthorizationStatus, RequestStatus, ALL_GENRES, ERROR_PLACEHOLDER_MESSAGE } from '../const';
+import { setGenre, clearLoginErrorData } from './actions';
 
 import {
   checkUserAuth,
@@ -22,6 +23,7 @@ type InitialState = {
   authorizationStatus: AuthorizationStatus;
   user: User | null;
   loggingInStatus: RequestStatus;
+  loginErrorData: ErrorResponseData | null;
   films: Films;
   isFilmsLoading: RequestStatus;
   film: PageFilm | null;
@@ -38,6 +40,7 @@ const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
   loggingInStatus: RequestStatus.Idle,
+  loginErrorData: null,
   films: [],
   isFilmsLoading: RequestStatus.Idle,
   film: null,
@@ -61,6 +64,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
 
     .addCase(loginUser.pending, (state) => {
+      state.loginErrorData = null;
       state.loggingInStatus = RequestStatus.Pending;
     })
     .addCase(loginUser.fulfilled, (state, action) => {
@@ -68,8 +72,13 @@ const reducer = createReducer(initialState, (builder) => {
       state.user = action.payload;
       state.loggingInStatus = RequestStatus.Success;
     })
-    .addCase(loginUser.rejected, (state) => {
+    .addCase(loginUser.rejected, (state, action) => {
+      state.loginErrorData = action.payload ?? { message: ERROR_PLACEHOLDER_MESSAGE };
       state.loggingInStatus = RequestStatus.Error;
+    })
+
+    .addCase(clearLoginErrorData, (state) => {
+      state.loginErrorData = null;
     })
 
     .addCase(logoutUser.fulfilled, (state) => {

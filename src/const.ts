@@ -5,6 +5,7 @@ export const ALL_GENRES = 'all';
 export const GENRES_MAX_COUNT = 9;
 
 export const ROUTE_PARAM_ID = ':id';
+export const ERROR_PLACEHOLDER_MESSAGE = 'Something went wrong...';
 
 export enum AppRoute {
   Root = '/',

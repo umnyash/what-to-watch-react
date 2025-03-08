@@ -1,7 +1,8 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
 import { selectors } from '../../store/selectors';
+import { clearLoginErrorData } from '../../store/actions';
 import { loginUser } from '../../store/async-actions';
 import Button, { ButtonType, ButtonSize } from '../button';
 
@@ -12,12 +13,16 @@ function LoginForm(): JSX.Element {
   });
 
   const isLoggingIn = useAppSelector(selectors.isLoggingIn);
-
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(clearLoginErrorData());
+  }, [dispatch]);
 
   const handleFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
     setFormData({ ...formData, [name]: value });
+    dispatch(clearLoginErrorData());
   };
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -26,7 +31,7 @@ function LoginForm(): JSX.Element {
   };
 
   return (
-    <form className="sign-in__form" method="post" action="#" onSubmit={handleFormSubmit}>
+    <form className="sign-in__form" method="post" action="#" noValidate onSubmit={handleFormSubmit}>
       <div className="sign-in__fields">
         <div className="sign-in__field">
           <input

@@ -1,4 +1,5 @@
-import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
+import axios, { AxiosInstance, AxiosResponse, AxiosError, isAxiosError } from 'axios';
+import { ErrorResponseData } from '../types/api';
 import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
 import { getToken } from './token';
@@ -6,9 +7,7 @@ import { getToken } from './token';
 const BACKEND_URL = 'https://16.design.htmlacademy.pro/wtw';
 const REQUEST_TIMEOUT = 5000;
 
-type ErrorResponseData = {
-  message: string;
-}
+export type ApiError = AxiosError<ErrorResponseData>;
 
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
@@ -40,7 +39,6 @@ export const createAPI = (): AxiosInstance => {
     (error: AxiosError<ErrorResponseData>) => {
       if (error.response && shouldDisplayError(error.response)) {
         const data = error.response.data;
-
         toast.warn(data.message);
       }
       throw error;
@@ -49,3 +47,5 @@ export const createAPI = (): AxiosInstance => {
 
   return api;
 };
+
+export const isApiError = (error: unknown): error is ApiError => isAxiosError(error);

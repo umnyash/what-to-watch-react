@@ -15,10 +15,17 @@ export const checkUserAuth = createAppAsyncThunk<User, undefined>(
 
 export const loginUser = createAppAsyncThunk<User, AuthData>(
   'user/login',
-  async (authData, { extra: { api } }) => {
-    const { data: { token, ...user } } = await api.post<AuthUser>(APIRoute.Login, authData);
-    saveToken(token);
-    return user;
+  async (authData, { extra: { api, isApiError }, rejectWithValue }) => {
+
+    try {
+      const { data: { token, ...user } } = await api.post<AuthUser>(APIRoute.Login, authData);
+      saveToken(token);
+      return user;
+    } catch (err) {
+      return (isApiError(err) && err.response)
+        ? rejectWithValue(err.response.data)
+        : rejectWithValue({ message: 'Unexpected error' });
+    }
   },
 );
 
