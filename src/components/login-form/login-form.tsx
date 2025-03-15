@@ -5,8 +5,8 @@ import { selectors } from '../../store/selectors';
 import { clearLoginErrorData } from '../../store/actions';
 import { loginUser } from '../../store/async-actions';
 import Button, { ButtonType, ButtonSize } from '../button';
+import TextField from '../text-field';
 import { getValidationErrorMessage } from '../../validation';
-import clsx from 'clsx';
 
 const EMAIL_FIELD_ID = 'user-email';
 const PASSWORD_FIELD_ID = 'user-password';
@@ -39,20 +39,6 @@ function LoginForm(): JSX.Element {
         break;
     }
   }
-
-  const emailFieldClassName = clsx(
-    'sign-in__field',
-    activeFieldId === EMAIL_FIELD_ID &&
-    emailErrorMessage &&
-    'sign-in__field--error'
-  );
-
-  const passwordFieldClassName = clsx(
-    'sign-in__field',
-    activeFieldId === PASSWORD_FIELD_ID &&
-    passwordErrorMessage &&
-    'sign-in__field--error'
-  );
 
   const dispatch = useAppDispatch();
 
@@ -95,40 +81,36 @@ function LoginForm(): JSX.Element {
         </div>
       )}
       <div className="sign-in__fields">
-        <div className={emailFieldClassName}>
-          <input
-            ref={emailInputElementRef}
-            className="sign-in__input"
-            id={EMAIL_FIELD_ID}
-            type="email"
-            name="email"
-            value={formData.email}
-            placeholder="Email address"
-            required
-            disabled={isLoggingIn}
-            onChange={handleFieldChange}
-            onBlur={handleFieldBlur}
-          />
-          <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
-        </div>
-        <div className={passwordFieldClassName}>
-          <input
-            ref={passwordInputElementRef}
-            className="sign-in__input"
-            id={PASSWORD_FIELD_ID}
-            type="password"
-            name="password"
-            value={formData.password}
-            placeholder="Password"
-            required
-            disabled={isLoggingIn}
-            onChange={handleFieldChange}
-            onBlur={handleFieldBlur}
-            pattern="(?=.*[a-zA-Z])(?=.*\d).*"
-            title="Пароль должен состоять минимум из одной буквы и цифры."
-          />
-          <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
-        </div>
+        <TextField
+          inputRef={emailInputElementRef}
+          id={EMAIL_FIELD_ID}
+          name="email"
+          label="Email address"
+          type="email"
+          value={formData.email}
+          placeholder="Email address"
+          required
+          invalid={activeFieldId === EMAIL_FIELD_ID && Boolean(emailErrorMessage)}
+          disabled={isLoggingIn}
+          onChange={handleFieldChange}
+          onBlur={handleFieldBlur}
+        />
+        <TextField
+          inputRef={passwordInputElementRef}
+          id={PASSWORD_FIELD_ID}
+          name="password"
+          label="Password"
+          type="password"
+          value={formData.password}
+          pattern="(?=.*[a-zA-Z])(?=.*\d).*"
+          title="Пароль должен состоять минимум из одной буквы и цифры."
+          placeholder="Password"
+          required
+          invalid={activeFieldId === PASSWORD_FIELD_ID && Boolean(passwordErrorMessage)}
+          disabled={isLoggingIn}
+          onChange={handleFieldChange}
+          onBlur={handleFieldBlur}
+        />
       </div>
       <div className="sign-in__submit">
         <Button type={ButtonType.Submit} size={ButtonSize.L} disabled={isLoggingIn}>Sign in</Button>
