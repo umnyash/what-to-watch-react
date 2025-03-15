@@ -2,7 +2,7 @@ const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@((
 const PASSWORD_REGEXP = /(?=.*[a-zA-Z])(?=.*\d).*/;
 const PASSWORD_MIN_LENGTH = 2;
 
-const validationErrorMessages = {
+export const validationErrorMessages = {
   email: {
     required: 'Email cannot be empty',
     pattern: 'Please enter a valid email address.',
@@ -11,6 +11,9 @@ const validationErrorMessages = {
     required: 'Password cannot be empty.',
     pattern: 'Password must contain letters and numbers.',
     minLength: `Password must be at least ${PASSWORD_MIN_LENGTH} characters long.`,
+  },
+  emailAndPassword: {
+    required: 'Email and password should not be empty.',
   },
 } as const;
 

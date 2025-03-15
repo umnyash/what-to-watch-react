@@ -22,17 +22,22 @@ function LoginForm(): JSX.Element {
   });
 
   const isLoggingIn = useAppSelector(selectors.isLoggingIn);
+  const loginErrorMessage = useAppSelector(selectors.loginErrorMessage);
   const emailErrorMessage = getValidationErrorMessage('email', formData.email);
   const passwordErrorMessage = getValidationErrorMessage('password', formData.password);
   let errorMessage: string | null = null;
 
-  switch (activeFieldId) {
-    case EMAIL_FIELD_ID:
-      errorMessage = emailErrorMessage;
-      break;
-    case PASSWORD_FIELD_ID:
-      errorMessage = passwordErrorMessage;
-      break;
+  if (loginErrorMessage) {
+    errorMessage = loginErrorMessage;
+  } else {
+    switch (activeFieldId) {
+      case EMAIL_FIELD_ID:
+        errorMessage = emailErrorMessage;
+        break;
+      case PASSWORD_FIELD_ID:
+        errorMessage = passwordErrorMessage;
+        break;
+    }
   }
 
   const emailFieldClassName = clsx(
