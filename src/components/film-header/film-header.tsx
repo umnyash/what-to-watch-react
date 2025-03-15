@@ -1,6 +1,7 @@
 import useAppSelector from '../../hooks/use-app-selector';
 import { PromoFilm } from '../../types/films';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, Location } from 'react-router-dom';
+import { LocationState } from '../../types/location';
 import { AppRoute, ROUTE_PARAM_ID } from '../../const';
 import { selectors } from '../../store/selectors';
 
@@ -10,7 +11,9 @@ type FilmHeaderProps = {
 
 function FilmHeader({ film }: FilmHeaderProps): JSX.Element {
   const isAuth = useAppSelector(selectors.isAuth);
+  const isNoAuth = useAppSelector(selectors.isNoAuth);
   const favorites = useAppSelector(selectors.favorites);
+  const location = useLocation() as Location<LocationState>;
 
   const { id, name, genre, released } = film;
   const reviewPageRoute = AppRoute.Review.replace(ROUTE_PARAM_ID, id);
@@ -31,13 +34,26 @@ function FilmHeader({ film }: FilmHeaderProps): JSX.Element {
           </svg>
           <span>Play</span>
         </Link>
-        <button className="btn btn--list film-card__button" type="button">
-          <svg viewBox="0 0 19 20" width="19" height="20">
-            <use xlinkHref="#add" />
-          </svg>
-          <span>My list</span>
-          <span className="film-card__count">{favorites.length}</span>
-        </button>
+
+        {isNoAuth && (
+          <Link className="btn btn--list film-card__button" state={{ from: location.pathname }} to={AppRoute.Login}>
+            <svg viewBox="0 0 19 20" width="19" height="20">
+              <use xlinkHref="#add" />
+            </svg>
+            <span>My list</span>
+            <span className="film-card__count">{favorites.length}</span>
+          </Link>
+        )}
+
+        {isAuth && (
+          <button className="btn btn--list film-card__button" type="button">
+            <svg viewBox="0 0 19 20" width="19" height="20">
+              <use xlinkHref="#add" />
+            </svg>
+            <span>My list</span>
+            <span className="film-card__count">{favorites.length}</span>
+          </button>
+        )}
 
         {isAuth && (
           <Link to={reviewPageRoute} className="btn film-card__button">Add review</Link>
