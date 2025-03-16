@@ -1,7 +1,7 @@
 import createAppAsyncThunk from '../hooks/create-app-async-thunk';
-import { APIRoute } from '../const';
+import { APIRoute, FavoriteStatus } from '../const';
 import { AuthUser, User, AuthData } from '../types/user';
-import { Films, PageFilm, PromoFilm } from '../types/films';
+import { Films, FullFilm, PageFilm, PromoFilm } from '../types/films';
 import { Reviews, Review, ReviewContent } from '../types/reviews';
 import { saveToken, dropToken } from '../services/token';
 
@@ -77,6 +77,18 @@ export const fetchFavorites = createAppAsyncThunk<Films, undefined>(
     const { data } = await api.get<Films>(APIRoute.Favorites);
     return data;
   },
+);
+
+export const changeFavoriteStatus = createAppAsyncThunk<
+  FullFilm,
+  { filmId: string; status: FavoriteStatus }
+>(
+  'favorites/changeStatus',
+  async ({ filmId, status }, { extra: { api } }) => {
+    const apiRoute = `${APIRoute.Favorites}/${filmId}/${status}`;
+    const { data } = await api.post<FullFilm>(apiRoute);
+    return data;
+  }
 );
 
 export const fetchReviews = createAppAsyncThunk<Reviews, string>(

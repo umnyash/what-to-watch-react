@@ -56,6 +56,7 @@ export const selectors = {
   promoFilm: (state: State) => state.promoFilm,
   similarFilms: (state: State) => state.similarFilms,
   favorites: (state: State) => state.favorites,
+  changingFavoritesStatusFilmsIds: (state: State) => state.changingFavoriteStatusFilmsIds,
   reviews: (state: State) => state.reviews,
   isReviewSubmitting: (state: State) => state.reviewSubmittingStatus === RequestStatus.Pending,
   genre: (state: State) => state.genre

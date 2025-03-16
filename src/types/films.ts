@@ -27,6 +27,11 @@ export type PageFilm = PromoFilm & {
   runTime: number;
 }
 
+export type FullFilm = PageFilm & {
+  previewImage: string;
+  previewVideoLink: string;
+}
+
 export type Films = CardFilm[];
 
 export type FilmsByGenre = Record<string, Films>;

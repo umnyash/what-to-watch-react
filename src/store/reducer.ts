@@ -1,10 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { User } from '../types/user';
 import { ErrorResponseData } from '../types/api';
-import { Films, PageFilm, PromoFilm } from '../types/films';
+import { Films, FullFilm, PageFilm, PromoFilm } from '../types/films';
 import { Reviews } from '../types/reviews';
 import { AuthorizationStatus, RequestStatus, ALL_GENRES, ERROR_PLACEHOLDER_MESSAGE } from '../const';
 import { setGenre, clearLoginErrorData } from './actions';
+import { removeArrayItem } from '../util';
 
 import {
   checkUserAuth,
@@ -15,6 +16,7 @@ import {
   fetchPromoFilm,
   fetchSimilarFilms,
   fetchFavorites,
+  changeFavoriteStatus,
   fetchReviews,
   submitReview,
 } from './async-actions';
@@ -31,6 +33,7 @@ type InitialState = {
   promoFilm: PromoFilm | null;
   similarFilms: Films;
   favorites: Films;
+  changingFavoriteStatusFilmsIds: string[];
   reviews: Reviews;
   reviewSubmittingStatus: RequestStatus;
   genre: string;
@@ -48,9 +51,28 @@ const initialState: InitialState = {
   promoFilm: null,
   similarFilms: [],
   favorites: [],
+  changingFavoriteStatusFilmsIds: [],
   reviews: [],
   reviewSubmittingStatus: RequestStatus.Idle,
   genre: ALL_GENRES,
+};
+
+const updateFavorites = (state: InitialState, film: FullFilm) => {
+  if (film.isFavorite) {
+    state.favorites.push(film);
+  } else {
+    removeArrayItem(state.favorites, { id: film.id });
+  }
+};
+
+const updateFavoriteStatus = (state: InitialState, film: FullFilm) => {
+  if (state.film?.id === film.id) {
+    state.film.isFavorite = film.isFavorite;
+  }
+
+  if (state.promoFilm?.id === film.id) {
+    state.promoFilm.isFavorite = film.isFavorite;
+  }
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -119,6 +141,18 @@ const reducer = createReducer(initialState, (builder) => {
 
     .addCase(fetchFavorites.fulfilled, (state, action) => {
       state.favorites = action.payload;
+    })
+
+    .addCase(changeFavoriteStatus.pending, (state, action) => {
+      state.changingFavoriteStatusFilmsIds.push(action.meta.arg.filmId);
+    })
+    .addCase(changeFavoriteStatus.fulfilled, (state, action) => {
+      updateFavoriteStatus(state, action.payload);
+      updateFavorites(state, action.payload);
+      removeArrayItem(state.changingFavoriteStatusFilmsIds, action.meta.arg.filmId);
+    })
+    .addCase(changeFavoriteStatus.rejected, (state, action) => {
+      removeArrayItem(state.changingFavoriteStatusFilmsIds, action.meta.arg.filmId);
     })
 
     .addCase(fetchReviews.fulfilled, (state, action) => {

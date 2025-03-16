@@ -53,6 +53,11 @@ export enum APIRoute {
   Reviews = '/comments',
 }
 
+export enum FavoriteStatus {
+  Off = 0,
+  On = 1,
+}
+
 export const loginResponseErrorDetailMessages = {
   email: {
     required: 'email should not be empty',

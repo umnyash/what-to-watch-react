@@ -2,8 +2,10 @@ import useAppSelector from '../../hooks/use-app-selector';
 import { PromoFilm } from '../../types/films';
 import { Link, useLocation, Location } from 'react-router-dom';
 import { LocationState } from '../../types/location';
-import { AppRoute, ROUTE_PARAM_ID } from '../../const';
+import { AppRoute, ROUTE_PARAM_ID, FavoriteStatus } from '../../const';
 import { selectors } from '../../store/selectors';
+import useAppDispatch from '../../hooks/use-app-dispatch';
+import { changeFavoriteStatus } from '../../store/async-actions';
 
 type FilmHeaderProps = {
   film: PromoFilm;
@@ -15,9 +17,19 @@ function FilmHeader({ film }: FilmHeaderProps): JSX.Element {
   const favorites = useAppSelector(selectors.favorites);
   const location = useLocation() as Location<LocationState>;
 
-  const { id, name, genre, released } = film;
+  const { id, name, genre, released, isFavorite } = film;
   const reviewPageRoute = AppRoute.Review.replace(ROUTE_PARAM_ID, id);
   const playerPageRoute = AppRoute.Player.replace(ROUTE_PARAM_ID, id);
+  const isFavoriteStatusChanging = useAppSelector(selectors.changingFavoritesStatusFilmsIds).includes(id);
+
+  const dispatch = useAppDispatch();
+
+  const handleFavoriteButtonClick = () => {
+    dispatch(changeFavoriteStatus({
+      filmId: id,
+      status: (isFavorite) ? FavoriteStatus.Off : FavoriteStatus.On
+    }));
+  };
 
   return (
     <div className="film-card__desc">
@@ -46,10 +58,24 @@ function FilmHeader({ film }: FilmHeaderProps): JSX.Element {
         )}
 
         {isAuth && (
-          <button className="btn btn--list film-card__button" type="button">
-            <svg viewBox="0 0 19 20" width="19" height="20">
-              <use xlinkHref="#add" />
-            </svg>
+          <button
+            className="btn btn--list film-card__button"
+            type="button"
+            disabled={isFavoriteStatusChanging}
+            onClick={handleFavoriteButtonClick}
+          >
+            {isFavorite && (
+              <svg viewBox="0 0 18 14" width="18" height="14">
+                <use xlinkHref="#in-list" />
+              </svg>
+            )}
+
+            {!isFavorite && (
+              <svg viewBox="0 0 19 20" width="19" height="20">
+                <use xlinkHref="#add" />
+              </svg>
+            )}
+
             <span>My list</span>
             <span className="film-card__count">{favorites.length}</span>
           </button>
