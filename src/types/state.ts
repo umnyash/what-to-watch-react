@@ -29,3 +29,7 @@ export type FilmState = {
 export type PromoFilmState = {
   film: PromoFilm | null;
 }
+
+export type SimilarFilmsState = {
+  films: Films;
+}
