@@ -58,6 +58,10 @@ export enum FavoriteStatus {
   On = 1,
 }
 
+export enum SliceName {
+  User = 'USER',
+}
+
 export const loginResponseErrorDetailMessages = {
   email: {
     required: 'email should not be empty',

@@ -1,12 +1,12 @@
 import createAppAsyncThunk from '../hooks/create-app-async-thunk';
-import { APIRoute, FavoriteStatus } from '../const';
+import { APIRoute, FavoriteStatus, SliceName } from '../const';
 import { AuthUser, User, AuthData } from '../types/user';
 import { Films, FullFilm, PageFilm, PromoFilm } from '../types/films';
 import { Reviews, Review, ReviewContent } from '../types/reviews';
 import { saveToken, dropToken } from '../services/token';
 
 export const checkUserAuth = createAppAsyncThunk<User, undefined>(
-  'user/checkAuth',
+  `${SliceName.User}/checkAuth`,
   async (_arg, { extra: { api } }) => {
     const { data: { name, email, avatarUrl } } = await api.get<AuthUser>(APIRoute.Login);
     return { name, email, avatarUrl };
@@ -14,7 +14,7 @@ export const checkUserAuth = createAppAsyncThunk<User, undefined>(
 );
 
 export const loginUser = createAppAsyncThunk<User, AuthData>(
-  'user/login',
+  `${SliceName.User}/login`,
   async (authData, { extra: { api, isApiError }, rejectWithValue }) => {
 
     try {
@@ -30,7 +30,7 @@ export const loginUser = createAppAsyncThunk<User, AuthData>(
 );
 
 export const logoutUser = createAppAsyncThunk<void, undefined>(
-  'user/logout',
+  `${SliceName.User}/logout`,
   async (_arg, { extra: { api } }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
