@@ -61,6 +61,7 @@ export enum FavoriteStatus {
 export enum SliceName {
   User = 'USER',
   Catalog = 'CATALOG',
+  Film = 'FILM',
 }
 
 export const loginResponseErrorDetailMessages = {

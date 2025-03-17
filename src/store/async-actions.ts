@@ -55,7 +55,7 @@ export const fetchSimilarFilms = createAppAsyncThunk<Films, string>(
 );
 
 export const fetchFilm = createAppAsyncThunk<PageFilm, string>(
-  'film/fetch',
+  `${SliceName.Film}/fetch`,
   async (filmId, { extra: { api } }) => {
     const apiRoute = `${APIRoute.Films}/${filmId}`;
     const { data } = await api.get<PageFilm>(apiRoute);
