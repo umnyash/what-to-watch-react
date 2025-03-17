@@ -64,7 +64,7 @@ export const fetchFilm = createAppAsyncThunk<PageFilm, string>(
 );
 
 export const fetchPromoFilm = createAppAsyncThunk<PromoFilm, undefined>(
-  'film/fetchPromo',
+  `${SliceName.PromoFilm}/fetch`,
   async (_arg, { extra: { api } }) => {
     const { data } = await api.get<PromoFilm>(APIRoute.Promo);
     return data;

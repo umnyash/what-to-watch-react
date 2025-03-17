@@ -62,6 +62,7 @@ export enum SliceName {
   User = 'USER',
   Catalog = 'CATALOG',
   Film = 'FILM',
+  PromoFilm = 'PROMO_FILM',
 }
 
 export const loginResponseErrorDetailMessages = {
