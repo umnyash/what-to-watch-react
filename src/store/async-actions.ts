@@ -38,7 +38,7 @@ export const logoutUser = createAppAsyncThunk<void, undefined>(
 );
 
 export const fetchFilms = createAppAsyncThunk<Films, undefined>(
-  'films/fetch',
+  `${SliceName.Catalog}/fetchFilms`,
   async (_arg, { extra: { api } }) => {
     const { data } = await api.get<Films>(APIRoute.Films);
     return data;

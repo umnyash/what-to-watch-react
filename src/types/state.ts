@@ -1,5 +1,6 @@
 import { AuthorizationStatus, RequestStatus } from '../const';
 import { User } from './user';
+import { Films } from './films';
 import { ErrorResponseData } from './api';
 import { store } from '../store';
 
@@ -12,4 +13,10 @@ export type UserState = {
   user: User | null;
   loggingInStatus: RequestStatus;
   loginErrorData: ErrorResponseData | null;
+}
+
+export type CatalogState = {
+  films: Films;
+  filmsLoadingStatus: RequestStatus;
+  genre: string;
 }
