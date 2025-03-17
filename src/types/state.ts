@@ -33,3 +33,8 @@ export type PromoFilmState = {
 export type SimilarFilmsState = {
   films: Films;
 }
+
+export type FavoritesState = {
+  films: Films;
+  changingStatusFilmsIds: string[];
+}

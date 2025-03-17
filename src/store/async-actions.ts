@@ -72,7 +72,7 @@ export const fetchPromoFilm = createAppAsyncThunk<PromoFilm, undefined>(
 );
 
 export const fetchFavorites = createAppAsyncThunk<Films, undefined>(
-  'favorites/fetch',
+  `${SliceName.Favorites}/fetch`,
   async (_arg, { extra: { api } }) => {
     const { data } = await api.get<Films>(APIRoute.Favorites);
     return data;
@@ -83,7 +83,7 @@ export const changeFavoriteStatus = createAppAsyncThunk<
   FullFilm,
   { filmId: string; status: FavoriteStatus }
 >(
-  'favorites/changeStatus',
+  `${SliceName.Favorites}/changeStatus`,
   async ({ filmId, status }, { extra: { api } }) => {
     const apiRoute = `${APIRoute.Favorites}/${filmId}/${status}`;
     const { data } = await api.post<FullFilm>(apiRoute);
