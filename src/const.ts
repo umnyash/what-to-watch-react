@@ -65,6 +65,7 @@ export enum SliceName {
   PromoFilm = 'PROMO_FILM',
   SimilarFilms = 'SIMILAR_FILMS',
   Favorites = 'FAVORITES',
+  Reviews = 'REVIEWS',
 }
 
 export const loginResponseErrorDetailMessages = {

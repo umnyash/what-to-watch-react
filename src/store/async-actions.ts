@@ -92,7 +92,7 @@ export const changeFavoriteStatus = createAppAsyncThunk<
 );
 
 export const fetchReviews = createAppAsyncThunk<Reviews, string>(
-  'reviews/fetch',
+  `${SliceName.Reviews}/fetch`,
   async (filmId, { extra: { api } }) => {
     const apiRoute = `${APIRoute.Reviews}/${filmId}`;
     const { data } = await api.get<Reviews>(apiRoute);
@@ -107,7 +107,7 @@ export const submitReview = createAppAsyncThunk<
     content: ReviewContent;
   }
 >(
-  'review/submit',
+  `${SliceName.Reviews}/submit`,
   async ({ filmId, content }, { extra: { api } }) => {
     const apiRoute = `${APIRoute.Reviews}/${filmId}`;
     const { data } = await api.post<Review>(apiRoute, content);

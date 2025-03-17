@@ -1,6 +1,7 @@
 import { AuthorizationStatus, RequestStatus } from '../const';
 import { User } from './user';
 import { Films, PromoFilm, PageFilm } from './films';
+import { Reviews } from './reviews';
 import { ErrorResponseData } from './api';
 import { store } from '../store';
 
@@ -37,4 +38,9 @@ export type SimilarFilmsState = {
 export type FavoritesState = {
   films: Films;
   changingStatusFilmsIds: string[];
+}
+
+export type ReviewsState = {
+  reviews: Reviews;
+  reviewSubmittingStatus: RequestStatus;
 }
