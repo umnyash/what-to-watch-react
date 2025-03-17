@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
-import { selectors } from '../../store/selectors';
+import { reviewsSelectors } from '../../store/reviews/reviews.selector';
 import { submitReview } from '../../store/async-actions';
 
 const MAX_RATING = 10;
@@ -21,7 +21,7 @@ function ReviewForm({ filmId }: ReviewFormProps): JSX.Element {
   };
 
   const [formData, setFormData] = useState(initialFormData);
-  const isReviewSumbitting = useAppSelector(selectors.isReviewSubmitting);
+  const isReviewSumbitting = useAppSelector(reviewsSelectors.isReviewSubmitting);
 
   const dispatch = useAppDispatch();
   const resetForm = () => setFormData(initialFormData);

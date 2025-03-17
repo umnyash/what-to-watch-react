@@ -2,7 +2,7 @@ import useAppSelector from '../../hooks/use-app-selector';
 import { PromoFilm } from '../../types/films';
 import { Link } from 'react-router-dom';
 import { AppRoute, ROUTE_PARAM_ID } from '../../const';
-import { selectors } from '../../store/selectors';
+import { userSelectors } from '../../store/user/user.selectors';
 import FavoriteButton from '../favorite-button';
 
 type FilmHeaderProps = {
@@ -10,7 +10,7 @@ type FilmHeaderProps = {
 }
 
 function FilmHeader({ film }: FilmHeaderProps): JSX.Element {
-  const isAuth = useAppSelector(selectors.isAuth);
+  const isAuth = useAppSelector(userSelectors.isAuth);
   const { id, name, genre, released, isFavorite } = film;
   const reviewPageRoute = AppRoute.Review.replace(ROUTE_PARAM_ID, id);
   const playerPageRoute = AppRoute.Player.replace(ROUTE_PARAM_ID, id);

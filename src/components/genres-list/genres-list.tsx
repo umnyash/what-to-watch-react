@@ -1,6 +1,6 @@
 import { MouseEvent } from 'react';
 import useAppDispatch from '../../hooks/use-app-dispatch';
-import { setGenre } from '../../store/actions';
+import { catalogActions } from '../../store/catalog/catalog.slice';
 import { FilmsByGenre } from '../../types/films';
 import clsx from 'clsx';
 import { ALL_GENRES, GENRES_MAX_COUNT } from '../../const';
@@ -34,7 +34,7 @@ function GenresList({ activeGenre, filmsByGenre, onGenreClick }: GenresListProps
   function getGenreClickHandler(genre: string) {
     return (evt: MouseEvent<HTMLAnchorElement>) => {
       evt.preventDefault();
-      dispatch(setGenre(genre));
+      dispatch(catalogActions.setGenre(genre));
       onGenreClick();
     };
   }

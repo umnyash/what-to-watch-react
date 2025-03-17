@@ -2,7 +2,7 @@ import { Navigate, useLocation, Location } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { LocationState } from '../../types/location';
 import useAppSelector from '../../hooks/use-app-selector';
-import { selectors } from '../../store/selectors';
+import { userSelectors } from '../../store/user/user.selectors';
 
 type ExclusiveRouteProps = {
   children: JSX.Element;
@@ -10,7 +10,7 @@ type ExclusiveRouteProps = {
 }
 
 function ExclusiveRoute({ onlyFor, children }: ExclusiveRouteProps): JSX.Element {
-  const authorizationStatus = useAppSelector(selectors.authorizationStatus);
+  const authorizationStatus = useAppSelector(userSelectors.authorizationStatus);
   const location = useLocation() as Location<LocationState>;
 
   if (authorizationStatus !== onlyFor) {

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
-import { selectors } from '../../store/selectors';
+import { catalogSelectors } from '../../store/catalog/catalog.selectors';
+import { promoFilmSelectors } from '../../store/promo-film/promo-film.selectors';
 import { fetchPromoFilm, fetchFilms } from '../../store/async-actions';
 import SiteHeader from '../../components/site-header';
 import FilmHeader from '../../components/film-header';
@@ -37,10 +38,10 @@ function MainPage(): JSX.Element {
     dispatch(fetchFilms());
   }, [dispatch]);
 
-  const promoFilm = useAppSelector(selectors.promoFilm);
-  const activeGenre = useAppSelector(selectors.genre);
-  const films = useAppSelector(selectors.films);
-  const isFilmsLoading = useAppSelector(selectors.isFilmsLoading);
+  const promoFilm = useAppSelector(promoFilmSelectors.film);
+  const activeGenre = useAppSelector(catalogSelectors.genre);
+  const films = useAppSelector(catalogSelectors.films);
+  const isFilmsLoading = useAppSelector(catalogSelectors.isFilmsLoading);
   const filmsByGenre = groupFilmsByGenre(films);
   const filmsByActiveGenre = (activeGenre === ALL_GENRES) ? films : filmsByGenre[activeGenre];
 

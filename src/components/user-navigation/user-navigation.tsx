@@ -5,12 +5,12 @@ import useAppDispatch from '../../hooks/use-app-dispatch';
 import { logoutUser } from '../../store/async-actions';
 import { Link, useLocation, Location } from 'react-router-dom';
 import { LocationState } from '../../types/location';
-import { selectors } from '../../store/selectors';
+import { userSelectors } from '../../store/user/user.selectors';
 
 function UserNavigation(): JSX.Element {
-  const isAuth = useAppSelector(selectors.isAuth);
-  const isNoAuth = useAppSelector(selectors.isNoAuth);
-  const user = useAppSelector(selectors.user);
+  const isAuth = useAppSelector(userSelectors.isAuth);
+  const isNoAuth = useAppSelector(userSelectors.isNoAuth);
+  const user = useAppSelector(userSelectors.user);
 
   const location = useLocation() as Location<LocationState>;
 

@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import useAppSelector from '../../hooks/use-app-selector';
-import { selectors } from '../../store/selectors';
+import { userSelectors } from '../../store/user/user.selectors';
 
 import MainPage from '../../pages/main-page';
 import LoginPage from '../../pages/login-page';
@@ -15,7 +15,7 @@ import LoadingPage from '../../pages/loading-page';
 import ExclusiveRoute from '../exclusive-route';
 
 function App(): JSX.Element {
-  const isAuthChecked = useAppSelector(selectors.isAuthChecked);
+  const isAuthChecked = useAppSelector(userSelectors.isAuthChecked);
 
   if (!isAuthChecked) {
     return (

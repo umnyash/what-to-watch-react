@@ -1,6 +1,7 @@
 import { AppRoute, FavoriteStatus } from '../../const';
 import useAppSelector from '../../hooks/use-app-selector';
-import { selectors } from '../../store/selectors';
+import { userSelectors } from '../../store/user/user.selectors';
+import { favoritesSelectors } from '../../store/favorites/favorites.selectors';
 import { Link, useLocation, Location } from 'react-router-dom';
 import { LocationState } from '../../types/location';
 import useAppDispatch from '../../hooks/use-app-dispatch';
@@ -12,9 +13,9 @@ type FavoriteButtonProps = {
 }
 
 function FavoriteButton({ filmId, isActive }: FavoriteButtonProps): JSX.Element {
-  const isAuth = useAppSelector(selectors.isAuth);
-  const favorites = useAppSelector(selectors.favorites);
-  const isPending = useAppSelector(selectors.changingFavoritesStatusFilmsIds).includes(filmId);
+  const isAuth = useAppSelector(userSelectors.isAuth);
+  const favorites = useAppSelector(favoritesSelectors.films);
+  const isPending = useAppSelector(favoritesSelectors.changingStatusFilmsIds).includes(filmId);
   const location = useLocation() as Location<LocationState>;
 
   const dispatch = useAppDispatch();

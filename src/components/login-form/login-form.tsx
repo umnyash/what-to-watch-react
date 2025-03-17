@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect, ChangeEvent, FormEvent } from 'react';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
-import { selectors } from '../../store/selectors';
-import { clearLoginErrorData } from '../../store/actions';
+import { userActions } from '../../store/user/user.slice';
+import { userSelectors } from '../../store/user/user.selectors';
 import { loginUser } from '../../store/async-actions';
 import Button, { ButtonType, ButtonSize } from '../button';
 import TextField from '../text-field';
@@ -21,8 +21,8 @@ function LoginForm(): JSX.Element {
     password: '',
   });
 
-  const isLoggingIn = useAppSelector(selectors.isLoggingIn);
-  const loginErrorMessage = useAppSelector(selectors.loginErrorMessage);
+  const isLoggingIn = useAppSelector(userSelectors.isLoggingIn);
+  const loginErrorMessage = useAppSelector(userSelectors.loginErrorMessage);
   const emailErrorMessage = getValidationErrorMessage('email', formData.email);
   const passwordErrorMessage = getValidationErrorMessage('password', formData.password);
   let errorMessage: string | null = null;
@@ -43,13 +43,13 @@ function LoginForm(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(clearLoginErrorData());
+    dispatch(userActions.clearLoginErrorData());
   }, [dispatch]);
 
   const handleFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
     setFormData({ ...formData, [name]: value });
-    dispatch(clearLoginErrorData());
+    dispatch(userActions.clearLoginErrorData());
   };
 
   const handleFieldBlur = () => {

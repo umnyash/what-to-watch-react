@@ -4,7 +4,9 @@ import { Helmet } from 'react-helmet-async';
 import { SIMILAR_FILMS_MAX_COUNT } from '../../const';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
-import { selectors } from '../../store/selectors';
+import { filmSelectors } from '../../store/film/film.selectors';
+import { similarFilmsSelectors } from '../../store/similar-films/similar-films.selectors';
+import { reviewsSelectors } from '../../store/reviews/reviews.selector';
 import { fetchFilm, fetchSimilarFilms, fetchReviews } from '../../store/async-actions';
 
 import LoadingPage from '../loading-page';
@@ -22,10 +24,10 @@ function FilmPage(): JSX.Element {
   const filmId = useParams().id as string;
   const dispatch = useAppDispatch();
 
-  const film = useAppSelector(selectors.film);
-  const isFilmLoading = useAppSelector(selectors.isFilmLoading);
-  const similarFilms = useAppSelector(selectors.similarFilms);
-  const reviews = useAppSelector(selectors.reviews);
+  const film = useAppSelector(filmSelectors.film);
+  const isFilmLoading = useAppSelector(filmSelectors.isLoading);
+  const similarFilms = useAppSelector(similarFilmsSelectors.films);
+  const reviews = useAppSelector(reviewsSelectors.reviews);
 
   useEffect(() => {
     dispatch(fetchFilm(filmId));
