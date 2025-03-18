@@ -1,4 +1,7 @@
+import { FilmSections, FILM_TABER_ACTIVE_TAB_SEARCH_PARAM } from '../../pages/film-page/const';
+import { AppRoute, ROUTE_PARAM_ID } from '../../const';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
 import { reviewsSelectors } from '../../store/reviews/reviews.selector';
@@ -15,16 +18,15 @@ type ReviewFormProps = {
 }
 
 function ReviewForm({ filmId }: ReviewFormProps): JSX.Element {
-  const initialFormData = {
+  const [formData, setFormData] = useState({
     comment: '',
     rating: 0
-  };
+  });
 
-  const [formData, setFormData] = useState(initialFormData);
   const isReviewSumbitting = useAppSelector(reviewsSelectors.isReviewSubmitting);
 
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const resetForm = () => setFormData(initialFormData);
 
   const handleFieldChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = evt.target;
@@ -33,8 +35,13 @@ function ReviewForm({ filmId }: ReviewFormProps): JSX.Element {
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(submitReview({ filmId, content: formData }));
-    resetForm();
+    dispatch(submitReview({ filmId, content: formData }))
+      .unwrap()
+      .then(() => {
+        const searchParamsForReviewsTab = `?${FILM_TABER_ACTIVE_TAB_SEARCH_PARAM}=${FilmSections.Reviews}`;
+        navigate(`${AppRoute.Film.replace(ROUTE_PARAM_ID, filmId)}${searchParamsForReviewsTab}`);
+      })
+      .catch(() => { });
   };
 
   return (
