@@ -10,6 +10,7 @@ import Spinner from '../../components/spinner';
 import GenresList from '../../components/genres-list';
 import FilmsList from '../../components/films-list';
 import Button from '../../components/button';
+import ErrorMessage from '../../components/error-message';
 import { Films, FilmsByGenre } from '../../types/films';
 import { ALL_GENRES, FILMS_PER_LOAD } from '../../const';
 import { Helmet } from 'react-helmet-async';
@@ -42,6 +43,8 @@ function MainPage(): JSX.Element {
   const activeGenre = useAppSelector(catalogSelectors.genre);
   const films = useAppSelector(catalogSelectors.films);
   const isFilmsLoading = useAppSelector(catalogSelectors.isFilmsLoading);
+  const isFilmsLoaded = useAppSelector(catalogSelectors.isFilmsLoaded);
+  const isFilmsLoadFailed = useAppSelector(catalogSelectors.isFilmsLoadFailed);
   const filmsByGenre = groupFilmsByGenre(films);
   const filmsByActiveGenre = (activeGenre === ALL_GENRES) ? films : filmsByGenre[activeGenre];
 
@@ -87,7 +90,16 @@ function MainPage(): JSX.Element {
 
           {isFilmsLoading && <Spinner />}
 
-          {!isFilmsLoading && (
+          {isFilmsLoadFailed && (
+            <ErrorMessage
+              text="We couldn&apos;t load the films. Please try again later."
+              onButtonClick={() => {
+                dispatch(fetchFilms());
+              }}
+            />
+          )}
+
+          {isFilmsLoaded && (
             <>
               <GenresList activeGenre={activeGenre} filmsByGenre={filmsByGenre} onGenreClick={handleGenreClick} />
               <FilmsList films={filmsByActiveGenre.slice(0, displayedFilmsMaxCount)} />
