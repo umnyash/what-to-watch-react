@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { SIMILAR_FILMS_MAX_COUNT } from '../../const';
+import { FILM_TABER_ACTIVE_TAB_SEARCH_PARAM } from './const';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
 import { filmSelectors } from '../../store/film/film.selectors';
@@ -83,7 +84,7 @@ function FilmPage(): JSX.Element {
               <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
             </div>
 
-            <FilmTaber tabs={tabs} />
+            <FilmTaber tabs={tabs} tabSearchParam={FILM_TABER_ACTIVE_TAB_SEARCH_PARAM} />
           </div>
         </div>
       </section>

@@ -1,12 +1,19 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Tabs } from './types';
 
 type FilmTaberProps = {
   tabs: Tabs;
+  tabSearchParam: string;
 }
 
-function FilmTaber({ tabs }: FilmTaberProps): JSX.Element {
-  const [activeTab, setActiveTab] = useState(0);
+function FilmTaber({ tabs, tabSearchParam }: FilmTaberProps): JSX.Element {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [activeTab, setActiveTab] = useState(() => {
+    const urlTabTitle = searchParams.get(tabSearchParam);
+    return Math.max(tabs.findIndex((tab) => tab.title === urlTabTitle), 0);
+  });
 
   return (
     <div className="film-card__desc">
@@ -29,6 +36,7 @@ function FilmTaber({ tabs }: FilmTaberProps): JSX.Element {
                   onClick={(evt) => {
                     evt.preventDefault();
                     setActiveTab(index);
+                    setSearchParams({ [tabSearchParam]: tab.title });
                   }}
                 >
                   {tab.title}
