@@ -29,6 +29,7 @@ export type FilmState = {
 
 export type PromoFilmState = {
   film: PromoFilm | null;
+  loadingStatus: RequestStatus;
 }
 
 export type SimilarFilmsState = {

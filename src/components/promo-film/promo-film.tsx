@@ -5,6 +5,8 @@ import { promoFilmSelectors } from '../../store/promo-film/promo-film.selectors'
 import { fetchPromoFilm } from '../../store/async-actions';
 import SiteHeader from '../site-header';
 import FilmHeader from '../film-header';
+import Spinner from '../spinner';
+import ErrorMessage from '../error-message';
 
 function PromoFilm(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -14,10 +16,14 @@ function PromoFilm(): JSX.Element {
   }, [dispatch]);
 
   const promoFilm = useAppSelector(promoFilmSelectors.film);
+  const isLoading = useAppSelector(promoFilmSelectors.isLoading);
+  const isLoaded = useAppSelector(promoFilmSelectors.isLoaded);
+  const isLoadFailed = useAppSelector(promoFilmSelectors.isLoadFailed);
 
   return (
     <section className="film-card" style={{ backgroundColor: '#180202' }}>
-      {promoFilm && (
+
+      {isLoaded && promoFilm && (
         <div className="film-card__bg">
           <img src={promoFilm.backgroundImage} alt={promoFilm.name} />
         </div>
@@ -26,7 +32,18 @@ function PromoFilm(): JSX.Element {
       <h1 className="visually-hidden">WTW</h1>
       <SiteHeader className="film-card__head" withUserNavigation />
 
-      {promoFilm && (
+      {isLoading && <Spinner />}
+
+      {isLoadFailed && (
+        <ErrorMessage
+          text="We couldn&apos;t load the promo film. Please try again later."
+          onButtonClick={() => {
+            dispatch(fetchPromoFilm());
+          }}
+        />
+      )}
+
+      {isLoaded && promoFilm && (
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
