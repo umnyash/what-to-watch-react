@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { SIMILAR_FILMS_MAX_COUNT } from '../../const';
 import { FilmSections, FILM_TABER_ACTIVE_TAB_SEARCH_PARAM } from './const';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
 import { filmSelectors } from '../../store/film/film.selectors';
-import { similarFilmsSelectors } from '../../store/similar-films/similar-films.selectors';
-import { fetchFilm, fetchSimilarFilms } from '../../store/async-actions';
+import { fetchFilm } from '../../store/async-actions';
 
 import LoadingPage from '../loading-page';
 import NotFoundPage from '../not-found-page';
@@ -17,7 +15,7 @@ import FilmTaber, { Tabs } from '../../components/film-taber';
 import FilmOverview from '../../components/film-overview';
 import FilmDetails from '../../components/film-details';
 import Reviews from '../../components/reviews';
-import Films from '../../components/films';
+import SimilarFilms from '../../components/similar-films';
 import SiteFooter from '../../components/site-footer';
 
 function FilmPage(): JSX.Element {
@@ -26,11 +24,9 @@ function FilmPage(): JSX.Element {
 
   const film = useAppSelector(filmSelectors.film);
   const isFilmLoading = useAppSelector(filmSelectors.isLoading);
-  const similarFilms = useAppSelector(similarFilmsSelectors.films);
 
   useEffect(() => {
     dispatch(fetchFilm(filmId));
-    dispatch(fetchSimilarFilms(filmId));
   }, [filmId, dispatch]);
 
   if (isFilmLoading) {
@@ -87,7 +83,7 @@ function FilmPage(): JSX.Element {
       </section>
 
       <div className="page-content">
-        <Films heading="More like this" films={similarFilms.slice(0, SIMILAR_FILMS_MAX_COUNT)} />
+        <SimilarFilms filmId={filmId} />
         <SiteFooter />
       </div>
     </>

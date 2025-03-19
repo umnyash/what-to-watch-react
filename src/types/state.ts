@@ -33,6 +33,7 @@ export type PromoFilmState = {
 }
 
 export type SimilarFilmsState = {
+  filmId: string | null;
   films: Films;
 }
 
