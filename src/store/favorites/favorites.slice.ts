@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { SliceName } from '../../const';
+import { SliceName, RequestStatus } from '../../const';
 import { FavoritesState } from '../../types/state';
 import { FullFilm } from '../../types/films';
 import { fetchFavorites, changeFavoriteStatus } from '../async-actions';
@@ -7,6 +7,7 @@ import { removeArrayItem } from '../../util';
 
 const initialState: FavoritesState = {
   films: [],
+  loadingStatus: RequestStatus.Idle,
   changingStatusFilmsIds: [],
 };
 
@@ -24,9 +25,17 @@ export const favorites = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
+      .addCase(fetchFavorites.pending, (state) => {
+        state.loadingStatus = RequestStatus.Pending;
+      })
       .addCase(fetchFavorites.fulfilled, (state, action) => {
         state.films = action.payload;
+        state.loadingStatus = RequestStatus.Success;
       })
+      .addCase(fetchFavorites.rejected, (state) => {
+        state.loadingStatus = RequestStatus.Error;
+      })
+
       .addCase(changeFavoriteStatus.pending, (state, action) => {
         state.changingStatusFilmsIds.push(action.meta.arg.filmId);
       })

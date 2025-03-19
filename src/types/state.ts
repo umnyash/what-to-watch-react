@@ -38,6 +38,7 @@ export type SimilarFilmsState = {
 
 export type FavoritesState = {
   films: Films;
+  loadingStatus: RequestStatus;
   changingStatusFilmsIds: string[];
 }
 
