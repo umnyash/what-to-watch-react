@@ -19,7 +19,7 @@ function ReviewPage(): JSX.Element {
   const filmId = useParams().id as string;
 
   useEffect(() => {
-    if (film) {
+    if (filmId === film?.id) {
       return;
     }
 
