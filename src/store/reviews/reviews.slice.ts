@@ -4,6 +4,7 @@ import { ReviewsState } from '../../types/state';
 import { fetchReviews, submitReview } from '../async-actions';
 
 const initialState: ReviewsState = {
+  filmId: null,
   reviews: [],
   reviewSubmittingStatus: RequestStatus.Idle,
 };
@@ -14,7 +15,12 @@ export const reviews = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
+      .addCase(fetchReviews.pending, (state) => {
+        state.filmId = null;
+        state.reviews = [];
+      })
       .addCase(fetchReviews.fulfilled, (state, action) => {
+        state.filmId = action.meta.arg;
         state.reviews = action.payload;
       })
 

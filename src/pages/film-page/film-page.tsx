@@ -7,8 +7,7 @@ import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
 import { filmSelectors } from '../../store/film/film.selectors';
 import { similarFilmsSelectors } from '../../store/similar-films/similar-films.selectors';
-import { reviewsSelectors } from '../../store/reviews/reviews.selector';
-import { fetchFilm, fetchSimilarFilms, fetchReviews } from '../../store/async-actions';
+import { fetchFilm, fetchSimilarFilms } from '../../store/async-actions';
 
 import LoadingPage from '../loading-page';
 import NotFoundPage from '../not-found-page';
@@ -17,7 +16,7 @@ import FilmHeader from '../../components/film-header';
 import FilmTaber, { Tabs } from '../../components/film-taber';
 import FilmOverview from '../../components/film-overview';
 import FilmDetails from '../../components/film-details';
-import ReviewsList from '../../components/reviews-list';
+import Reviews from '../../components/reviews';
 import Films from '../../components/films';
 import SiteFooter from '../../components/site-footer';
 
@@ -28,12 +27,10 @@ function FilmPage(): JSX.Element {
   const film = useAppSelector(filmSelectors.film);
   const isFilmLoading = useAppSelector(filmSelectors.isLoading);
   const similarFilms = useAppSelector(similarFilmsSelectors.films);
-  const reviews = useAppSelector(reviewsSelectors.reviews);
 
   useEffect(() => {
     dispatch(fetchFilm(filmId));
     dispatch(fetchSimilarFilms(filmId));
-    dispatch(fetchReviews(filmId));
   }, [filmId, dispatch]);
 
   if (isFilmLoading) {
@@ -57,7 +54,7 @@ function FilmPage(): JSX.Element {
     },
     {
       title: FilmSections.Reviews,
-      content: <ReviewsList reviews={reviews} />
+      content: <Reviews filmId={filmId} />
     }
   ];
 

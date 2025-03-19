@@ -43,6 +43,7 @@ export type FavoritesState = {
 }
 
 export type ReviewsState = {
+  filmId: string | null;
   reviews: Reviews;
   reviewSubmittingStatus: RequestStatus;
 }
