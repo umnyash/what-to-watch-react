@@ -8,7 +8,7 @@ type ThunkAPI = {
     api: AxiosInstance;
     isApiError: (error: unknown) => error is ApiError;
   };
-  rejectValue: ErrorResponseData;
+  rejectValue: ErrorResponseData | string;
 }
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<ThunkAPI>();

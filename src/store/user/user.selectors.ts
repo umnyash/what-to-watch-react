@@ -17,7 +17,7 @@ const loginErrorMessage = (state: State) => {
     return null;
   }
 
-  if (data.details) {
+  if (typeof data !== 'string' && data.details) {
     const allMessages = loginResponseErrorDetailMessages;
 
     const currentMessages = data.details.reduce((acc: Record<string, boolean>, detail) => {

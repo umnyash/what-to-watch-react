@@ -38,7 +38,7 @@ export const user = createSlice({
         state.loggingInStatus = RequestStatus.Success;
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.loginErrorData = action.payload ?? { message: ERROR_PLACEHOLDER_MESSAGE };
+        state.loginErrorData = action.payload ?? ERROR_PLACEHOLDER_MESSAGE;
         state.loggingInStatus = RequestStatus.Error;
       })
 

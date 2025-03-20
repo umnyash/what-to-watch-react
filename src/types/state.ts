@@ -13,7 +13,7 @@ export type UserState = {
   authorizationStatus: AuthorizationStatus;
   user: User | null;
   loggingInStatus: RequestStatus;
-  loginErrorData: ErrorResponseData | null;
+  loginErrorData: ErrorResponseData | string | null;
 }
 
 export type CatalogState = {
