@@ -17,6 +17,7 @@ import FilmDetails from '../../components/film-details';
 import Reviews from '../../components/reviews';
 import SimilarFilms from '../../components/similar-films';
 import SiteFooter from '../../components/site-footer';
+import ErrorPage from '../error-page';
 
 function FilmPage(): JSX.Element {
   const filmId = useParams().id as string;
@@ -24,6 +25,8 @@ function FilmPage(): JSX.Element {
 
   const film = useAppSelector(filmSelectors.film);
   const isFilmLoading = useAppSelector(filmSelectors.isLoading);
+  const isFilmLoadFailed = useAppSelector(filmSelectors.isLoadFailed);
+  const isNotFound = useAppSelector(filmSelectors.isNotFound);
 
   useEffect(() => {
     dispatch(fetchFilm(filmId));
@@ -33,8 +36,17 @@ function FilmPage(): JSX.Element {
     return <LoadingPage />;
   }
 
-  if (!film) {
-    return <NotFoundPage />;
+  if (isFilmLoadFailed || !film) {
+    return (isNotFound)
+      ? <NotFoundPage />
+      : (
+        <ErrorPage
+          text="We couldn&apos;t load the film. Please try again later."
+          onRetryButtonClick={() => {
+            dispatch(fetchFilm(filmId));
+          }}
+        />
+      );
   }
 
   const { name, posterImage, backgroundImage } = film;

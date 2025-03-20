@@ -56,10 +56,17 @@ export const fetchSimilarFilms = createAppAsyncThunk<Films, string>(
 
 export const fetchFilm = createAppAsyncThunk<PageFilm, string>(
   `${SliceName.Film}/fetch`,
-  async (filmId, { extra: { api } }) => {
+  async (filmId, { extra: { api, isApiError }, rejectWithValue }) => {
     const apiRoute = `${APIRoute.Films}/${filmId}`;
-    const { data } = await api.get<PageFilm>(apiRoute);
-    return data;
+
+    try {
+      const { data } = await api.get<PageFilm>(apiRoute);
+      return data;
+    } catch (err) {
+      return (isApiError(err) && err.response)
+        ? rejectWithValue({ status: err.response.status })
+        : rejectWithValue('Unexpected error');
+    }
   },
 );
 

@@ -25,6 +25,7 @@ export type CatalogState = {
 export type FilmState = {
   film: PageFilm | null;
   loadingStatus: RequestStatus;
+  error: ErrorResponse | string | null;
 }
 
 export type PromoFilmState = {
