@@ -12,7 +12,7 @@ function ErrorPage({ text, onRetryButtonClick }: ErrorPageProps): JSX.Element {
       <SiteHeader className="user-page__head" withUserNavigation />
       <ErrorMessage
         text={text}
-        onButtonClick={onRetryButtonClick}
+        onRetryButtonClick={onRetryButtonClick}
       />
     </div>
   );

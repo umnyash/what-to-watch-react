@@ -57,7 +57,7 @@ function Catalog(): JSX.Element {
       {isFilmsLoadFailed && (
         <ErrorMessage
           text="We couldn&apos;t load the films. Please try again later."
-          onButtonClick={() => {
+          onRetryButtonClick={() => {
             dispatch(fetchFilms());
           }}
         />

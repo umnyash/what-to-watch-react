@@ -37,7 +37,7 @@ function PromoFilm(): JSX.Element {
       {isLoadFailed && (
         <ErrorMessage
           text="We couldn&apos;t load the promo film. Please try again later."
-          onButtonClick={() => {
+          onRetryButtonClick={() => {
             dispatch(fetchPromoFilm());
           }}
         />

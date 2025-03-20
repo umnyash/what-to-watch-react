@@ -36,7 +36,7 @@ function MyListPage(): JSX.Element {
         {isLoadFailed && (
           <ErrorMessage
             text="We couldn&apos;t load the favorites. Please try again later."
-            onButtonClick={() => {
+            onRetryButtonClick={() => {
               dispatch(fetchFavorites());
             }}
           />
