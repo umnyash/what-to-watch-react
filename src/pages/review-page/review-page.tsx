@@ -9,6 +9,7 @@ import { AppRoute, ROUTE_PARAM_ID } from '../../const';
 
 import LoadingPage from '../loading-page';
 import NotFoundPage from '../not-found-page';
+import ErrorPage from '../error-page';
 import { Helmet } from 'react-helmet-async';
 import SiteHeader from '../../components/site-header';
 import ReviewForm from '../../components/review-form';
@@ -20,6 +21,8 @@ function ReviewPage(): JSX.Element {
   const promoFilm = useAppSelector(promoFilmSelectors.film);
   const targetFilm = [film, promoFilm].find((item) => item?.id === filmId) ?? null;
   const isFilmLoading = useAppSelector(filmSelectors.isLoading);
+  const isFilmLoadFailed = useAppSelector(filmSelectors.isLoadFailed);
+  const isNotFound = useAppSelector(filmSelectors.isNotFound);
 
   const dispatch = useAppDispatch();
 
@@ -36,8 +39,17 @@ function ReviewPage(): JSX.Element {
     return <LoadingPage />;
   }
 
-  if (!targetFilm) {
-    return <NotFoundPage />;
+  if (isFilmLoadFailed || !targetFilm) {
+    return isNotFound
+      ? <NotFoundPage />
+      : (
+        <ErrorPage
+          text="We couldn&apos;t load the film. Please try again later."
+          onRetryButtonClick={() => {
+            dispatch(fetchFilm(filmId));
+          }}
+        />
+      );
   }
 
   const { name, posterImage, backgroundImage } = targetFilm;
