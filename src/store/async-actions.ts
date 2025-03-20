@@ -23,7 +23,7 @@ export const loginUser = createAppAsyncThunk<User, AuthData>(
       return user;
     } catch (err) {
       return (isApiError(err) && err.response)
-        ? rejectWithValue(err.response.data)
+        ? rejectWithValue({ data: err.response.data })
         : rejectWithValue('Unexpected error');
     }
   },

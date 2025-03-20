@@ -2,7 +2,7 @@ import { AuthorizationStatus, RequestStatus } from '../const';
 import { User } from './user';
 import { Films, PromoFilm, PageFilm } from './films';
 import { Reviews } from './reviews';
-import { ErrorResponseData } from './api';
+import { ErrorResponse } from './api';
 import { store } from '../store';
 
 export type State = ReturnType<typeof store.getState>;
@@ -13,7 +13,7 @@ export type UserState = {
   authorizationStatus: AuthorizationStatus;
   user: User | null;
   loggingInStatus: RequestStatus;
-  loginErrorData: ErrorResponseData | string | null;
+  loginError: ErrorResponse | string | null;
 }
 
 export type CatalogState = {

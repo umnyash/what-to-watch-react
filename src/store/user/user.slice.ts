@@ -7,7 +7,7 @@ const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
   loggingInStatus: RequestStatus.Idle,
-  loginErrorData: null,
+  loginError: null,
 };
 
 export const user = createSlice({
@@ -15,7 +15,7 @@ export const user = createSlice({
   initialState,
   reducers: {
     clearLoginErrorData: (state) => {
-      state.loginErrorData = null;
+      state.loginError = null;
     },
   },
   extraReducers(builder) {
@@ -29,7 +29,7 @@ export const user = createSlice({
       })
 
       .addCase(loginUser.pending, (state) => {
-        state.loginErrorData = null;
+        state.loginError = null;
         state.loggingInStatus = RequestStatus.Pending;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
@@ -38,7 +38,7 @@ export const user = createSlice({
         state.loggingInStatus = RequestStatus.Success;
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.loginErrorData = action.payload ?? ERROR_PLACEHOLDER_MESSAGE;
+        state.loginError = action.payload ?? ERROR_PLACEHOLDER_MESSAGE;
         state.loggingInStatus = RequestStatus.Error;
       })
 

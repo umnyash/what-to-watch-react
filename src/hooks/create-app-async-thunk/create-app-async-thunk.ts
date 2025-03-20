@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import { ApiError } from '../../services/api';
-import { ErrorResponseData } from '../../types/api';
+import { ErrorResponse } from '../../types/api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 type ThunkAPI = {
@@ -8,7 +8,7 @@ type ThunkAPI = {
     api: AxiosInstance;
     isApiError: (error: unknown) => error is ApiError;
   };
-  rejectValue: ErrorResponseData | string;
+  rejectValue: ErrorResponse | string;
 }
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<ThunkAPI>();

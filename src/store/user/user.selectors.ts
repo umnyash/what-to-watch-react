@@ -11,16 +11,16 @@ const isNoAuth = (state: State) => state[sliceName].authorizationStatus === Auth
 const isLoggingIn = (state: State) => state[sliceName].loggingInStatus === RequestStatus.Pending;
 
 const loginErrorMessage = (state: State) => {
-  const data = state[sliceName].loginErrorData;
+  const error = state[sliceName].loginError;
 
-  if (!data) {
+  if (!error) {
     return null;
   }
 
-  if (typeof data !== 'string' && data.details.length) {
+  if (typeof error !== 'string' && error.data?.details.length) {
     const allMessages = loginResponseErrorDetailMessages;
 
-    const currentMessages = data.details.reduce((acc: Record<string, boolean>, detail) => {
+    const currentMessages = error.data.details.reduce((acc: Record<string, boolean>, detail) => {
       detail.messages.forEach((message) => {
         acc[message] = true;
       });
