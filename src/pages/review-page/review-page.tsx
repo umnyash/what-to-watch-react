@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useAppSelector from '../../hooks/use-app-selector';
 import { filmSelectors } from '../../store/film/film.selectors';
+import { promoFilmSelectors } from '../../store/promo-film/promo-film.selectors';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import { fetchFilm } from '../../store/async-actions';
 import { AppRoute, ROUTE_PARAM_ID } from '../../const';
@@ -13,28 +14,33 @@ import SiteHeader from '../../components/site-header';
 import ReviewForm from '../../components/review-form';
 
 function ReviewPage(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const film = useAppSelector(filmSelectors.film);
-  const isFilmLoading = useAppSelector(filmSelectors.isLoading);
   const filmId = useParams().id as string;
 
+  const film = useAppSelector(filmSelectors.film);
+  const promoFilm = useAppSelector(promoFilmSelectors.film);
+  const targetFilm = [film, promoFilm].find((item) => item?.id === filmId) ?? null;
+  const isFilmLoading = useAppSelector(filmSelectors.isLoading);
+
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
-    if (filmId === film?.id) {
+    if (targetFilm) {
       return;
     }
 
     dispatch(fetchFilm(filmId));
-  }, [filmId, film, dispatch]);
+  }, [filmId, targetFilm, dispatch]);
+
 
   if (isFilmLoading) {
     return <LoadingPage />;
   }
 
-  if (!film) {
+  if (!targetFilm) {
     return <NotFoundPage />;
   }
 
-  const { name, posterImage, backgroundImage } = film;
+  const { name, posterImage, backgroundImage } = targetFilm;
   const filmPageRoute = AppRoute.Film.replace(ROUTE_PARAM_ID, filmId);
 
   const breadcrumbs = [

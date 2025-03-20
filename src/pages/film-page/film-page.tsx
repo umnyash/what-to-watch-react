@@ -29,8 +29,12 @@ function FilmPage(): JSX.Element {
   const isNotFound = useAppSelector(filmSelectors.isNotFound);
 
   useEffect(() => {
+    if (film?.id === filmId) {
+      return;
+    }
+
     dispatch(fetchFilm(filmId));
-  }, [filmId, dispatch]);
+  }, [film, filmId, dispatch]);
 
   if (isFilmLoading) {
     return <LoadingPage />;

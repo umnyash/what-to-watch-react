@@ -9,16 +9,21 @@ import Spinner from '../spinner';
 import ErrorMessage from '../error-message';
 
 function PromoFilm(): JSX.Element {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchPromoFilm());
-  }, [dispatch]);
-
   const promoFilm = useAppSelector(promoFilmSelectors.film);
   const isLoading = useAppSelector(promoFilmSelectors.isLoading);
   const isLoaded = useAppSelector(promoFilmSelectors.isLoaded);
   const isLoadFailed = useAppSelector(promoFilmSelectors.isLoadFailed);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (promoFilm) {
+      return;
+    }
+
+    dispatch(fetchPromoFilm());
+  }, [promoFilm, dispatch]);
+
 
   return (
     <section className="film-card" style={{ backgroundColor: '#180202' }}>

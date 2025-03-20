@@ -26,11 +26,6 @@ function groupFilmsByGenre(films: Films) {
 
 function Catalog(): JSX.Element {
   const [displayedFilmsMaxCount, setDisplayedFilmsMaxCount] = useState(FILMS_PER_LOAD);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchFilms());
-  }, [dispatch]);
 
   const activeGenre = useAppSelector(catalogSelectors.genre);
   const films = useAppSelector(catalogSelectors.films);
@@ -39,6 +34,16 @@ function Catalog(): JSX.Element {
   const isFilmsLoadFailed = useAppSelector(catalogSelectors.isFilmsLoadFailed);
   const filmsByGenre = groupFilmsByGenre(films);
   const filmsByActiveGenre = (activeGenre === ALL_GENRES) ? films : filmsByGenre[activeGenre];
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (isFilmsLoaded) {
+      return;
+    }
+
+    dispatch(fetchFilms());
+  }, [isFilmsLoaded, dispatch]);
 
   const handleShowMoreButtonClick = () => {
     setDisplayedFilmsMaxCount((count) => count + FILMS_PER_LOAD);
