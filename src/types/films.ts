@@ -34,4 +34,4 @@ export type FullFilm = PageFilm & {
 
 export type Films = CardFilm[];
 
-export type FilmsByGenre = Record<string, Films>;
+export type FilmsByGenre = Partial<Record<string, Films>>;

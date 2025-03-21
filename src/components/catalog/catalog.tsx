@@ -8,32 +8,17 @@ import GenresList from '../genres-list';
 import FilmsList from '../films-list';
 import Button from '../button';
 import ErrorMessage from '../error-message';
-import { Films, FilmsByGenre } from '../../types/films';
-import { ALL_GENRES, FILMS_PER_LOAD } from '../../const';
-
-function groupFilmsByGenre(films: Films) {
-  return films.reduce((genreMap: FilmsByGenre, film) => {
-    const genre = film.genre;
-
-    if (!genreMap[genre]) {
-      genreMap[genre] = [];
-    }
-
-    genreMap[genre].push(film);
-    return genreMap;
-  }, {});
-}
+import { FILMS_PER_LOAD } from '../../const';
 
 function Catalog(): JSX.Element {
   const [displayedFilmsMaxCount, setDisplayedFilmsMaxCount] = useState(FILMS_PER_LOAD);
 
   const activeGenre = useAppSelector(catalogSelectors.genre);
-  const films = useAppSelector(catalogSelectors.films);
   const isFilmsLoading = useAppSelector(catalogSelectors.isFilmsLoading);
   const isFilmsLoaded = useAppSelector(catalogSelectors.isFilmsLoaded);
   const isFilmsLoadFailed = useAppSelector(catalogSelectors.isFilmsLoadFailed);
-  const filmsByGenre = groupFilmsByGenre(films);
-  const filmsByActiveGenre = (activeGenre === ALL_GENRES) ? films : filmsByGenre[activeGenre];
+  const filmsByGenre = useAppSelector(catalogSelectors.filmsGroupedByGenre);
+  const filmsByActiveGenre = useAppSelector(catalogSelectors.filmsByActiveGenre);
 
   const dispatch = useAppDispatch();
 

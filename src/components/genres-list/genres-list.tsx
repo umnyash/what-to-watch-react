@@ -14,7 +14,7 @@ type GenresListProps = {
 function getTopGenres(filmsByGenre: FilmsByGenre) {
   return Object
     .entries(filmsByGenre)
-    .sort(([, filmsA], [, filmsB]) => filmsB.length - filmsA.length)
+    .sort(([, filmsA], [, filmsB]) => filmsB!.length - filmsA!.length)
     .slice(0, GENRES_MAX_COUNT)
     .map(([genre]) => genre);
 }
