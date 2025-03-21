@@ -1,22 +1,13 @@
 import { MouseEvent } from 'react';
+import useAppSelector from '../../hooks/use-app-selector';
+import { catalogSelectors } from '../../store/catalog/catalog.selectors';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import { catalogActions } from '../../store/catalog/catalog.slice';
-import { FilmsByGenre } from '../../types/films';
 import clsx from 'clsx';
-import { ALL_GENRES, GENRES_MAX_COUNT } from '../../const';
+import { ALL_GENRES } from '../../const';
 
 type GenresListProps = {
-  activeGenre: string;
-  filmsByGenre: FilmsByGenre;
   onGenreClick: () => void;
-}
-
-function getTopGenres(filmsByGenre: FilmsByGenre) {
-  return Object
-    .entries(filmsByGenre)
-    .sort(([, filmsA], [, filmsB]) => filmsB!.length - filmsA!.length)
-    .slice(0, GENRES_MAX_COUNT)
-    .map(([genre]) => genre);
 }
 
 function getItemClassName(genre: string, activeGenre: string) {
@@ -26,8 +17,9 @@ function getItemClassName(genre: string, activeGenre: string) {
   );
 }
 
-function GenresList({ activeGenre, filmsByGenre, onGenreClick }: GenresListProps): JSX.Element {
-  const genres = getTopGenres(filmsByGenre);
+function GenresList({ onGenreClick }: GenresListProps): JSX.Element {
+  const genres = useAppSelector(catalogSelectors.topGenres);
+  const activeGenre = useAppSelector(catalogSelectors.activeGenre);
 
   const dispatch = useAppDispatch();
 

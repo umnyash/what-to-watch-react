@@ -13,11 +13,9 @@ import { FILMS_PER_LOAD } from '../../const';
 function Catalog(): JSX.Element {
   const [displayedFilmsMaxCount, setDisplayedFilmsMaxCount] = useState(FILMS_PER_LOAD);
 
-  const activeGenre = useAppSelector(catalogSelectors.genre);
   const isFilmsLoading = useAppSelector(catalogSelectors.isFilmsLoading);
   const isFilmsLoaded = useAppSelector(catalogSelectors.isFilmsLoaded);
   const isFilmsLoadFailed = useAppSelector(catalogSelectors.isFilmsLoadFailed);
-  const filmsByGenre = useAppSelector(catalogSelectors.filmsGroupedByGenre);
   const filmsByActiveGenre = useAppSelector(catalogSelectors.filmsByActiveGenre);
 
   const dispatch = useAppDispatch();
@@ -55,7 +53,7 @@ function Catalog(): JSX.Element {
 
       {isFilmsLoaded && (
         <>
-          <GenresList activeGenre={activeGenre} filmsByGenre={filmsByGenre} onGenreClick={handleGenreClick} />
+          <GenresList onGenreClick={handleGenreClick} />
           <FilmsList films={filmsByActiveGenre.slice(0, displayedFilmsMaxCount)} />
 
           {filmsByActiveGenre.length > displayedFilmsMaxCount && (
