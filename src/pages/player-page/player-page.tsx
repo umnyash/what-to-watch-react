@@ -1,6 +1,13 @@
+import { Link, useLocation, Location, useParams } from 'react-router-dom';
+import { LocationState } from '../../types/location';
+import { AppRoute, ROUTE_PARAM_ID } from '../../const';
 import { Helmet } from 'react-helmet-async';
 
 function PlayerPage(): JSX.Element {
+  const location = useLocation() as Location<LocationState>;
+  const filmId = useParams().id as string;
+  const filmPageLink = AppRoute.Film.replace(ROUTE_PARAM_ID, filmId);
+
   return (
     <div className="player">
       <Helmet>
@@ -8,7 +15,13 @@ function PlayerPage(): JSX.Element {
       </Helmet>
       <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <Link
+        className="player__exit"
+        to={location.state?.from || filmPageLink}
+        style={{ textDecoration: 'none' }}
+      >
+        Exit
+      </Link>
 
       <div className="player__controls">
         <div className="player__controls-row">

@@ -3,6 +3,7 @@ import { PromoFilm } from '../../types/films';
 import { Link } from 'react-router-dom';
 import { AppRoute, ROUTE_PARAM_ID } from '../../const';
 import { userSelectors } from '../../store/user/user.selectors';
+import PlayerButton from '../player-button';
 import FavoriteButton from '../favorite-button';
 
 type FilmHeaderProps = {
@@ -13,7 +14,6 @@ function FilmHeader({ film }: FilmHeaderProps): JSX.Element {
   const isAuth = useAppSelector(userSelectors.isAuth);
   const { id, name, genre, released, isFavorite } = film;
   const reviewPageRoute = AppRoute.Review.replace(ROUTE_PARAM_ID, id);
-  const playerPageRoute = AppRoute.Player.replace(ROUTE_PARAM_ID, id);
 
   return (
     <div className="film-card__desc">
@@ -24,12 +24,7 @@ function FilmHeader({ film }: FilmHeaderProps): JSX.Element {
       </p>
 
       <div className="film-card__buttons">
-        <Link className="btn btn--play film-card__button" to={playerPageRoute}>
-          <svg viewBox="0 0 19 19" width="19" height="19">
-            <use xlinkHref="#play-s" />
-          </svg>
-          <span>Play</span>
-        </Link>
+        <PlayerButton filmId={id} />
         <FavoriteButton filmId={id} isActive={isFavorite} />
 
         {isAuth && (
