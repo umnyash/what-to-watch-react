@@ -7,8 +7,13 @@ import { checkUserAuth, fetchFavorites } from './store/async-actions';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-store.dispatch(checkUserAuth());
-store.dispatch(fetchFavorites());
+store.dispatch(checkUserAuth())
+  .unwrap()
+  .then(() => {
+    store.dispatch(fetchFavorites());
+  })
+  .catch(() => { });
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
