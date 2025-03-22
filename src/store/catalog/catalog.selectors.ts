@@ -24,6 +24,16 @@ const filmsByActiveGenre = createSelector(
     : groupedFilms[genre] ?? []
 );
 
+const displayedFilmsByActiveGenre = createSelector(
+  [filmsByActiveGenre, displayedFilmsMaxCount],
+  (filmsByGenre, maxCount) => filmsByGenre.slice(0, maxCount)
+);
+
+const isAllFilmsByActiveGenreDisplayed = createSelector(
+  [filmsByActiveGenre, displayedFilmsMaxCount],
+  (filmsByGenre, maxCount) => maxCount >= filmsByGenre.length
+);
+
 const topGenres = createSelector(
   [filmsGroupedByGenre],
   (groupedFilms) => Object
@@ -42,5 +52,7 @@ export const catalogSelectors = {
   displayedFilmsMaxCount,
   filmsGroupedByGenre,
   filmsByActiveGenre,
+  displayedFilmsByActiveGenre,
+  isAllFilmsByActiveGenreDisplayed,
   topGenres,
 };

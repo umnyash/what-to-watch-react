@@ -11,11 +11,11 @@ import Button from '../button';
 import ErrorMessage from '../error-message';
 
 function Catalog(): JSX.Element {
-  const displayedFilmsMaxCount = useAppSelector(catalogSelectors.displayedFilmsMaxCount);
   const isFilmsLoading = useAppSelector(catalogSelectors.isFilmsLoading);
   const isFilmsLoaded = useAppSelector(catalogSelectors.isFilmsLoaded);
   const isFilmsLoadFailed = useAppSelector(catalogSelectors.isFilmsLoadFailed);
-  const filmsByActiveGenre = useAppSelector(catalogSelectors.filmsByActiveGenre);
+  const displayedFilms = useAppSelector(catalogSelectors.displayedFilmsByActiveGenre);
+  const isAllFilmsDisplayed = useAppSelector(catalogSelectors.isAllFilmsByActiveGenreDisplayed);
 
   const dispatch = useAppDispatch();
 
@@ -53,9 +53,9 @@ function Catalog(): JSX.Element {
       {isFilmsLoaded && (
         <>
           <GenresList />
-          <FilmsList films={filmsByActiveGenre.slice(0, displayedFilmsMaxCount)} />
+          <FilmsList films={displayedFilms} />
 
-          {filmsByActiveGenre.length > displayedFilmsMaxCount && (
+          {!isAllFilmsDisplayed && (
             <div className="catalog__more">
               <Button onClick={handleShowMoreButtonClick}>Show more</Button>
             </div>
