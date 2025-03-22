@@ -13,6 +13,7 @@ import PlayerPage from '../../pages/player-page';
 import NotFoundPage from '../../pages/not-found-page';
 import LoadingPage from '../../pages/loading-page';
 import ExclusiveRoute from '../exclusive-route';
+import ScrollToTop from '../scroll-to-top';
 
 function App(): JSX.Element {
   const isAuthChecked = useAppSelector(userSelectors.isAuthChecked);
@@ -28,6 +29,7 @@ function App(): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route
             path={AppRoute.Root}
