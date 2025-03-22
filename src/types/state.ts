@@ -20,6 +20,7 @@ export type CatalogState = {
   films: Films;
   filmsLoadingStatus: RequestStatus;
   genre: string;
+  displayedFilmsMaxCount: number;
 }
 
 export type FilmState = {

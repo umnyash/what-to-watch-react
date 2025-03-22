@@ -10,6 +10,7 @@ const isFilmsLoading = (state: State) => state[sliceName].filmsLoadingStatus ===
 const isFilmsLoaded = (state: State) => state[sliceName].filmsLoadingStatus === RequestStatus.Success;
 const isFilmsLoadFailed = (state: State) => state[sliceName].filmsLoadingStatus === RequestStatus.Error;
 const activeGenre = (state: State) => state[sliceName].genre;
+const displayedFilmsMaxCount = (state: State) => state[sliceName].displayedFilmsMaxCount;
 
 const filmsGroupedByGenre = createSelector(
   [films],
@@ -38,6 +39,7 @@ export const catalogSelectors = {
   isFilmsLoaded,
   isFilmsLoadFailed,
   activeGenre,
+  displayedFilmsMaxCount,
   filmsGroupedByGenre,
   filmsByActiveGenre,
   topGenres,

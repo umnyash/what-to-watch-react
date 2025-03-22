@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SliceName, RequestStatus, ALL_GENRES } from '../../const';
+import { SliceName, RequestStatus, ALL_GENRES, FILMS_PER_LOAD } from '../../const';
 import { CatalogState } from '../../types/state';
 import { fetchFilms } from '../async-actions';
 
@@ -7,6 +7,7 @@ const initialState: CatalogState = {
   films: [],
   filmsLoadingStatus: RequestStatus.Idle,
   genre: ALL_GENRES,
+  displayedFilmsMaxCount: FILMS_PER_LOAD,
 };
 
 export const catalog = createSlice({
@@ -15,6 +16,12 @@ export const catalog = createSlice({
   reducers: {
     setGenre: (state, action: PayloadAction<string>) => {
       state.genre = action.payload;
+    },
+    increaseDisplayedFilmsMaxCount: (state) => {
+      state.displayedFilmsMaxCount += FILMS_PER_LOAD;
+    },
+    resetDisplayedFilmsMaxCount: (state) => {
+      state.displayedFilmsMaxCount = FILMS_PER_LOAD;
     },
   },
   extraReducers(builder) {

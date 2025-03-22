@@ -6,10 +6,6 @@ import { catalogActions } from '../../store/catalog/catalog.slice';
 import clsx from 'clsx';
 import { ALL_GENRES } from '../../const';
 
-type GenresListProps = {
-  onGenreClick: () => void;
-}
-
 function getItemClassName(genre: string, activeGenre: string) {
   return clsx(
     'catalog__genres-item',
@@ -17,7 +13,7 @@ function getItemClassName(genre: string, activeGenre: string) {
   );
 }
 
-function GenresList({ onGenreClick }: GenresListProps): JSX.Element {
+function GenresList(): JSX.Element {
   const genres = useAppSelector(catalogSelectors.topGenres);
   const activeGenre = useAppSelector(catalogSelectors.activeGenre);
 
@@ -27,7 +23,7 @@ function GenresList({ onGenreClick }: GenresListProps): JSX.Element {
     return (evt: MouseEvent<HTMLAnchorElement>) => {
       evt.preventDefault();
       dispatch(catalogActions.setGenre(genre));
-      onGenreClick();
+      dispatch(catalogActions.resetDisplayedFilmsMaxCount());
     };
   }
 
