@@ -2,14 +2,19 @@ import { useState, useRef, useEffect } from 'react';
 import { VideoProps } from './types';
 
 function Video(props: VideoProps): JSX.Element {
-  const { isPlaying, ...restProps } = props;
-
+  const { isPlaying, startTime, onPlaybackError, ...restProps } = props;
   const [isLoaded, setIsLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  const handleDataLoaded = () => {
-    setIsLoaded(true);
-  };
+  useEffect(() => {
+    const videoElement = videoRef.current;
+
+    if (!isLoaded || !videoElement) {
+      return;
+    }
+
+    videoElement.currentTime = startTime || 0;
+  }, [isLoaded, startTime]);
 
   useEffect(() => {
     const videoElement = videoRef.current;
@@ -19,19 +24,22 @@ function Video(props: VideoProps): JSX.Element {
     }
 
     if (isPlaying) {
-      videoElement.play();
+      videoElement.play().catch(() => {
+        onPlaybackError?.();
+      });
+
       return;
     }
 
     videoElement.pause();
-  }, [isPlaying, isLoaded]);
+  }, [isLoaded, isPlaying, onPlaybackError]);
 
   return (
     <video
       className="player__video"
       {...restProps}
       ref={videoRef}
-      onLoadedData={handleDataLoaded}
+      onLoadedData={() => setIsLoaded(true)}
     />
   );
 }

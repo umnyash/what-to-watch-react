@@ -2,7 +2,7 @@ import { ComponentType } from 'react';
 import Video, { VideoProps } from '../../components/video';
 
 type HOCProps = {
-  renderVideo: (options: VideoProps) => void;
+  renderVideo: (options: VideoProps) => JSX.Element;
 }
 
 function withVideo<T>(Component: ComponentType<T>)
