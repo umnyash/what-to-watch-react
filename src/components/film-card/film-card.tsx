@@ -4,6 +4,8 @@ import { CardFilm } from '../../types/films';
 import { Link } from 'react-router-dom';
 import { VideoProps } from '../video';
 
+import style from './film-card.module.css';
+
 const DELAY_BEFORE_PLAY = 1000;
 
 type FilmCardProps = {
@@ -51,8 +53,8 @@ function FilmCard({ film, renderVideo }: FilmCardProps): JSX.Element {
           <img src={previewImage} width="280" height="175" alt={name} />
         )}
       </div>
-      <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={link}>{name}</Link>
+      <h3 className={`small-film-card__title ${style.heading}`}>
+        <Link className={`small-film-card__link ${style.link}`} to={link}>{name}</Link>
       </h3>
     </article>
   );
