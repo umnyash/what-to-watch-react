@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import Logo from '../logo';
 
-function SiteFooter(): JSX.Element {
+function SiteFooterComponent(): JSX.Element {
   return (
     <footer className="page-footer">
       <Logo isLight />
@@ -11,5 +12,7 @@ function SiteFooter(): JSX.Element {
     </footer>
   );
 }
+
+const SiteFooter = memo(SiteFooterComponent);
 
 export default SiteFooter;

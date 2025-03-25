@@ -3,16 +3,16 @@ import Logo from '../logo';
 import Breadcrumbs, { BreadcrumbLinks } from '../breadcrumbs';
 import UserNavigation from '../user-navigation';
 
-import React from 'react';
+import { ReactNode, memo } from 'react';
 
 type SiteHeaderProps = {
-  heading?: React.ReactNode;
+  heading?: ReactNode;
   breadcrumbs?: BreadcrumbLinks;
   withUserNavigation?: boolean;
   className?: string;
 }
 
-function SiteHeader(props: SiteHeaderProps): JSX.Element {
+function SiteHeaderComponent(props: SiteHeaderProps): JSX.Element {
   const { heading, breadcrumbs, withUserNavigation, className } = props;
   const headerClassName = clsx('page-header', className);
 
@@ -28,5 +28,7 @@ function SiteHeader(props: SiteHeaderProps): JSX.Element {
     </header>
   );
 }
+
+const SiteHeader = memo(SiteHeaderComponent);
 
 export default SiteHeader;
