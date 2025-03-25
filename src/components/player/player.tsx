@@ -1,11 +1,13 @@
-import { useState, useRef, SyntheticEvent, MouseEvent } from 'react';
+import { useState, useRef, useEffect, SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
+import useAppSelector from '../../hooks/use-app-selector';
+import { playerSelectors } from '../../store/player/player.selectors';
+import useAppDispatch from '../../hooks/use-app-dispatch';
+import { playerActions } from '../../store/player/player.slice';
 import { PromoFilm, PageFilm } from '../../types/films';
 import { VideoProps } from '../video/types';
-import { formatPlaybackDuration } from '../../util';
 import style from './player.module.css';
-
-const SMALL_TIME_SHIFT = 0.001;
+import ProgressBar from '../progress-bar';
 
 type PlayerProps = {
   film: PromoFilm | PageFilm;
@@ -16,14 +18,14 @@ type PlayerProps = {
 function Player({ film, previousPage, renderVideo }: PlayerProps) {
   const { name, videoLink } = film;
   const playerElementRef = useRef<HTMLDivElement | null>(null);
-  const progressBarElementRef = useRef<HTMLProgressElement | null>(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [userSelectedTime, setUserSelectedTime] = useState(0);
+  const userSelectedTime = useAppSelector(playerSelectors.userSelectedTime);
 
-  const remainingTime = formatPlaybackDuration(duration - currentTime);
-  const playbackProgress = (100 / duration * currentTime) || 0;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(playerActions.resetPlayback());
+  }, [dispatch]);
 
   const handlePlayButtonClick = () => {
     setIsVideoPlaying((prevState) => !prevState);
@@ -37,25 +39,14 @@ function Player({ film, previousPage, renderVideo }: PlayerProps) {
     }
   };
 
-  const handleProgressBarClick = (evt: MouseEvent<HTMLProgressElement>) => {
-    if (!progressBarElementRef.current) {
-      return;
-    }
-
-    const { width, left } = progressBarElementRef.current.getBoundingClientRect();
-    const offsetX = evt.clientX - left;
-    const time = offsetX / width * duration;
-    setUserSelectedTime((prevTime) => prevTime === time ? time + SMALL_TIME_SHIFT : time);
-  };
-
   const handleVideoLoadedMetadata = (evt: SyntheticEvent<HTMLVideoElement>) => {
     const videoElement = evt.target as HTMLVideoElement;
-    setDuration(videoElement.duration);
+    dispatch(playerActions.setDuration(videoElement.duration));
   };
 
   const handleVideoTimeUpdate = (evt: SyntheticEvent<HTMLVideoElement>) => {
     const videoElement = evt.target as HTMLVideoElement;
-    setCurrentTime(videoElement.currentTime);
+    dispatch(playerActions.setCurrentTime(videoElement.currentTime));
   };
 
   const handlePlaybackError = () => {
@@ -87,19 +78,7 @@ function Player({ film, previousPage, renderVideo }: PlayerProps) {
       </Link>
 
       <div className="player__controls">
-        <div className="player__controls-row">
-          <div className="player__time">
-            <progress
-              className="player__progress"
-              ref={progressBarElementRef}
-              value={playbackProgress}
-              max="100"
-              onClick={handleProgressBarClick}
-            />
-            <div className="player__toggler" style={{ left: `${playbackProgress}%` }}>Toggler</div>
-          </div>
-          <div className="player__time-value">{remainingTime}</div>
-        </div>
+        <ProgressBar />
 
         <div className="player__controls-row">
           <button

@@ -50,3 +50,9 @@ export type ReviewsState = {
   reviews: Reviews;
   reviewSubmittingStatus: RequestStatus;
 }
+
+export type PlayerState = {
+  duration: number;
+  currentTime: number;
+  userSelectedTime: number;
+}
