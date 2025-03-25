@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { PromoFilm, PageFilm } from '../../types/films';
 import { VideoProps } from '../video/types';
 import { formatPlaybackDuration } from '../../util';
+import style from './player.module.css';
 
 const SMALL_TIME_SHIFT = 0.001;
 
@@ -66,7 +67,7 @@ function Player({ film, previousPage, renderVideo }: PlayerProps) {
   };
 
   return (
-    <div className="player" ref={playerElementRef}>
+    <div className={`player ${style.player}`} ref={playerElementRef}>
       {renderVideo({
         src: videoLink,
         startTime: userSelectedTime,
