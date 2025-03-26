@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, generatePath } from 'react-router-dom';
 import useAppSelector from '../../hooks/use-app-selector';
 import { filmSelectors } from '../../store/film/film.selectors';
 import { promoFilmSelectors } from '../../store/promo-film/promo-film.selectors';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import { fetchFilm } from '../../store/async-actions';
-import { AppRoute, ROUTE_PARAM_ID } from '../../const';
+import { AppRoute } from '../../const';
 
 import LoadingPage from '../loading-page';
 import NotFoundPage from '../not-found-page';
@@ -53,7 +53,7 @@ function ReviewPage(): JSX.Element {
   }
 
   const { name, posterImage, backgroundImage } = targetFilm;
-  const filmPageRoute = AppRoute.Film.replace(ROUTE_PARAM_ID, filmId);
+  const filmPageRoute = generatePath(AppRoute.Film, { id: filmId });
 
   const breadcrumbs = [
     { text: name, href: filmPageRoute },

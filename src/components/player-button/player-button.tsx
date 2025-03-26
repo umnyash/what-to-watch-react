@@ -1,6 +1,6 @@
-import { Link, useLocation, Location } from 'react-router-dom';
+import { Link, useLocation, Location, generatePath } from 'react-router-dom';
 import { LocationState } from '../../types/location';
-import { AppRoute, ROUTE_PARAM_ID } from '../../const';
+import { AppRoute } from '../../const';
 
 type PlayerButtonProps = {
   filmId: string;
@@ -8,7 +8,7 @@ type PlayerButtonProps = {
 
 function PlayerButton({ filmId }: PlayerButtonProps) {
   const location = useLocation() as Location<LocationState>;
-  const playerPageRoute = AppRoute.Player.replace(ROUTE_PARAM_ID, filmId);
+  const playerPageRoute = generatePath(AppRoute.Player, { id: filmId });
 
   return (
     <Link className="btn btn--play film-card__button" state={{ from: location.pathname }} to={playerPageRoute}>

@@ -1,7 +1,7 @@
 import { FilmSections, FILM_TABER_ACTIVE_TAB_SEARCH_PARAM } from '../../pages/film-page/const';
-import { AppRoute, ROUTE_PARAM_ID } from '../../const';
+import { AppRoute } from '../../const';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { generatePath, useNavigate } from 'react-router-dom';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
 import { reviewsSelectors } from '../../store/reviews/reviews.selector';
@@ -38,8 +38,9 @@ function ReviewForm({ filmId }: ReviewFormProps): JSX.Element {
     dispatch(submitReview({ filmId, content: formData }))
       .unwrap()
       .then(() => {
+        const filmPageRoute = generatePath(AppRoute.Film, { id: filmId });
         const searchParamsForReviewsTab = `?${FILM_TABER_ACTIVE_TAB_SEARCH_PARAM}=${FilmSections.Reviews}`;
-        navigate(`${AppRoute.Film.replace(ROUTE_PARAM_ID, filmId)}${searchParamsForReviewsTab}`);
+        navigate(`${filmPageRoute}${searchParamsForReviewsTab}`);
       })
       .catch(() => { });
   };

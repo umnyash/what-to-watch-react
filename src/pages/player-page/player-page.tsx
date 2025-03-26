@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { useLocation, Location, useParams } from 'react-router-dom';
+import { useLocation, Location, useParams, generatePath } from 'react-router-dom';
 import { LocationState } from '../../types/location';
-import { AppRoute, ROUTE_PARAM_ID } from '../../const';
+import { AppRoute } from '../../const';
 import { Helmet } from 'react-helmet-async';
 import useAppSelector from '../../hooks/use-app-selector';
 import { filmSelectors } from '../../store/film/film.selectors';
@@ -20,7 +20,7 @@ const PlayerWrapped = withVideo(Player);
 function PlayerPage(): JSX.Element {
   const location = useLocation() as Location<LocationState>;
   const filmId = useParams().id as string;
-  const filmPageLink = AppRoute.Film.replace(ROUTE_PARAM_ID, filmId);
+  const filmPageLink = generatePath(AppRoute.Film, { id: filmId });
 
   const film = useAppSelector(filmSelectors.film);
   const promoFilm = useAppSelector(promoFilmSelectors.film);

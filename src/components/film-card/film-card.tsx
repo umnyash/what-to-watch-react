@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { AppRoute, ROUTE_PARAM_ID } from '../../const';
+import { AppRoute } from '../../const';
 import { CardFilm } from '../../types/films';
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 import { VideoProps } from '../video';
 
 import style from './film-card.module.css';
@@ -18,7 +18,7 @@ function FilmCard({ film, renderVideo }: FilmCardProps): JSX.Element {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const { id, name, previewImage } = film;
-  const link = AppRoute.Film.replace(ROUTE_PARAM_ID, id);
+  const link = generatePath(AppRoute.Film, { id });
 
   useEffect(() => {
     if (!isMouseOver) {
