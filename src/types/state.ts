@@ -2,7 +2,7 @@ import { AuthorizationStatus, RequestStatus } from '../const';
 import { User } from './user';
 import { Films, PromoFilm, PageFilm } from './films';
 import { Reviews } from './reviews';
-import { ErrorResponse } from './api';
+import { ErrorResponse } from '../services/api';
 import { store } from '../store';
 
 export type State = ReturnType<typeof store.getState>;

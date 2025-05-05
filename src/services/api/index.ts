@@ -1,3 +1,4 @@
 export { createAPI } from './config';
-export type { ApiError } from './types';
+export { FavoriteStatus } from './const';
+export type { ErrorResponseData, ErrorResponse, ApiError } from './types';
 export { isApiError } from './utils';

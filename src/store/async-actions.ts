@@ -1,5 +1,6 @@
 import createAppAsyncThunk from '../hooks/create-app-async-thunk';
-import { APIRoute, FavoriteStatus, SliceName } from '../const';
+import { APIRoute, SliceName } from '../const';
+import { FavoriteStatus } from '../services/api';
 import { AuthUser, User, AuthData } from '../types/user';
 import { Films, FullFilm, PageFilm, PromoFilm } from '../types/films';
 import { Reviews, Review, ReviewContent } from '../types/reviews';

@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import { BACKEND_URL, REQUEST_TIMEOUT } from './const';
-import { ErrorResponseData } from '../../types/api';
+import { ErrorResponseData } from './types';
 import { getToken } from '../token';
 import { shouldDisplayError } from './utils';
 

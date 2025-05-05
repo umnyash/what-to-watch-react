@@ -1,4 +1,5 @@
-import { AppRoute, FavoriteStatus } from '../../const';
+import { AppRoute } from '../../const';
+import { FavoriteStatus } from '../../services/api';
 import useAppSelector from '../../hooks/use-app-selector';
 import { userSelectors } from '../../store/user/user.selectors';
 import { favoritesSelectors } from '../../store/favorites/favorites.selectors';

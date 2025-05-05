@@ -1,6 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { ApiError } from '../../services/api';
-import { ErrorResponse } from '../../types/api';
+import { ApiError, ErrorResponse } from '../../services/api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 type ThunkAPI = {
