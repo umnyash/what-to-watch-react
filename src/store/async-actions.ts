@@ -1,3 +1,4 @@
+import { generatePath } from 'react-router-dom';
 import createAppAsyncThunk from '../hooks/create-app-async-thunk';
 import { APIRoute, SliceName } from '../const';
 import { FavoriteStatus } from '../services/api';
@@ -49,7 +50,7 @@ export const fetchFilms = createAppAsyncThunk<Films, undefined>(
 export const fetchSimilarFilms = createAppAsyncThunk<Films, string>(
   `${SliceName.SimilarFilms}/fetch`,
   async (filmId, { extra: { api } }) => {
-    const apiRoute = `${APIRoute.Films}/${filmId}/similar`;
+    const apiRoute = generatePath(APIRoute.SimilarFilms, { id: filmId });
     const { data } = await api.get<Films>(apiRoute);
     return data;
   },
@@ -58,7 +59,7 @@ export const fetchSimilarFilms = createAppAsyncThunk<Films, string>(
 export const fetchFilm = createAppAsyncThunk<PageFilm, string>(
   `${SliceName.Film}/fetch`,
   async (filmId, { extra: { api, isApiError }, rejectWithValue }) => {
-    const apiRoute = `${APIRoute.Films}/${filmId}`;
+    const apiRoute = generatePath(APIRoute.Film, { id: filmId });
 
     try {
       const { data } = await api.get<PageFilm>(apiRoute);
@@ -93,7 +94,11 @@ export const changeFavoriteStatus = createAppAsyncThunk<
 >(
   `${SliceName.Favorites}/changeStatus`,
   async ({ filmId, status }, { extra: { api } }) => {
-    const apiRoute = `${APIRoute.Favorites}/${filmId}/${status}`;
+    const apiRoute = generatePath(APIRoute.FavoriteStatus, {
+      id: filmId,
+      flag: String(status)
+    });
+
     const { data } = await api.post<FullFilm>(apiRoute);
     return data;
   }
@@ -102,7 +107,7 @@ export const changeFavoriteStatus = createAppAsyncThunk<
 export const fetchReviews = createAppAsyncThunk<Reviews, string>(
   `${SliceName.Reviews}/fetch`,
   async (filmId, { extra: { api } }) => {
-    const apiRoute = `${APIRoute.Reviews}/${filmId}`;
+    const apiRoute = generatePath(APIRoute.Reviews, { id: filmId });
     const { data } = await api.get<Reviews>(apiRoute);
     return data;
   },
@@ -117,7 +122,7 @@ export const submitReview = createAppAsyncThunk<
 >(
   `${SliceName.Reviews}/submit`,
   async ({ filmId, content }, { extra: { api } }) => {
-    const apiRoute = `${APIRoute.Reviews}/${filmId}`;
+    const apiRoute = generatePath(APIRoute.Reviews, { id: filmId });
     const { data } = await api.post<Review>(apiRoute, content);
     return data;
   },

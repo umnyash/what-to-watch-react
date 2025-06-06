@@ -6,6 +6,7 @@ export const ALL_GENRES = 'all';
 export const GENRES_MAX_COUNT = 9;
 
 const ROUTE_PARAM_ID = ':id';
+const ROUTE_PARAM_FLAG = ':flag';
 export const ERROR_PLACEHOLDER_MESSAGE = 'Something went wrong...';
 
 export enum AppRoute {
@@ -15,6 +16,18 @@ export enum AppRoute {
   Film = `/films/${ROUTE_PARAM_ID}`,
   Review = `/films/${ROUTE_PARAM_ID}/review`,
   Player = `/player/${ROUTE_PARAM_ID}`,
+}
+
+export enum APIRoute {
+  Login = '/login',
+  Logout = '/logout',
+  Films = '/films',
+  SimilarFilms = `/films/${ROUTE_PARAM_ID}/similar`,
+  Film = `/films/${ROUTE_PARAM_ID}`,
+  Promo = '/promo',
+  Favorites = '/favorite',
+  FavoriteStatus = `/favorite/${ROUTE_PARAM_ID}/${ROUTE_PARAM_FLAG}`,
+  Reviews = `/comments/${ROUTE_PARAM_ID}`,
 }
 
 export enum RequestStatus {
@@ -44,15 +57,6 @@ export const RatingTreshold = {
   [RatingLevel.Good]: 5,
   [RatingLevel.Normal]: 3,
 } as const;
-
-export enum APIRoute {
-  Login = '/login',
-  Logout = '/logout',
-  Films = '/films',
-  Promo = '/promo',
-  Favorites = '/favorite',
-  Reviews = '/comments',
-}
 
 export enum SliceName {
   User = 'USER',
