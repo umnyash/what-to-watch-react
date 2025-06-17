@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from './root-reducer';
 import { createAPI, isApiError } from '../services/api';
+import { fetchFavoritesOnAuth } from './middlewares/fetch-favorites-on-auth';
 
 const api = createAPI();
 
@@ -11,5 +12,5 @@ export const store = configureStore({
       thunk: {
         extraArgument: { api, isApiError }
       },
-    }),
+    }).concat(fetchFavoritesOnAuth.middleware),
 });
