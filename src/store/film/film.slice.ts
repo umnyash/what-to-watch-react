@@ -9,7 +9,7 @@ const initialState: FilmState = {
   error: null,
 };
 
-export const film = createSlice({
+export const filmSlice = createSlice({
   name: SliceName.Film,
   initialState,
   reducers: {},

@@ -8,7 +8,7 @@ const initialState: PlayerState = {
   userSelectedTime: 0,
 };
 
-export const player = createSlice({
+export const playerSlice = createSlice({
   name: SliceName.Player,
   initialState,
   reducers: {
@@ -28,4 +28,4 @@ export const player = createSlice({
   },
 });
 
-export const playerActions = player.actions;
+export const playerActions = playerSlice.actions;

@@ -1,20 +1,20 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { user } from './user/user.slice';
-import { catalog } from './catalog/catalog.slice';
-import { film } from './film/film.slice';
-import { promoFilm } from './promo-film/promo-film.slice';
-import { similarFilms } from './similar-films/similar-films.slice';
-import { favorites } from './favorites/favorites.slice';
-import { reviews } from './reviews/reviews.slice';
-import { player } from './player/player.slice';
+import { userSlice } from './user/user.slice';
+import { catalogSlice } from './catalog/catalog.slice';
+import { filmSlice } from './film/film.slice';
+import { promoFilmSlice } from './promo-film/promo-film.slice';
+import { similarFilmsSlice } from './similar-films/similar-films.slice';
+import { favoritesSlice } from './favorites/favorites.slice';
+import { reviewsSlice } from './reviews/reviews.slice';
+import { playerSlice } from './player/player.slice';
 
 export const rootReducer = combineReducers({
-  [user.name]: user.reducer,
-  [catalog.name]: catalog.reducer,
-  [film.name]: film.reducer,
-  [promoFilm.name]: promoFilm.reducer,
-  [similarFilms.name]: similarFilms.reducer,
-  [favorites.name]: favorites.reducer,
-  [reviews.name]: reviews.reducer,
-  [player.name]: player.reducer,
+  [userSlice.name]: userSlice.reducer,
+  [catalogSlice.name]: catalogSlice.reducer,
+  [filmSlice.name]: filmSlice.reducer,
+  [promoFilmSlice.name]: promoFilmSlice.reducer,
+  [similarFilmsSlice.name]: similarFilmsSlice.reducer,
+  [favoritesSlice.name]: favoritesSlice.reducer,
+  [reviewsSlice.name]: reviewsSlice.reducer,
+  [playerSlice.name]: playerSlice.reducer,
 });

@@ -9,7 +9,7 @@ const initialState: ReviewsState = {
   reviewSubmittingStatus: RequestStatus.Idle,
 };
 
-export const reviews = createSlice({
+export const reviewsSlice = createSlice({
   name: SliceName.Reviews,
   initialState,
   reducers: {},

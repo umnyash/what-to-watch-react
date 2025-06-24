@@ -8,7 +8,7 @@ const initialState: PromoFilmState = {
   loadingStatus: RequestStatus.Idle,
 };
 
-export const promoFilm = createSlice({
+export const promoFilmSlice = createSlice({
   name: SliceName.PromoFilm,
   initialState,
   reducers: {},

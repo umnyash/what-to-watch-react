@@ -10,7 +10,7 @@ const initialState: CatalogState = {
   displayedFilmsMaxCount: FILMS_PER_LOAD,
 };
 
-export const catalog = createSlice({
+export const catalogSlice = createSlice({
   name: SliceName.Catalog,
   initialState,
   reducers: {
@@ -39,4 +39,4 @@ export const catalog = createSlice({
   },
 });
 
-export const catalogActions = catalog.actions;
+export const catalogActions = catalogSlice.actions;

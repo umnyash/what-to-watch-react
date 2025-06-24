@@ -19,7 +19,7 @@ const updateFavorites = (state: FavoritesState, film: FullFilm) => {
   }
 };
 
-export const favorites = createSlice({
+export const favoritesSlice = createSlice({
   name: SliceName.Favorites,
   initialState,
   reducers: {},

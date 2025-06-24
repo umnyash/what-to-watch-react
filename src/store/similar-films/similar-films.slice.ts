@@ -8,7 +8,7 @@ const initialState: SimilarFilmsState = {
   films: [],
 };
 
-export const similarFilms = createSlice({
+export const similarFilmsSlice = createSlice({
   name: SliceName.SimilarFilms,
   initialState,
   reducers: {},

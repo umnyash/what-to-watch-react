@@ -10,7 +10,7 @@ const initialState: UserState = {
   loginError: null,
 };
 
-export const user = createSlice({
+export const userSlice = createSlice({
   name: SliceName.User,
   initialState,
   reducers: {
@@ -49,4 +49,4 @@ export const user = createSlice({
   },
 });
 
-export const userActions = user.actions;
+export const userActions = userSlice.actions;
