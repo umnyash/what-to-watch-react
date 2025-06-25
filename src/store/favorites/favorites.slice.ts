@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { SliceName, RequestStatus } from '../../const';
 import { FavoritesState } from '../../types/state';
 import { FullFilm } from '../../types/films';
-import { fetchFavorites, changeFavoriteStatus } from '../async-actions';
+import { fetchFavorites, changeFavoriteStatus, logoutUser } from '../async-actions';
 import { removeArrayItem } from '../../util';
 
 const initialState: FavoritesState = {
@@ -45,6 +45,11 @@ export const favoritesSlice = createSlice({
       })
       .addCase(changeFavoriteStatus.rejected, (state, action) => {
         removeArrayItem(state.changingStatusFilmsIds, action.meta.arg.filmId);
+      })
+
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.films = [];
+        state.loadingStatus = RequestStatus.Idle;
       });
   },
 });

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { SliceName, RequestStatus, ERROR_PLACEHOLDER_MESSAGE } from '../../const';
 import { FilmState } from '../../types/state';
-import { fetchFilm, fetchFavorites, changeFavoriteStatus } from '../async-actions';
+import { fetchFilm, fetchFavorites, changeFavoriteStatus, logoutUser } from '../async-actions';
 
 const initialState: FilmState = {
   film: null,
@@ -39,6 +39,12 @@ export const filmSlice = createSlice({
       .addCase(changeFavoriteStatus.fulfilled, (state, action) => {
         if (state.film?.id === action.payload.id) {
           state.film.isFavorite = action.payload.isFavorite;
+        }
+      })
+
+      .addCase(logoutUser.fulfilled, (state) => {
+        if (state.film) {
+          state.film.isFavorite = false;
         }
       });
   },
