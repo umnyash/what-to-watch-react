@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { SliceName, RequestStatus } from '../../const';
 import { PromoFilmState } from '../../types/state';
-import { fetchPromoFilm, changeFavoriteStatus } from '../async-actions';
+import { fetchPromoFilm, fetchFavorites, changeFavoriteStatus } from '../async-actions';
 
 const initialState: PromoFilmState = {
   film: null,
@@ -23,6 +23,13 @@ export const promoFilmSlice = createSlice({
       })
       .addCase(fetchPromoFilm.rejected, (state) => {
         state.loadingStatus = RequestStatus.Error;
+      })
+
+      .addCase(fetchFavorites.fulfilled, (state, action) => {
+        if (state.film) {
+          const filmId = state.film.id;
+          state.film.isFavorite = action.payload.some((film) => film.id === filmId);
+        }
       })
 
       .addCase(changeFavoriteStatus.fulfilled, (state, action) => {
