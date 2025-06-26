@@ -16,6 +16,7 @@ export const filmSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchFilm.pending, (state) => {
+        state.film = null;
         state.loadingStatus = RequestStatus.Pending;
         state.error = null;
       })
@@ -24,7 +25,6 @@ export const filmSlice = createSlice({
         state.loadingStatus = RequestStatus.Success;
       })
       .addCase(fetchFilm.rejected, (state, action) => {
-        state.film = null;
         state.loadingStatus = RequestStatus.Error;
         state.error = action.payload ?? ERROR_PLACEHOLDER_MESSAGE;
       })
