@@ -41,7 +41,7 @@ function ProgressBar() {
         />
         <div className="player__toggler" style={{ left: `${playbackProgress}%` }}>Toggler</div>
       </div>
-      <div className="player__time-value">{remainingTime}</div>
+      <div className="player__time-value">-{remainingTime}</div>
     </div>
   );
 }

@@ -7,8 +7,8 @@ export const formatPlaybackDuration = (seconds: number) => {
   const remainingMinutes = Math.floor((seconds % secondsPerHour) / SECONDS_PER_MINUTE);
   const remainingSeconds = Math.floor(seconds % SECONDS_PER_MINUTE);
 
-  const hoursString = hours ? `${hours}:` : '';
-  const minutesString = `${remainingMinutes.toString().padStart(hours && 2, '0')}:`;
+  const hoursString = hours ? `${hours.toString().padStart(2, '0')}:` : '';
+  const minutesString = `${remainingMinutes.toString().padStart(2, '0')}:`;
   const secondsString = remainingSeconds.toString().padStart(2, '0');
 
   return `${hoursString}${minutesString}${secondsString}`;
