@@ -1,5 +1,6 @@
 import { State } from '../../types/state';
-import { SliceName, AuthorizationStatus, RequestStatus, ERROR_PLACEHOLDER_MESSAGE, loginResponseErrorDetailMessages } from '../../const';
+import { SliceName, AuthorizationStatus, RequestStatus, ERROR_PLACEHOLDER_MESSAGE } from '../../const';
+import { loginResponseErrorDetailMessages } from '../../services/api/const';
 import { validationErrorMessages } from '../../validation';
 
 const sliceName = SliceName.User;
