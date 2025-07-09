@@ -2,10 +2,7 @@ export const groupBy = <K extends PropertyKey, T>(items: Iterable<T>, getKey: (i
   Array.from(items).reduce(
     (result: Partial<Record<K, T[]>>, item) => {
       const key = getKey(item);
-
-      if (!result[key]) {
-        result[key] = [];
-      }
+      result[key] ??= [];
 
       result[key].push(item);
 
