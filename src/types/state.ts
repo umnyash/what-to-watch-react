@@ -19,7 +19,9 @@ export type UserState = {
 export type CatalogState = {
   films: Films;
   filmsLoadingStatus: RequestStatus;
-  genre: string;
+  filter: {
+    genre: string | null;
+  };
   displayedFilmsMaxCount: number;
 }
 

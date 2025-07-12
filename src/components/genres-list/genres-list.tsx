@@ -4,12 +4,14 @@ import { catalogSelectors } from '../../store/catalog/catalog.selectors';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import { catalogActions } from '../../store/catalog/catalog.slice';
 import clsx from 'clsx';
-import { ALL_GENRES } from '../../const';
+import { CatalogState } from '../../types/state';
 
-function getItemClassName(genre: string, activeGenre: string) {
+type GenreFilter = CatalogState['filter']['genre'];
+
+function getItemClassName(genre: GenreFilter, activeGenre: GenreFilter) {
   return clsx(
     'catalog__genres-item',
-    activeGenre === genre && 'catalog__genres-item--active'
+    (activeGenre ? activeGenre === genre : !genre) && 'catalog__genres-item--active'
   );
 }
 
@@ -19,21 +21,21 @@ function GenresList(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  function getGenreClickHandler(genre: string) {
+  function getGenreClickHandler(genre: GenreFilter) {
     return (evt: MouseEvent<HTMLAnchorElement>) => {
       evt.preventDefault();
-      dispatch(catalogActions.setGenre(genre));
+      dispatch(catalogActions.setGenreFilter(genre));
       dispatch(catalogActions.resetDisplayedFilmsMaxCount());
     };
   }
 
   return (
     <ul className="catalog__genres-list">
-      <li className={getItemClassName(ALL_GENRES, activeGenre)}>
+      <li className={getItemClassName(null, activeGenre)}>
         <a
           className="catalog__genres-link"
           href="#"
-          onClick={getGenreClickHandler(ALL_GENRES)}
+          onClick={getGenreClickHandler(null)}
         >
           All genres
         </a>
