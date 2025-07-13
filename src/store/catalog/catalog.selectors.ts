@@ -44,14 +44,10 @@ const topGenres = createSelector(
 );
 
 export const catalogSelectors = {
-  films,
   isFilmsLoading,
   isFilmsLoaded,
   isFilmsLoadFailed,
   activeGenre,
-  displayedFilmsMaxCount,
-  filmsGroupedByGenre,
-  filmsByActiveGenre,
   displayedFilmsByActiveGenre,
   isAllFilmsByActiveGenreDisplayed,
   topGenres,

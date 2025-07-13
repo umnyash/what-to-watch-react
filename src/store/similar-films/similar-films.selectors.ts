@@ -15,6 +15,5 @@ const someRandomFilms = createSelector(
 
 export const similarFilmsSelectors = {
   filmId,
-  films,
   someRandomFilms,
 };
