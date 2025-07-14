@@ -11,7 +11,7 @@ function UserNavigation(): JSX.Element {
   const isAuth = useAppSelector(userSelectors.isAuth);
   const isNoAuth = useAppSelector(userSelectors.isNoAuth);
   const user = useAppSelector(userSelectors.user);
-
+  const ContainerTag = (isAuth && user) ? 'ul' : 'div';
   const location = useLocation() as Location<LocationState>;
 
   const dispatch = useAppDispatch();
@@ -22,7 +22,7 @@ function UserNavigation(): JSX.Element {
   };
 
   return (
-    <ul className="user-block">
+    <ContainerTag className="user-block">
       {isAuth && user && (
         <>
           <li className="user-block__item">
@@ -45,7 +45,7 @@ function UserNavigation(): JSX.Element {
           Sign in
         </Link>
       )}
-    </ul>
+    </ContainerTag>
   );
 }
 
