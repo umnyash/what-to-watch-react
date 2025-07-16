@@ -17,7 +17,7 @@ function getItemClassName(genre: GenreFilter, activeGenre: GenreFilter) {
 
 function GenresList(): JSX.Element {
   const genres = useAppSelector(catalogSelectors.topGenres);
-  const activeGenre = useAppSelector(catalogSelectors.activeGenre);
+  const activeGenre = useAppSelector(catalogSelectors.genreFilter);
 
   const dispatch = useAppDispatch();
 

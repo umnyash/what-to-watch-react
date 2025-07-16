@@ -9,7 +9,7 @@ const films = (state: State) => state[sliceName].films;
 const isFilmsLoading = (state: State) => state[sliceName].filmsLoadingStatus === RequestStatus.Pending;
 const isFilmsLoaded = (state: State) => state[sliceName].filmsLoadingStatus === RequestStatus.Success;
 const isFilmsLoadFailed = (state: State) => state[sliceName].filmsLoadingStatus === RequestStatus.Error;
-const activeGenre = (state: State) => state[sliceName].filter.genre;
+const genreFilter = (state: State) => state[sliceName].filter.genre;
 const displayedFilmsMaxCount = (state: State) => state[sliceName].displayedFilmsMaxCount;
 
 const filmsGroupedByGenre = createSelector(
@@ -17,21 +17,21 @@ const filmsGroupedByGenre = createSelector(
   (allFilms) => groupBy(allFilms, (film) => film.genre)
 );
 
-const filmsByActiveGenre = createSelector(
-  [films, filmsGroupedByGenre, activeGenre],
+const filmsFilteredByGenre = createSelector(
+  [films, filmsGroupedByGenre, genreFilter],
   (allFilms, groupedFilms, genre) => genre
     ? groupedFilms[genre] ?? []
     : allFilms
 );
 
-const displayedFilmsByActiveGenre = createSelector(
-  [filmsByActiveGenre, displayedFilmsMaxCount],
-  (filmsByGenre, maxCount) => filmsByGenre.slice(0, maxCount)
+const displayedFilms = createSelector(
+  [filmsFilteredByGenre, displayedFilmsMaxCount],
+  (filteredFilms, maxCount) => filteredFilms.slice(0, maxCount)
 );
 
-const isAllFilmsByActiveGenreDisplayed = createSelector(
-  [filmsByActiveGenre, displayedFilmsMaxCount],
-  (filmsByGenre, maxCount) => maxCount >= filmsByGenre.length
+const hasMoreFilms = createSelector(
+  [filmsFilteredByGenre, displayedFilmsMaxCount],
+  (filteredFilms, maxCount) => filteredFilms.length > maxCount
 );
 
 const topGenres = createSelector(
@@ -47,8 +47,8 @@ export const catalogSelectors = {
   isFilmsLoading,
   isFilmsLoaded,
   isFilmsLoadFailed,
-  activeGenre,
-  displayedFilmsByActiveGenre,
-  isAllFilmsByActiveGenreDisplayed,
+  genreFilter,
+  displayedFilms,
+  hasMoreFilms,
   topGenres,
 };

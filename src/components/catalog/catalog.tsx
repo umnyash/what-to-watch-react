@@ -14,8 +14,8 @@ function Catalog(): JSX.Element {
   const isFilmsLoading = useAppSelector(catalogSelectors.isFilmsLoading);
   const isFilmsLoaded = useAppSelector(catalogSelectors.isFilmsLoaded);
   const isFilmsLoadFailed = useAppSelector(catalogSelectors.isFilmsLoadFailed);
-  const displayedFilms = useAppSelector(catalogSelectors.displayedFilmsByActiveGenre);
-  const isAllFilmsDisplayed = useAppSelector(catalogSelectors.isAllFilmsByActiveGenreDisplayed);
+  const displayedFilms = useAppSelector(catalogSelectors.displayedFilms);
+  const hasMoreFilms = useAppSelector(catalogSelectors.hasMoreFilms);
 
   const dispatch = useAppDispatch();
 
@@ -55,7 +55,7 @@ function Catalog(): JSX.Element {
           <GenresList />
           <FilmsList films={displayedFilms} />
 
-          {!isAllFilmsDisplayed && (
+          {hasMoreFilms && (
             <div className="catalog__more">
               <Button onClick={handleShowMoreButtonClick}>Show more</Button>
             </div>
