@@ -8,10 +8,30 @@ import { CatalogState } from '../../types/state';
 
 type GenreFilter = CatalogState['filter']['genre'];
 
-function getItemClassName(genre: GenreFilter, activeGenre: GenreFilter) {
-  return clsx(
+type GenreListItemProps = {
+  genre: GenreFilter;
+  activeGenre: GenreFilter;
+  onClick: (evt: MouseEvent<HTMLAnchorElement>) => void;
+}
+
+function GenreListItem({ genre, activeGenre, onClick }: GenreListItemProps): JSX.Element {
+  const isActive = activeGenre ? activeGenre === genre : !genre;
+
+  const className = clsx(
     'catalog__genres-item',
-    (activeGenre ? activeGenre === genre : !genre) && 'catalog__genres-item--active'
+    isActive && 'catalog__genres-item--active'
+  );
+
+  return (
+    <li className={className}>
+      <a
+        className="catalog__genres-link"
+        href="#"
+        onClick={onClick}
+      >
+        {genre ?? 'All genres'}
+      </a>
+    </li>
   );
 }
 
@@ -31,26 +51,15 @@ function GenresList(): JSX.Element {
 
   return (
     <ul className="catalog__genres-list">
-      <li className={getItemClassName(null, activeGenre)}>
-        <a
-          className="catalog__genres-link"
-          href="#"
-          onClick={getGenreClickHandler(null)}
-        >
-          All genres
-        </a>
-      </li>
+      <GenreListItem genre={null} activeGenre={activeGenre} onClick={getGenreClickHandler(null)} />
 
       {genres.map((genre) => (
-        <li className={getItemClassName(genre, activeGenre)} key={genre}>
-          <a
-            className="catalog__genres-link"
-            href="#"
-            onClick={getGenreClickHandler(genre)}
-          >
-            {genre}
-          </a>
-        </li>
+        <GenreListItem
+          genre={genre}
+          activeGenre={activeGenre}
+          onClick={getGenreClickHandler(genre)}
+          key={genre}
+        />
       ))}
     </ul>
   );
