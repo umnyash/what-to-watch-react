@@ -26,8 +26,7 @@ function GenreListItem({ genre, activeGenre, onClick }: GenreListItemProps): JSX
     <li className={className}>
       <a
         className="catalog__genres-link"
-        href="#"
-        onClick={onClick}
+        {...(!isActive && { href: '#', onClick })}
       >
         {genre ?? 'All genres'}
       </a>
