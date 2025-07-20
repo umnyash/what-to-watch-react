@@ -11,7 +11,7 @@ const remainingTime = (state: State) =>
   formatPlaybackDuration(state[sliceName].duration - state[sliceName].currentTime);
 
 const playbackProgress = (state: State) =>
-  (100 / state[sliceName].duration * state[sliceName].currentTime) || 0;
+  (state[sliceName].currentTime / state[sliceName].duration * 100) || 0;
 
 export const playerSelectors = {
   duration,
