@@ -38,13 +38,13 @@ function FavoriteButton({ filmId, isActive }: FavoriteButtonProps): JSX.Element 
       >
         {isActive && (
           <svg viewBox="0 0 18 14" width="18" height="14">
-            <use xlinkHref="#in-list" />
+            <use href="#in-list" />
           </svg>
         )}
 
         {!isActive && (
           <svg viewBox="0 0 19 20" width="19" height="20">
-            <use xlinkHref="#add" />
+            <use href="#add" />
           </svg>
         )}
 
@@ -57,7 +57,7 @@ function FavoriteButton({ filmId, isActive }: FavoriteButtonProps): JSX.Element 
   return (
     <Link className="btn btn--list film-card__button" state={{ from: location.pathname }} to={AppRoute.Login}>
       <svg viewBox="0 0 19 20" width="19" height="20">
-        <use xlinkHref="#add" />
+        <use href="#add" />
       </svg>
       <span>My list</span>
       <span className="film-card__count">0</span>

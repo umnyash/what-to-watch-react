@@ -13,7 +13,7 @@ function PlayerButton({ filmId }: PlayerButtonProps) {
   return (
     <Link className="btn btn--play film-card__button" state={{ from: location.pathname }} to={playerPageRoute}>
       <svg viewBox="0 0 19 19" width="19" height="19">
-        <use xlinkHref="#play-s" />
+        <use href="#play-s" />
       </svg>
       <span>Play</span>
     </Link>

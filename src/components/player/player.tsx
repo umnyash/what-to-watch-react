@@ -88,11 +88,11 @@ function Player({ film, previousPage, renderVideo }: PlayerProps) {
           >
             {isVideoPlaying ? (
               <svg viewBox="0 0 14 21" width="14" height="21">
-                <use xlinkHref="#pause"></use>
+                <use href="#pause"></use>
               </svg>
             ) : (
               <svg viewBox="0 0 19 19" width="19" height="19">
-                <use xlinkHref="#play-s" />
+                <use href="#play-s" />
               </svg>
             )}
             <span>{isVideoPlaying ? 'Pause' : 'Play'}</span>
@@ -102,7 +102,7 @@ function Player({ film, previousPage, renderVideo }: PlayerProps) {
 
           <button type="button" className="player__full-screen" onClick={handleFullscreenButtonClick}>
             <svg viewBox="0 0 27 27" width="27" height="27">
-              <use xlinkHref="#full-screen" />
+              <use href="#full-screen" />
             </svg>
             <span>Full screen</span>
           </button>
