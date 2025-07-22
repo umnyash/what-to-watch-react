@@ -1,6 +1,6 @@
-type BreadcrumbLink = {
+type BreadcrumbItem = {
   text: string;
   href?: string;
 }
 
-export type BreadcrumbLinks = BreadcrumbLink[];
+export type BreadcrumbItems = BreadcrumbItem[];

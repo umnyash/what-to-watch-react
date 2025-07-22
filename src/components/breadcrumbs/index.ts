@@ -1,2 +1,2 @@
 export { default } from './breadcrumbs';
-export type { BreadcrumbLinks } from './types';
+export type { BreadcrumbItems } from './types';

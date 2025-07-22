@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
-import { BreadcrumbLinks } from './types';
+import { BreadcrumbItems } from './types';
 
 type BreadcrumbsProps = {
-  links: BreadcrumbLinks;
+  items: BreadcrumbItems;
 }
 
-function Breadcrumbs({ links }: BreadcrumbsProps): JSX.Element {
+function Breadcrumbs({ items }: BreadcrumbsProps): JSX.Element {
   return (
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
-        {links.map(({ text, href }) => (
+        {items.map(({ text, href }) => (
           <li className="breadcrumbs__item" key={text}>
             {href
               ? <Link className="breadcrumbs__link" to={href}>{text}</Link>

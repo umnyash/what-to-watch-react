@@ -1,13 +1,13 @@
 import clsx from 'clsx';
 import Logo from '../logo';
-import Breadcrumbs, { BreadcrumbLinks } from '../breadcrumbs';
+import Breadcrumbs, { BreadcrumbItems } from '../breadcrumbs';
 import UserNavigation from '../user-navigation';
 
 import { ReactNode, memo } from 'react';
 
 type SiteHeaderProps = {
   heading?: ReactNode;
-  breadcrumbs?: BreadcrumbLinks;
+  breadcrumbs?: BreadcrumbItems;
   withUserNavigation?: boolean;
   className?: string;
 }
@@ -22,7 +22,7 @@ function SiteHeaderComponent(props: SiteHeaderProps): JSX.Element {
 
       {heading && <h1 className="page-title user-page__title" dangerouslySetInnerHTML={{ __html: heading }} />}
 
-      {breadcrumbs && <Breadcrumbs links={breadcrumbs} />}
+      {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
 
       {withUserNavigation && <UserNavigation />}
     </header>
