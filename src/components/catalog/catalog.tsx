@@ -5,17 +5,13 @@ import { catalogSelectors } from '../../store/catalog/catalog.selectors';
 import { catalogActions } from '../../store/catalog/catalog.slice';
 import { fetchFilms } from '../../store/async-actions';
 import Spinner from '../spinner';
-import GenresList from '../genres-list';
-import FilmsList from '../films-list';
-import Button from '../button';
 import ErrorMessage from '../error-message';
+import CatalogContent from '../catalog-content';
 
 function Catalog(): JSX.Element {
   const isFilmsLoading = useAppSelector(catalogSelectors.isFilmsLoading);
   const isFilmsLoaded = useAppSelector(catalogSelectors.isFilmsLoaded);
   const isFilmsLoadFailed = useAppSelector(catalogSelectors.isFilmsLoadFailed);
-  const displayedFilms = useAppSelector(catalogSelectors.displayedFilms);
-  const hasMoreFilms = useAppSelector(catalogSelectors.hasMoreFilms);
 
   const dispatch = useAppDispatch();
 
@@ -30,10 +26,6 @@ function Catalog(): JSX.Element {
   useEffect(() => {
     dispatch(catalogActions.resetDisplayedFilmsMaxCount());
   }, [dispatch]);
-
-  const handleShowMoreButtonClick = () => {
-    dispatch(catalogActions.increaseDisplayedFilmsMaxCount());
-  };
 
   return (
     <section className="catalog">
@@ -50,18 +42,7 @@ function Catalog(): JSX.Element {
         />
       )}
 
-      {isFilmsLoaded && (
-        <>
-          <GenresList />
-          <FilmsList films={displayedFilms} />
-
-          {hasMoreFilms && (
-            <div className="catalog__more">
-              <Button onClick={handleShowMoreButtonClick}>Show more</Button>
-            </div>
-          )}
-        </>
-      )}
+      {isFilmsLoaded && <CatalogContent />}
     </section>
   );
 }
