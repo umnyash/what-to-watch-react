@@ -4,7 +4,7 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 import useAppSelector from '../../hooks/use-app-selector';
-import { reviewsSelectors } from '../../store/reviews/reviews.selector';
+import { reviewSelectors } from '../../store/review/review.selectors';
 import { submitReview } from '../../store/async-actions';
 
 const MAX_RATING = 10;
@@ -23,7 +23,7 @@ function ReviewForm({ filmId }: ReviewFormProps): JSX.Element {
     rating: 0
   });
 
-  const isReviewSumbitting = useAppSelector(reviewsSelectors.isReviewSubmitting);
+  const isSubmitting = useAppSelector(reviewSelectors.isSubmitting);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -60,7 +60,7 @@ function ReviewForm({ filmId }: ReviewFormProps): JSX.Element {
                   type="radio" name="rating"
                   value={ratingValue}
                   checked={formData.rating === ratingValue}
-                  disabled={isReviewSumbitting}
+                  disabled={isSubmitting}
                   onChange={handleFieldChange}
                 />
                 <label className="rating__label" htmlFor={`star-${ratingValue}`}>Rating {ratingValue}</label>
@@ -79,7 +79,7 @@ function ReviewForm({ filmId }: ReviewFormProps): JSX.Element {
           value={formData.comment}
           onChange={handleFieldChange}
           maxLength={CommentLength.Max}
-          disabled={isReviewSumbitting}
+          disabled={isSubmitting}
         />
         <div className="add-review__submit">
           <button
@@ -88,7 +88,7 @@ function ReviewForm({ filmId }: ReviewFormProps): JSX.Element {
             disabled={!formData.rating
               || formData.comment.length < CommentLength.Min
               || formData.comment.length > CommentLength.Max
-              || isReviewSumbitting}
+              || isSubmitting}
           >
             Post
           </button>

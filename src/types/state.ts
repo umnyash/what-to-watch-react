@@ -50,7 +50,10 @@ export type FavoritesState = {
 export type ReviewsState = {
   filmId: string | null;
   reviews: Reviews;
-  reviewSubmittingStatus: RequestStatus;
+}
+
+export type ReviewState = {
+  submittingStatus: RequestStatus;
 }
 
 export type PlayerState = {

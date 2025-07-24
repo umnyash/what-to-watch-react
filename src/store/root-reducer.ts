@@ -6,6 +6,7 @@ import { promoFilmSlice } from './promo-film/promo-film.slice';
 import { similarFilmsSlice } from './similar-films/similar-films.slice';
 import { favoritesSlice } from './favorites/favorites.slice';
 import { reviewsSlice } from './reviews/reviews.slice';
+import { reviewSlice } from './review/review.slice';
 import { playerSlice } from './player/player.slice';
 
 export const rootReducer = combineReducers({
@@ -16,5 +17,6 @@ export const rootReducer = combineReducers({
   [similarFilmsSlice.name]: similarFilmsSlice.reducer,
   [favoritesSlice.name]: favoritesSlice.reducer,
   [reviewsSlice.name]: reviewsSlice.reducer,
+  [reviewSlice.name]: reviewSlice.reducer,
   [playerSlice.name]: playerSlice.reducer,
 });
