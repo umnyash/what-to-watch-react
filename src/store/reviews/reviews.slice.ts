@@ -24,7 +24,9 @@ export const reviewsSlice = createSlice({
       })
 
       .addCase(submitReview.fulfilled, (state, action) => {
-        state.reviews.push(action.payload);
+        if (action.meta.arg.filmId === state.filmId) {
+          state.reviews.push(action.payload);
+        }
       });
   },
 });
