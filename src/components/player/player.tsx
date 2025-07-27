@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect, SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
-import useAppSelector from '../../hooks/use-app-selector';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { playerSelectors } from '../../store/player/player.selectors';
-import useAppDispatch from '../../hooks/use-app-dispatch';
 import { playerActions } from '../../store/player/player.slice';
 import { PromoFilm, PageFilm } from '../../types/films';
 import { VideoProps } from '../video/types';

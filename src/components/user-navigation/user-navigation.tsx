@@ -1,7 +1,6 @@
 import { MouseEvent } from 'react';
 import { AppRoute } from '../../const';
-import useAppSelector from '../../hooks/use-app-selector';
-import useAppDispatch from '../../hooks/use-app-dispatch';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutUser } from '../../store/async-actions';
 import { Link, useLocation, Location } from 'react-router-dom';
 import { LocationState } from '../../types/location';

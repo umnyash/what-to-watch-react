@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import useAppDispatch from '../../hooks/use-app-dispatch';
-import useAppSelector from '../../hooks/use-app-selector';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { promoFilmSelectors } from '../../store/promo-film/promo-film.selectors';
 import { fetchPromoFilm } from '../../store/async-actions';
 import SiteHeader from '../site-header';

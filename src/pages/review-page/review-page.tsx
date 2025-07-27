@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import { useParams, generatePath } from 'react-router-dom';
-import useAppSelector from '../../hooks/use-app-selector';
 import { filmSelectors } from '../../store/film/film.selectors';
 import { promoFilmSelectors } from '../../store/promo-film/promo-film.selectors';
-import useAppDispatch from '../../hooks/use-app-dispatch';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFilm } from '../../store/async-actions';
 import { AppRoute } from '../../const';
 

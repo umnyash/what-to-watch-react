@@ -1,7 +1,7 @@
 import { Navigate, useLocation, Location } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { LocationState } from '../../types/location';
-import useAppSelector from '../../hooks/use-app-selector';
+import { useAppSelector } from '../../hooks';
 import { userSelectors } from '../../store/user/user.selectors';
 
 type ExclusiveRouteProps = {

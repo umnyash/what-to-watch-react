@@ -1,7 +1,6 @@
 import { MouseEvent } from 'react';
-import useAppSelector from '../../hooks/use-app-selector';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { catalogSelectors } from '../../store/catalog/catalog.selectors';
-import useAppDispatch from '../../hooks/use-app-dispatch';
 import { catalogActions } from '../../store/catalog/catalog.slice';
 import clsx from 'clsx';
 import { CatalogState } from '../../types/state';

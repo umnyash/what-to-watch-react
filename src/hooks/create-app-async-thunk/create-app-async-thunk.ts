@@ -10,6 +10,4 @@ type ThunkAPI = {
   rejectValue: ErrorResponse | string;
 }
 
-const createAppAsyncThunk = createAsyncThunk.withTypes<ThunkAPI>();
-
-export default createAppAsyncThunk;
+export const createAppAsyncThunk = createAsyncThunk.withTypes<ThunkAPI>();

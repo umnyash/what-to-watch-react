@@ -1,4 +1,4 @@
-import useAppSelector from '../../hooks/use-app-selector';
+import { useAppSelector } from '../../hooks';
 import { PromoFilm } from '../../types/films';
 import { Link, generatePath } from 'react-router-dom';
 import { AppRoute } from '../../const';

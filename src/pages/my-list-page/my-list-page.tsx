@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-import useAppSelector from '../../hooks/use-app-selector';
 import { favoritesSelectors } from '../../store/favorites/favorites.selectors';
-import useAppDispatch from '../../hooks/use-app-dispatch';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFavorites } from '../../store/async-actions';
 import SiteHeader from '../../components/site-header';
 import FilmsList from '../../components/films-list';

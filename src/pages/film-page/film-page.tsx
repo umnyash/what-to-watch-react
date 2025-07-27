@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { FilmSections, FILM_TABER_ACTIVE_TAB_SEARCH_PARAM } from './const';
-import useAppDispatch from '../../hooks/use-app-dispatch';
-import useAppSelector from '../../hooks/use-app-selector';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { filmSelectors } from '../../store/film/film.selectors';
 import { fetchFilm } from '../../store/async-actions';
 

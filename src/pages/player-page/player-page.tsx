@@ -3,10 +3,9 @@ import { useLocation, Location, useParams, generatePath } from 'react-router-dom
 import { LocationState } from '../../types/location';
 import { AppRoute } from '../../const';
 import { Helmet } from 'react-helmet-async';
-import useAppSelector from '../../hooks/use-app-selector';
 import { filmSelectors } from '../../store/film/film.selectors';
 import { promoFilmSelectors } from '../../store/promo-film/promo-film.selectors';
-import useAppDispatch from '../../hooks/use-app-dispatch';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFilm } from '../../store/async-actions';
 
 import LoadingPage from '../loading-page';

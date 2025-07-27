@@ -1,5 +1,4 @@
-import useAppDispatch from '../../hooks/use-app-dispatch';
-import useAppSelector from '../../hooks/use-app-selector';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { catalogSelectors } from '../../store/catalog/catalog.selectors';
 import { catalogActions } from '../../store/catalog/catalog.slice';
 import GenresList from '../genres-list';

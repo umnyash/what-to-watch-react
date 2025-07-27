@@ -2,8 +2,7 @@ import { FilmSections, FILM_TABER_ACTIVE_TAB_SEARCH_PARAM } from '../../pages/fi
 import { AppRoute } from '../../const';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
-import useAppDispatch from '../../hooks/use-app-dispatch';
-import useAppSelector from '../../hooks/use-app-selector';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { reviewSelectors } from '../../store/review/review.selectors';
 import { submitReview } from '../../store/async-actions';
 

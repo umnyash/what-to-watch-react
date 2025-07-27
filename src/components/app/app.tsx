@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import useAppSelector from '../../hooks/use-app-selector';
+import { useAppSelector } from '../../hooks';
 import { userSelectors } from '../../store/user/user.selectors';
 
 import MainPage from '../../pages/main-page';

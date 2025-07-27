@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import useAppDispatch from '../../hooks/use-app-dispatch';
-import useAppSelector from '../../hooks/use-app-selector';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { reviewsSelectors } from '../../store/reviews/reviews.selectors';
 import ReviewsList from '../reviews-list';
 import { fetchReviews } from '../../store/async-actions';

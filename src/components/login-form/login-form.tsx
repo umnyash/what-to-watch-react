@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect, ChangeEvent, FormEvent } from 'react';
-import useAppDispatch from '../../hooks/use-app-dispatch';
-import useAppSelector from '../../hooks/use-app-selector';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { userActions } from '../../store/user/user.slice';
 import { userSelectors } from '../../store/user/user.selectors';
 import { loginUser } from '../../store/async-actions';

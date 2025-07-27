@@ -1,5 +1,5 @@
 import { generatePath } from 'react-router-dom';
-import createAppAsyncThunk from '../../hooks/create-app-async-thunk';
+import { createAppAsyncThunk } from '../../hooks';
 import { APIRoute, SliceName } from '../../const';
 import { FavoriteStatus } from '../../services/api';
 import { FullFilm } from '../../types/films';

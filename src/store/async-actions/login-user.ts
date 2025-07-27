@@ -1,4 +1,4 @@
-import createAppAsyncThunk from '../../hooks/create-app-async-thunk';
+import { createAppAsyncThunk } from '../../hooks';
 import { APIRoute, SliceName } from '../../const';
 import { AuthUser, User, AuthData } from '../../types/user';
 import { saveToken } from '../../services/token';

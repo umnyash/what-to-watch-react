@@ -1,7 +1,6 @@
 import { useRef, MouseEvent } from 'react';
-import useAppSelector from '../../hooks/use-app-selector';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { playerSelectors } from '../../store/player/player.selectors';
-import useAppDispatch from '../../hooks/use-app-dispatch';
 import { playerActions } from '../../store/player/player.slice';
 
 const SMALL_TIME_SHIFT = 0.001;

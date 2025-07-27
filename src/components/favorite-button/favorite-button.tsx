@@ -1,11 +1,10 @@
 import { AppRoute } from '../../const';
 import { FavoriteStatus } from '../../services/api';
-import useAppSelector from '../../hooks/use-app-selector';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { userSelectors } from '../../store/user/user.selectors';
 import { favoritesSelectors } from '../../store/favorites/favorites.selectors';
 import { Link, useLocation, Location } from 'react-router-dom';
 import { LocationState } from '../../types/location';
-import useAppDispatch from '../../hooks/use-app-dispatch';
 import { changeFavoriteStatus } from '../../store/async-actions';
 
 type FavoriteButtonProps = {
