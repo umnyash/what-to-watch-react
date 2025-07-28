@@ -26,10 +26,13 @@ export const createAPI = (): AxiosInstance => {
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError<ErrorResponseData>) => {
-      if (error.response && shouldDisplayError(error.response)) {
+      if (!error.response) {
+        toast.warn('Network error: please check your internet connection and try again.');
+      } else if (shouldDisplayError(error.response)) {
         const data = error.response.data;
         toast.warn(data.message);
       }
+
       throw error;
     }
   );
