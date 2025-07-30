@@ -33,6 +33,7 @@ function FavoriteButton({ filmId, isActive }: FavoriteButtonProps): JSX.Element 
         className="btn btn--list film-card__button"
         type="button"
         disabled={isPending}
+        aria-pressed={isActive}
         onClick={handleFavoriteButtonClick}
       >
         {isActive && (
