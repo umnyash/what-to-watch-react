@@ -21,7 +21,7 @@ function getRatingLevel(rating: number) {
 }
 
 function FilmRating({ rating, scoresCount }: FilmRatingProps): JSX.Element {
-  const formatedRating = rating.toLocaleString('ru-RU');
+  const formatedRating = rating.toFixed(1).replace('.', ',');
 
   return (
     <div className="film-rating">
