@@ -1,12 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { SliceName, RequestStatus, ERROR_PLACEHOLDER_MESSAGE } from '../../const';
 import { FilmState } from '../../types/state';
-import { fetchFilm, fetchFavorites, changeFavoriteStatus, logoutUser } from '../async-actions';
+import { fetchFilm, fetchFavorites, changeFavoriteStatus, logoutUser, submitReview } from '../async-actions';
+import { PageFilm } from '../../types/films';
 
 const initialState: FilmState = {
   film: null,
   loadingStatus: RequestStatus.Idle,
   error: null,
+};
+
+const updateFilmRating = (film: PageFilm, reviewRating: number) => {
+  film.rating = (film.scoresCount * film.rating + reviewRating) / (film.scoresCount + 1);
+  film.scoresCount++;
 };
 
 export const filmSlice = createSlice({
@@ -45,6 +51,12 @@ export const filmSlice = createSlice({
       .addCase(logoutUser.fulfilled, (state) => {
         if (state.film) {
           state.film.isFavorite = false;
+        }
+      })
+
+      .addCase(submitReview.fulfilled, (state, action) => {
+        if (state.film?.id === action.meta.arg.filmId) {
+          updateFilmRating(state.film, action.payload.rating);
         }
       });
   },
