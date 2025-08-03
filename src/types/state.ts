@@ -26,8 +26,9 @@ export type CatalogState = {
 }
 
 export type FilmState = {
-  film: PageFilm | null;
+  id: string | null;
   loadingStatus: RequestStatus;
+  film: PageFilm | null;
   error: ErrorResponse | string | null;
 }
 
@@ -38,6 +39,7 @@ export type PromoFilmState = {
 
 export type SimilarFilmsState = {
   filmId: string | null;
+  loadingStatus: RequestStatus;
   films: Films;
 }
 
@@ -49,6 +51,7 @@ export type FavoritesState = {
 
 export type ReviewsState = {
   filmId: string | null;
+  loadingStatus: RequestStatus;
   reviews: Reviews;
 }
 

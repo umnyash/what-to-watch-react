@@ -16,13 +16,21 @@ function PromoFilm(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (promoFilm) {
+    if (isLoading || isLoaded) {
       return;
     }
 
     dispatch(fetchPromoFilm());
-  }, [promoFilm, dispatch]);
 
+    // The effect loads promo film data only on mount.
+    // If the film is already loading or loaded, no new request is sent.
+    //
+    // Excluded from dependencies on purpose:
+    // • isLoaded — would trigger an extra run when no request is needed (the condition above prevents it).
+    // • isLoading — could cause an infinite loop of requests on loading error.
+    //
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   return (
     <section className="film-card" style={{ backgroundColor: '#180202' }}>

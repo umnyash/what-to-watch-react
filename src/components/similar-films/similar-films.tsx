@@ -11,16 +11,27 @@ type SimilarFilmsProps = {
 function SimilarFilms({ filmId }: SimilarFilmsProps): JSX.Element {
   const currentFilmId = useAppSelector(similarFilmsSelectors.filmId);
   const similarFilms = useAppSelector(similarFilmsSelectors.someRandomFilms);
+  const isLoading = useAppSelector(similarFilmsSelectors.isLoading);
+  const isLoaded = useAppSelector(similarFilmsSelectors.isLoaded);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (currentFilmId === filmId) {
+    if (currentFilmId === filmId && (isLoading || isLoaded)) {
       return;
     }
 
     dispatch(fetchSimilarFilms(filmId));
-  }, [filmId, currentFilmId, dispatch]);
+
+    // The effect loads similar films data on mount or when filmId changes.
+    // If the films are already loading or loaded, no new request is sent.
+    //
+    // Excluded from dependencies on purpose:
+    // • currentFilmId, isLoaded — would trigger an extra run when no request is needed (the condition above prevents it).
+    // • isLoading — could cause an infinite loop of requests on loading error.
+    //
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filmId, dispatch]);
 
   return <Films heading="More like this" films={similarFilms} />;
 }

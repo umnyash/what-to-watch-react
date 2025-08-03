@@ -15,12 +15,21 @@ function Catalog(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isFilmsLoaded) {
+    if (isFilmsLoaded || isFilmsLoading) {
       return;
     }
 
     dispatch(fetchFilms());
-  }, [isFilmsLoaded, dispatch]);
+
+    // The effect loads films data only on mount.
+    // If the films are already loading or loaded, no new request is sent.
+    //
+    // Excluded from dependencies on purpose:
+    // • isFilmsLoaded — would trigger an extra run when no request is needed (the condition above prevents it).
+    // • isFilmsLoading — could cause an infinite loop of requests on loading error.
+    //
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(catalogActions.resetDisplayedFilmsMaxCount());

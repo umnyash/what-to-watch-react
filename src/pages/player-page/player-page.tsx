@@ -24,6 +24,7 @@ function PlayerPage(): JSX.Element {
   const film = useAppSelector(filmSelectors.film);
   const promoFilm = useAppSelector(promoFilmSelectors.film);
   const targetFilm = [film, promoFilm].find((item) => item?.id === filmId) ?? null;
+  const loadingFilmId = useAppSelector(filmSelectors.id);
   const isFilmLoading = useAppSelector(filmSelectors.isLoading);
   const isFilmLoadFailed = useAppSelector(filmSelectors.isLoadFailed);
   const isNotFound = useAppSelector(filmSelectors.isNotFound);
@@ -31,12 +32,21 @@ function PlayerPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (targetFilm) {
+    if (targetFilm || (loadingFilmId === filmId && isFilmLoading)) {
       return;
     }
 
     dispatch(fetchFilm(filmId));
-  }, [filmId, targetFilm, dispatch]);
+
+    // The effect loads film data only on mount.
+    // If the film is already loading or loaded, no new request is sent.
+    //
+    // Excluded from dependencies on purpose:
+    // • targetFilm, loadingFilmId — would trigger an extra run when no request is needed (the condition above prevents it).
+    // • isFilmLoading — could cause an infinite loop of requests on loading error.
+    //
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filmId, dispatch]);
 
   if (isFilmLoading) {
     return <LoadingPage />;

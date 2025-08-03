@@ -4,6 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 
 const sliceName = SliceName.Film;
 
+const id = (state: State) => state[sliceName].id;
 const film = (state: State) => state[sliceName].film;
 const isLoading = (state: State) => state[sliceName].loadingStatus === RequestStatus.Pending;
 const isLoaded = (state: State) => state[sliceName].loadingStatus === RequestStatus.Success;
@@ -20,6 +21,7 @@ const isNotFound = (state: State): boolean => {
 };
 
 export const filmSelectors = {
+  id,
   film,
   isLoading,
   isLoaded,

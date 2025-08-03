@@ -20,20 +20,32 @@ import ErrorPage from '../error-page';
 
 function FilmPage(): JSX.Element {
   const filmId = useParams().id as string;
-  const dispatch = useAppDispatch();
 
+  const currentFilmId = useAppSelector(filmSelectors.id);
   const film = useAppSelector(filmSelectors.film);
   const isFilmLoading = useAppSelector(filmSelectors.isLoading);
+  const isFilmLoaded = useAppSelector(filmSelectors.isLoaded);
   const isFilmLoadFailed = useAppSelector(filmSelectors.isLoadFailed);
   const isNotFound = useAppSelector(filmSelectors.isNotFound);
 
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
-    if (film?.id === filmId) {
+    if (currentFilmId === filmId && (isFilmLoading || isFilmLoaded)) {
       return;
     }
 
     dispatch(fetchFilm(filmId));
-  }, [film, filmId, dispatch]);
+
+    // The effect loads film data on mount or when filmId changes.
+    // If the film is already loading or loaded, no new request is sent.
+    //
+    // Excluded from dependencies on purpose:
+    // • currentFilmId, isFilmLoaded — would trigger an extra run when no request is needed (the condition above prevents it).
+    // • isFilmLoading — could cause an infinite loop of requests on loading error.
+    //
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filmId, dispatch]);
 
   if (isFilmLoading) {
     return <LoadingPage />;

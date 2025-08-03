@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { SliceName } from '../../const';
+import { RequestStatus, SliceName } from '../../const';
 import { ReviewsState } from '../../types/state';
 import { fetchReviews, submitReview } from '../async-actions';
 
 const initialState: ReviewsState = {
   filmId: null,
+  loadingStatus: RequestStatus.Idle,
   reviews: [],
 };
 
@@ -14,13 +15,17 @@ export const reviewsSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchReviews.pending, (state) => {
-        state.filmId = null;
+      .addCase(fetchReviews.pending, (state, action) => {
+        state.filmId = action.meta.arg;
+        state.loadingStatus = RequestStatus.Pending;
         state.reviews = [];
       })
       .addCase(fetchReviews.fulfilled, (state, action) => {
-        state.filmId = action.meta.arg;
+        state.loadingStatus = RequestStatus.Success;
         state.reviews = action.payload;
+      })
+      .addCase(fetchReviews.rejected, (state) => {
+        state.loadingStatus = RequestStatus.Error;
       })
 
       .addCase(submitReview.fulfilled, (state, action) => {

@@ -5,8 +5,9 @@ import { fetchFilm, fetchFavorites, changeFavoriteStatus, logoutUser, submitRevi
 import { PageFilm } from '../../types/films';
 
 const initialState: FilmState = {
-  film: null,
+  id: null,
   loadingStatus: RequestStatus.Idle,
+  film: null,
   error: null,
 };
 
@@ -21,14 +22,15 @@ export const filmSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchFilm.pending, (state) => {
-        state.film = null;
+      .addCase(fetchFilm.pending, (state, action) => {
+        state.id = action.meta.arg;
         state.loadingStatus = RequestStatus.Pending;
+        state.film = null;
         state.error = null;
       })
       .addCase(fetchFilm.fulfilled, (state, action) => {
-        state.film = action.payload;
         state.loadingStatus = RequestStatus.Success;
+        state.film = action.payload;
       })
       .addCase(fetchFilm.rejected, (state, action) => {
         state.loadingStatus = RequestStatus.Error;
