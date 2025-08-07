@@ -1,5 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
+import { Routes, Route } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { userSelectors } from '../../store/user/user.selectors';
@@ -19,62 +18,55 @@ function App(): JSX.Element {
   const isAuthChecked = useAppSelector(userSelectors.isAuthChecked);
 
   if (!isAuthChecked) {
-    return (
-      <HelmetProvider>
-        <LoadingPage />
-      </HelmetProvider>
-    );
+    return <LoadingPage />;
   }
 
   return (
-    <HelmetProvider>
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route
-            path={AppRoute.Root}
-            element={<MainPage />}
-          />
-          <Route
-            path={AppRoute.Login}
-            element={
-              <ExclusiveRoute onlyFor={AuthorizationStatus.NoAuth}>
-                <LoginPage />
-              </ExclusiveRoute>
-            }
-          />
-          <Route
-            path={AppRoute.Film}
-            element={<FilmPage />}
-          />
-          <Route
-            path={AppRoute.MyList}
-            element={
-              <ExclusiveRoute onlyFor={AuthorizationStatus.Auth}>
-                <MyListPage />
-              </ExclusiveRoute>
-            }
-          />
-          <Route
-            path={AppRoute.Review}
-            element={
-              <ExclusiveRoute onlyFor={AuthorizationStatus.Auth}>
-                <ReviewPage />
-              </ExclusiveRoute>
-            }
-          />
-          <Route
-            path={AppRoute.Player}
-            element={<PlayerPage />}
-          />
-          <Route
-            path="*"
-            element={<NotFoundPage />}
-          />
-        </Routes>
-      </BrowserRouter>
-
-    </HelmetProvider>
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route
+          path={AppRoute.Root}
+          element={<MainPage />}
+        />
+        <Route
+          path={AppRoute.Login}
+          element={
+            <ExclusiveRoute onlyFor={AuthorizationStatus.NoAuth}>
+              <LoginPage />
+            </ExclusiveRoute>
+          }
+        />
+        <Route
+          path={AppRoute.Film}
+          element={<FilmPage />}
+        />
+        <Route
+          path={AppRoute.MyList}
+          element={
+            <ExclusiveRoute onlyFor={AuthorizationStatus.Auth}>
+              <MyListPage />
+            </ExclusiveRoute>
+          }
+        />
+        <Route
+          path={AppRoute.Review}
+          element={
+            <ExclusiveRoute onlyFor={AuthorizationStatus.Auth}>
+              <ReviewPage />
+            </ExclusiveRoute>
+          }
+        />
+        <Route
+          path={AppRoute.Player}
+          element={<PlayerPage />}
+        />
+        <Route
+          path="*"
+          element={<NotFoundPage />}
+        />
+      </Routes>
+    </>
   );
 }
 
