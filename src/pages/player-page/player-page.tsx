@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation, Location, useParams, generatePath } from 'react-router-dom';
 import { LocationState } from '../../types/location';
-import { AppRoute } from '../../const';
+import { AppRoute, PageTitle } from '../../const';
 import { Helmet } from 'react-helmet-async';
 import { filmSelectors } from '../../store/film/film.selectors';
 import { promoFilmSelectors } from '../../store/promo-film/promo-film.selectors';
@@ -68,7 +68,7 @@ function PlayerPage(): JSX.Element {
   return (
     <>
       <Helmet>
-        <title>WTW: Player</title>
+        <title>{PageTitle.Player}</title>
       </Helmet>
       <PlayerWrapped film={targetFilm} previousPage={location.state?.from || filmPageLink} />
     </>

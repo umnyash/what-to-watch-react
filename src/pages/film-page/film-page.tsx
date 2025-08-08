@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { PageTitle } from '../../const';
 import { FilmSections, FILM_TABER_ACTIVE_TAB_SEARCH_PARAM } from './const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { filmSelectors } from '../../store/film/film.selectors';
@@ -84,7 +85,7 @@ function FilmPage(): JSX.Element {
   return (
     <>
       <Helmet>
-        <title>WTW: Film</title>
+        <title>{PageTitle.Film}</title>
       </Helmet>
       <section className="film-card film-card--full">
         <div className="film-card__hero">

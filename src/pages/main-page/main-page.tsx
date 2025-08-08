@@ -1,3 +1,4 @@
+import { PageTitle } from '../../const';
 import Catalog from '../../components/catalog';
 import PromoFilm from '../../components/promo-film';
 import { Helmet } from 'react-helmet-async';
@@ -7,7 +8,7 @@ function MainPage(): JSX.Element {
   return (
     <>
       <Helmet>
-        <title>WTW</title>
+        <title>{PageTitle.Main}</title>
       </Helmet>
       <PromoFilm />
       <div className="page-content">

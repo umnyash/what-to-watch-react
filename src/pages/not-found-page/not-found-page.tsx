@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { AppRoute } from '../../const';
+import { AppRoute, PageTitle } from '../../const';
 import SiteHeader from '../../components/site-header';
 import Button, { ButtonType, ButtonSize } from '../../components/button';
 import SiteFooter from '../../components/site-footer';
@@ -8,7 +8,7 @@ function NotFoundPage(): JSX.Element {
   return (
     <div className="user-page">
       <Helmet>
-        <title>WTW: Page not found</title>
+        <title>{PageTitle.NotFound}</title>
       </Helmet>
 
       <SiteHeader className="user-page__head" heading="404 Not Found" />

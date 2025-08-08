@@ -42,6 +42,17 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum PageTitle {
+  Loading = 'WTW: Loading',
+  Main = 'WTW',
+  Film = 'WTW: Film',
+  Player = 'WTW: Player',
+  Login = 'WTW: Sign in',
+  MyList = 'WTW: My list',
+  Review = 'WTW: Add review',
+  NotFound = 'WTW: Page not found',
+}
+
 export enum RatingLevel {
   Bad = 'Bad',
   Normal = 'Normal',

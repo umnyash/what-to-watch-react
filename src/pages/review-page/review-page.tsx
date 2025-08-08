@@ -4,7 +4,7 @@ import { filmSelectors } from '../../store/film/film.selectors';
 import { promoFilmSelectors } from '../../store/promo-film/promo-film.selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFilm } from '../../store/async-actions';
-import { AppRoute } from '../../const';
+import { AppRoute, PageTitle } from '../../const';
 
 import LoadingPage from '../loading-page';
 import NotFoundPage from '../not-found-page';
@@ -71,7 +71,7 @@ function ReviewPage(): JSX.Element {
   return (
     <section className="film-card film-card--full">
       <Helmet>
-        <title>WTW: Add review</title>
+        <title>{PageTitle.Review}</title>
       </Helmet>
       <div className="film-card__header">
         <div className="film-card__bg">

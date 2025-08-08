@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { favoritesSelectors } from '../../store/favorites/favorites.selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { PageTitle } from '../../const';
 import { fetchFavorites } from '../../store/async-actions';
 import SiteHeader from '../../components/site-header';
 import FilmsList from '../../components/films-list';
@@ -22,7 +23,7 @@ function MyListPage(): JSX.Element {
   return (
     <div className="user-page">
       <Helmet>
-        <title>WTW: My list</title>
+        <title>{PageTitle.MyList}</title>
       </Helmet>
 
       <SiteHeader className="user-page__head" heading={pageHeadingMarkup} withUserNavigation />

@@ -1,3 +1,4 @@
+import { PageTitle } from '../../const';
 import { Helmet } from 'react-helmet-async';
 import SiteHeader from '../../components/site-header';
 import LoginForm from '../../components/login-form';
@@ -7,7 +8,7 @@ function LoginPage(): JSX.Element {
   return (
     <div className="user-page">
       <Helmet>
-        <title>WTW: Sign in</title>
+        <title>{PageTitle.Login}</title>
       </Helmet>
 
       <SiteHeader className="user-page__head" heading="Sign in" />
