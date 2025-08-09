@@ -21,11 +21,15 @@ export const reviewsSlice = createSlice({
         state.reviews = [];
       })
       .addCase(fetchReviews.fulfilled, (state, action) => {
-        state.loadingStatus = RequestStatus.Success;
-        state.reviews = action.payload;
+        if (state.filmId === action.meta.arg) {
+          state.loadingStatus = RequestStatus.Success;
+          state.reviews = action.payload;
+        }
       })
-      .addCase(fetchReviews.rejected, (state) => {
-        state.loadingStatus = RequestStatus.Error;
+      .addCase(fetchReviews.rejected, (state, action) => {
+        if (state.filmId === action.meta.arg) {
+          state.loadingStatus = RequestStatus.Error;
+        }
       })
 
       .addCase(submitReview.fulfilled, (state, action) => {

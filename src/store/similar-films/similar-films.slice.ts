@@ -21,8 +21,10 @@ export const similarFilmsSlice = createSlice({
         state.films = [];
       })
       .addCase(fetchSimilarFilms.fulfilled, (state, action) => {
-        state.loadingStatus = RequestStatus.Success;
-        state.films = action.payload;
+        if (state.filmId === action.meta.arg) {
+          state.loadingStatus = RequestStatus.Success;
+          state.films = action.payload;
+        }
       });
   },
 });

@@ -29,12 +29,16 @@ export const filmSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchFilm.fulfilled, (state, action) => {
-        state.loadingStatus = RequestStatus.Success;
-        state.film = action.payload;
+        if (state.id === action.meta.arg) {
+          state.loadingStatus = RequestStatus.Success;
+          state.film = action.payload;
+        }
       })
       .addCase(fetchFilm.rejected, (state, action) => {
-        state.loadingStatus = RequestStatus.Error;
-        state.error = action.payload ?? ERROR_PLACEHOLDER_MESSAGE;
+        if (state.id === action.meta.arg) {
+          state.loadingStatus = RequestStatus.Error;
+          state.error = action.payload ?? ERROR_PLACEHOLDER_MESSAGE;
+        }
       })
 
       .addCase(fetchFavorites.fulfilled, (state, action) => {
