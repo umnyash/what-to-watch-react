@@ -1,4 +1,4 @@
-import { FilmSections, FILM_TABER_ACTIVE_TAB_SEARCH_PARAM } from '../../pages/film-page/const';
+import { FilmSections, FILM_TABER_ACTIVE_TAB_SEARCH_PARAM } from '../film/const';
 import { AppRoute } from '../../const';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';

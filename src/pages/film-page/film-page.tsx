@@ -2,19 +2,13 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { PageTitle } from '../../const';
-import { FilmSections, FILM_TABER_ACTIVE_TAB_SEARCH_PARAM } from './const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { filmSelectors } from '../../store/film/film.selectors';
 import { fetchFilm } from '../../store/async-actions';
 
 import LoadingPage from '../loading-page';
 import NotFoundPage from '../not-found-page';
-import SiteHeader from '../../components/site-header';
-import FilmHeader from '../../components/film-header';
-import FilmTaber, { Tabs } from '../../components/film-taber';
-import FilmOverview from '../../components/film-overview';
-import FilmDetails from '../../components/film-details';
-import Reviews from '../../components/reviews';
+import Film from '../../components/film';
 import SimilarFilms from '../../components/similar-films';
 import SiteFooter from '../../components/site-footer';
 import ErrorPage from '../error-page';
@@ -65,50 +59,13 @@ function FilmPage(): JSX.Element {
       );
   }
 
-  const { name, posterImage, backgroundImage } = film;
-
-  const tabs: Tabs = [
-    {
-      title: FilmSections.Overview,
-      content: <FilmOverview film={film} />
-    },
-    {
-      title: FilmSections.Details,
-      content: <FilmDetails film={film} />
-    },
-    {
-      title: FilmSections.Reviews,
-      content: <Reviews filmId={filmId} />
-    }
-  ];
-
   return (
     <>
       <Helmet>
         <title>{PageTitle.Film}</title>
       </Helmet>
-      <section className="film-card film-card--full">
-        <div className="film-card__hero">
-          <div className="film-card__bg">
-            <img src={backgroundImage} alt={name} />
-          </div>
-          <h1 className="visually-hidden">WTW</h1>
-          <SiteHeader className="film-card__head" withUserNavigation />
-          <div className="film-card__wrap">
-            <FilmHeader film={film} />
-          </div>
-        </div>
 
-        <div className="film-card__wrap film-card__translate-top">
-          <div className="film-card__info">
-            <div className="film-card__poster film-card__poster--big">
-              <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
-            </div>
-
-            <FilmTaber tabs={tabs} tabSearchParam={FILM_TABER_ACTIVE_TAB_SEARCH_PARAM} />
-          </div>
-        </div>
-      </section>
+      <Film film={film} />
 
       <div className="page-content">
         <SimilarFilms filmId={filmId} />
