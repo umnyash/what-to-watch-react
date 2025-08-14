@@ -51,6 +51,7 @@ function FilmPage(): JSX.Element {
       ? <NotFoundPage />
       : (
         <ErrorPage
+          title={PageTitle.Film}
           text="We couldn&apos;t load the film. Please try again later."
           onRetryButtonClick={() => {
             dispatch(fetchFilm(filmId));
