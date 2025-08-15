@@ -25,6 +25,11 @@ export const similarFilmsSlice = createSlice({
           state.loadingStatus = RequestStatus.Success;
           state.films = action.payload;
         }
+      })
+      .addCase(fetchSimilarFilms.rejected, (state, action) => {
+        if (state.filmId === action.meta.arg) {
+          state.loadingStatus = RequestStatus.Error;
+        }
       });
   },
 });

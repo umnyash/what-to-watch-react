@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { similarFilmsSelectors } from '../../store/similar-films/similar-films.selectors';
+import Spinner from '../spinner';
+import ErrorMessage from '../error-message';
 import Films from '../films';
 import { fetchSimilarFilms } from '../../store/async-actions';
 
@@ -13,6 +15,7 @@ function SimilarFilms({ filmId }: SimilarFilmsProps): JSX.Element {
   const similarFilms = useAppSelector(similarFilmsSelectors.someRandomFilms);
   const isLoading = useAppSelector(similarFilmsSelectors.isLoading);
   const isLoaded = useAppSelector(similarFilmsSelectors.isLoaded);
+  const isLoadFailed = useAppSelector(similarFilmsSelectors.isLoadFailed);
 
   const dispatch = useAppDispatch();
 
@@ -32,6 +35,21 @@ function SimilarFilms({ filmId }: SimilarFilmsProps): JSX.Element {
     //
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filmId, dispatch]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (isLoadFailed) {
+    return (
+      <ErrorMessage
+        text="We couldn&apos;t load the similar films. Please try again later."
+        onRetryButtonClick={() => {
+          dispatch(fetchSimilarFilms(filmId));
+        }}
+      />
+    );
+  }
 
   return <Films heading="More like this" films={similarFilms} />;
 }
