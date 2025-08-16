@@ -15,6 +15,10 @@ function Reviews({ filmId }: ReviewsProps): JSX.Element {
   const isLoading = useAppSelector(reviewsSelectors.isLoading);
   const isLoaded = useAppSelector(reviewsSelectors.isLoaded);
 
+  const reviews = currentReviewsFilmId === filmId
+    ? currentReviews
+    : [];
+
   useEffect(() => {
     if (currentReviewsFilmId === filmId && (isLoading || isLoaded)) {
       return;
@@ -32,7 +36,7 @@ function Reviews({ filmId }: ReviewsProps): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filmId, dispatch]);
 
-  return <ReviewsList reviews={currentReviews} />;
+  return <ReviewsList reviews={reviews} />;
 }
 
 export default Reviews;

@@ -11,7 +11,8 @@ type SimilarFilmsProps = {
 }
 
 function SimilarFilms({ filmId }: SimilarFilmsProps): JSX.Element {
-  const currentFilmId = useAppSelector(similarFilmsSelectors.filmId);
+  const isRequestRelevant = useAppSelector(similarFilmsSelectors.filmId) === filmId;
+
   const similarFilms = useAppSelector(similarFilmsSelectors.someRandomFilms);
   const isLoading = useAppSelector(similarFilmsSelectors.isLoading);
   const isLoaded = useAppSelector(similarFilmsSelectors.isLoaded);
@@ -20,7 +21,7 @@ function SimilarFilms({ filmId }: SimilarFilmsProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (currentFilmId === filmId && (isLoading || isLoaded)) {
+    if (isRequestRelevant && (isLoading || isLoaded)) {
       return;
     }
 
@@ -30,17 +31,17 @@ function SimilarFilms({ filmId }: SimilarFilmsProps): JSX.Element {
     // If the films are already loading or loaded, no new request is sent.
     //
     // Excluded from dependencies on purpose:
-    // • currentFilmId, isLoaded — would trigger an extra run when no request is needed (the condition above prevents it).
+    // • isRequestRelevant, isLoaded — would trigger an extra run when no request is needed (the condition above prevents it).
     // • isLoading — could cause an infinite loop of requests on loading error.
     //
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filmId, dispatch]);
 
-  if (isLoading) {
-    return <Spinner />;
+  if (isRequestRelevant && isLoaded) {
+    return <Films heading="More like this" films={similarFilms} />;
   }
 
-  if (isLoadFailed) {
+  if (isRequestRelevant && isLoadFailed) {
     return (
       <ErrorMessage
         text="We couldn&apos;t load the similar films. Please try again later."
@@ -51,7 +52,7 @@ function SimilarFilms({ filmId }: SimilarFilmsProps): JSX.Element {
     );
   }
 
-  return <Films heading="More like this" films={similarFilms} />;
+  return <Spinner />;
 }
 
 export default SimilarFilms;

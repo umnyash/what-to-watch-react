@@ -19,7 +19,7 @@ function ReviewPage(): JSX.Element {
   const film = useAppSelector(filmSelectors.film);
   const promoFilm = useAppSelector(promoFilmSelectors.film);
   const targetFilm = [film, promoFilm].find((item) => item?.id === filmId) ?? null;
-  const loadingFilmId = useAppSelector(filmSelectors.id);
+  const requestedFilmId = useAppSelector(filmSelectors.id);
   const isFilmLoading = useAppSelector(filmSelectors.isLoading);
   const isFilmLoadFailed = useAppSelector(filmSelectors.isLoadFailed);
   const isNotFound = useAppSelector(filmSelectors.isNotFound);
@@ -27,7 +27,7 @@ function ReviewPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (targetFilm || (loadingFilmId === filmId && isFilmLoading)) {
+    if (targetFilm || (requestedFilmId === filmId && isFilmLoading)) {
       return;
     }
 
@@ -43,11 +43,39 @@ function ReviewPage(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filmId, dispatch]);
 
-  if (isFilmLoading) {
-    return <LoadingPage />;
+  if (targetFilm) {
+    const { name, posterImage, backgroundImage } = targetFilm;
+    const filmPageRoute = generatePath(AppRoute.Film, { id: filmId });
+
+    const breadcrumbs = [
+      { text: name, href: filmPageRoute },
+      { text: 'Add review' }
+    ];
+
+    return (
+      <section className="film-card film-card--full">
+        <Helmet>
+          <title>{PageTitle.Review}</title>
+        </Helmet>
+        <div className="film-card__header">
+          <div className="film-card__bg">
+            <img src={backgroundImage} alt={name} />
+          </div>
+          <h1 className="visually-hidden">WTW</h1>
+          <SiteHeader breadcrumbs={breadcrumbs} withUserNavigation />
+          <div className="film-card__poster film-card__poster--small">
+            <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
+          </div>
+        </div>
+
+        <div className="add-review">
+          <ReviewForm filmId={filmId} />
+        </div>
+      </section>
+    );
   }
 
-  if (isFilmLoadFailed || !targetFilm) {
+  if (requestedFilmId === filmId && isFilmLoadFailed) {
     return isNotFound
       ? <NotFoundPage />
       : (
@@ -61,35 +89,7 @@ function ReviewPage(): JSX.Element {
       );
   }
 
-  const { name, posterImage, backgroundImage } = targetFilm;
-  const filmPageRoute = generatePath(AppRoute.Film, { id: filmId });
-
-  const breadcrumbs = [
-    { text: name, href: filmPageRoute },
-    { text: 'Add review' }
-  ];
-
-  return (
-    <section className="film-card film-card--full">
-      <Helmet>
-        <title>{PageTitle.Review}</title>
-      </Helmet>
-      <div className="film-card__header">
-        <div className="film-card__bg">
-          <img src={backgroundImage} alt={name} />
-        </div>
-        <h1 className="visually-hidden">WTW</h1>
-        <SiteHeader breadcrumbs={breadcrumbs} withUserNavigation />
-        <div className="film-card__poster film-card__poster--small">
-          <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
-        </div>
-      </div>
-
-      <div className="add-review">
-        <ReviewForm filmId={filmId} />
-      </div>
-    </section>
-  );
+  return <LoadingPage />;
 }
 
 export default ReviewPage;

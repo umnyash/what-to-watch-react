@@ -15,8 +15,8 @@ import ErrorPage from '../error-page';
 
 function FilmPage(): JSX.Element {
   const filmId = useParams().id as string;
+  const isRequestRelevant = filmId === useAppSelector(filmSelectors.id);
 
-  const currentFilmId = useAppSelector(filmSelectors.id);
   const film = useAppSelector(filmSelectors.film);
   const isFilmLoading = useAppSelector(filmSelectors.isLoading);
   const isFilmLoaded = useAppSelector(filmSelectors.isLoaded);
@@ -26,7 +26,8 @@ function FilmPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (currentFilmId === filmId && (isFilmLoading || isFilmLoaded)) {
+    if (isRequestRelevant && (isFilmLoading || isFilmLoaded)) {
+
       return;
     }
 
@@ -36,17 +37,30 @@ function FilmPage(): JSX.Element {
     // If the film is already loading or loaded, no new request is sent.
     //
     // Excluded from dependencies on purpose:
-    // • currentFilmId, isFilmLoaded — would trigger an extra run when no request is needed (the condition above prevents it).
+    // • isRequestRelevant, isFilmLoaded — would trigger an extra run when no request is needed (the condition above prevents it).
     // • isFilmLoading — could cause an infinite loop of requests on loading error.
     //
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filmId, dispatch]);
 
-  if (isFilmLoading) {
-    return <LoadingPage />;
+  if (isRequestRelevant && film) {
+    return (
+      <>
+        <Helmet>
+          <title>{PageTitle.Film}</title>
+        </Helmet>
+
+        <Film film={film} />
+
+        <div className="page-content">
+          <SimilarFilms filmId={filmId} />
+          <SiteFooter />
+        </div>
+      </>
+    );
   }
 
-  if (isFilmLoadFailed || !film) {
+  if (isRequestRelevant && isFilmLoadFailed) {
     return (isNotFound)
       ? <NotFoundPage />
       : (
@@ -60,20 +74,7 @@ function FilmPage(): JSX.Element {
       );
   }
 
-  return (
-    <>
-      <Helmet>
-        <title>{PageTitle.Film}</title>
-      </Helmet>
-
-      <Film film={film} />
-
-      <div className="page-content">
-        <SimilarFilms filmId={filmId} />
-        <SiteFooter />
-      </div>
-    </>
-  );
+  return <LoadingPage />;
 }
 
 export default FilmPage;

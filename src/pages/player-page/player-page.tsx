@@ -24,7 +24,7 @@ function PlayerPage(): JSX.Element {
   const film = useAppSelector(filmSelectors.film);
   const promoFilm = useAppSelector(promoFilmSelectors.film);
   const targetFilm = [film, promoFilm].find((item) => item?.id === filmId) ?? null;
-  const loadingFilmId = useAppSelector(filmSelectors.id);
+  const requestedFilmId = useAppSelector(filmSelectors.id);
   const isFilmLoading = useAppSelector(filmSelectors.isLoading);
   const isFilmLoadFailed = useAppSelector(filmSelectors.isLoadFailed);
   const isNotFound = useAppSelector(filmSelectors.isNotFound);
@@ -32,7 +32,7 @@ function PlayerPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (targetFilm || (loadingFilmId === filmId && isFilmLoading)) {
+    if (targetFilm || (requestedFilmId === filmId && isFilmLoading)) {
       return;
     }
 
@@ -48,11 +48,18 @@ function PlayerPage(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filmId, dispatch]);
 
-  if (isFilmLoading) {
-    return <LoadingPage />;
+  if (targetFilm) {
+    return (
+      <>
+        <Helmet>
+          <title>{PageTitle.Player}</title>
+        </Helmet>
+        <PlayerWrapped film={targetFilm} previousPage={location.state?.from || filmPageLink} />
+      </>
+    );
   }
 
-  if (isFilmLoadFailed || !targetFilm) {
+  if (requestedFilmId === filmId && isFilmLoadFailed) {
     return isNotFound
       ? <NotFoundPage />
       : (
@@ -66,14 +73,7 @@ function PlayerPage(): JSX.Element {
       );
   }
 
-  return (
-    <>
-      <Helmet>
-        <title>{PageTitle.Player}</title>
-      </Helmet>
-      <PlayerWrapped film={targetFilm} previousPage={location.state?.from || filmPageLink} />
-    </>
-  );
+  return <LoadingPage />;
 }
 
 export default PlayerPage;
