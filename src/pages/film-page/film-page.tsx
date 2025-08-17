@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { PageTitle } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { filmSelectors } from '../../store/film/film.selectors';
@@ -8,10 +7,8 @@ import { fetchFilm } from '../../store/async-actions';
 
 import LoadingPage from '../loading-page';
 import NotFoundPage from '../not-found-page';
-import Film from '../../components/film';
-import SimilarFilms from '../../components/similar-films';
-import SiteFooter from '../../components/site-footer';
 import ErrorPage from '../error-page';
+import FilmPageContent from '../../components/film-page-content';
 
 function FilmPage(): JSX.Element {
   const filmId = useParams().id as string;
@@ -44,20 +41,7 @@ function FilmPage(): JSX.Element {
   }, [filmId, dispatch]);
 
   if (isRequestRelevant && film) {
-    return (
-      <>
-        <Helmet>
-          <title>{PageTitle.Film}</title>
-        </Helmet>
-
-        <Film film={film} />
-
-        <div className="page-content">
-          <SimilarFilms filmId={filmId} />
-          <SiteFooter />
-        </div>
-      </>
-    );
+    return <FilmPageContent film={film} />;
   }
 
   if (isRequestRelevant && isFilmLoadFailed) {
