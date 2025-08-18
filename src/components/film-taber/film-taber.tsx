@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Tabs } from './types';
 
@@ -14,6 +14,14 @@ function FilmTaber({ tabs, tabSearchParam }: FilmTaberProps): JSX.Element {
     const urlTabTitle = searchParams.get(tabSearchParam);
     return Math.max(tabs.findIndex((tab) => tab.title === urlTabTitle), 0);
   });
+
+  const getTabClickHandler = (tabTitle: string, index: number) => (evt: MouseEvent) => {
+    evt.preventDefault();
+    setActiveTab(index);
+    const currentSearchParams = new URLSearchParams(searchParams);
+    currentSearchParams.set(tabSearchParam, tabTitle);
+    setSearchParams(currentSearchParams);
+  };
 
   return (
     <div className="film-card__desc">
@@ -33,11 +41,7 @@ function FilmTaber({ tabs, tabSearchParam }: FilmTaberProps): JSX.Element {
                 <a
                   className="film-nav__link"
                   href="#"
-                  onClick={(evt) => {
-                    evt.preventDefault();
-                    setActiveTab(index);
-                    setSearchParams({ [tabSearchParam]: tab.title });
-                  }}
+                  onClick={getTabClickHandler(tab.title, index)}
                 >
                   {tab.title}
                 </a>
