@@ -20,7 +20,7 @@ function FilmTaber({ tabs, tabSearchParam }: FilmTaberProps): JSX.Element {
     setActiveTab(index);
     const currentSearchParams = new URLSearchParams(searchParams);
     currentSearchParams.set(tabSearchParam, tabTitle);
-    setSearchParams(currentSearchParams);
+    setSearchParams(currentSearchParams, { replace: true });
   };
 
   return (
