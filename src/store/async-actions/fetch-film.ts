@@ -1,6 +1,7 @@
 import { generatePath } from 'react-router-dom';
 import { createAppAsyncThunk } from '../../hooks';
 import { APIRoute, SliceName } from '../../const';
+import { UNEXPECTED_ERROR } from '../../services/api';
 import { PageFilm } from '../../types/films';
 
 export const fetchFilm = createAppAsyncThunk<PageFilm, string>(
@@ -14,7 +15,7 @@ export const fetchFilm = createAppAsyncThunk<PageFilm, string>(
     } catch (err) {
       return (isApiError(err) && err.response)
         ? rejectWithValue({ status: err.response.status })
-        : rejectWithValue('Unexpected error');
+        : rejectWithValue(UNEXPECTED_ERROR);
     }
   },
 );

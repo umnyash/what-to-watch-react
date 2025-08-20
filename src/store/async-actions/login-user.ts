@@ -1,5 +1,6 @@
 import { createAppAsyncThunk } from '../../hooks';
 import { APIRoute, SliceName } from '../../const';
+import { UNEXPECTED_ERROR } from '../../services/api';
 import { AuthUser, User, AuthData } from '../../types/user';
 import { saveToken } from '../../services/token';
 
@@ -14,7 +15,7 @@ export const loginUser = createAppAsyncThunk<User, AuthData>(
     } catch (err) {
       return (isApiError(err) && err.response)
         ? rejectWithValue({ data: err.response.data })
-        : rejectWithValue('Unexpected error');
+        : rejectWithValue(UNEXPECTED_ERROR);
     }
   },
 );
