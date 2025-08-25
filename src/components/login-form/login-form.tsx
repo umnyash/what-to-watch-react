@@ -48,7 +48,10 @@ function LoginForm(): JSX.Element {
   const handleFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
     setFormData({ ...formData, [name]: value });
-    dispatch(userActions.clearLoginErrorData());
+
+    if (loginErrorMessage) {
+      dispatch(userActions.clearLoginErrorData());
+    }
   };
 
   const handleFieldBlur = () => {
