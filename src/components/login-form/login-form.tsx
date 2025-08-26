@@ -26,17 +26,15 @@ function LoginForm(): JSX.Element {
   const passwordErrorMessage = getValidationErrorMessage('password', formData.password);
   let errorMessage: string | null = null;
 
-  if (loginErrorMessage) {
-    errorMessage = loginErrorMessage;
-  } else {
-    switch (activeFieldId) {
-      case EMAIL_FIELD_ID:
-        errorMessage = emailErrorMessage;
-        break;
-      case PASSWORD_FIELD_ID:
-        errorMessage = passwordErrorMessage;
-        break;
-    }
+  switch (activeFieldId) {
+    case EMAIL_FIELD_ID:
+      errorMessage = emailErrorMessage;
+      break;
+    case PASSWORD_FIELD_ID:
+      errorMessage = passwordErrorMessage;
+      break;
+    default:
+      errorMessage = loginErrorMessage;
   }
 
   const dispatch = useAppDispatch();
