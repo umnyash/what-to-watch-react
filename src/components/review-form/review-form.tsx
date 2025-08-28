@@ -1,16 +1,10 @@
 import { FilmSections, FILM_TABER_ACTIVE_TAB_SEARCH_PARAM } from '../film/const';
-import { AppRoute } from '../../const';
+import { AppRoute, MAX_RATING, CommentLength } from '../../const';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { reviewSelectors } from '../../store/review/review.selectors';
 import { submitReview } from '../../store/async-actions';
-
-const MAX_RATING = 10;
-const CommentLength = {
-  Min: 50,
-  Max: 400
-} as const;
 
 type ReviewFormProps = {
   filmId: string;

@@ -3,6 +3,7 @@ export const SIMILAR_FILMS_MAX_COUNT = 4;
 export const SECONDS_PER_MINUTE = 60;
 export const MINUTES_PER_HOUR = 60;
 export const GENRES_MAX_COUNT = 9;
+export const MAX_RATING = 10;
 
 const ROUTE_PARAM_ID = ':id';
 const ROUTE_PARAM_FLAG = ':flag';
@@ -66,6 +67,11 @@ export const RatingTreshold = {
   [RatingLevel.VeryGood]: 8,
   [RatingLevel.Good]: 5,
   [RatingLevel.Normal]: 3,
+} as const;
+
+export const CommentLength = {
+  Min: 50,
+  Max: 400
 } as const;
 
 export enum SliceName {
