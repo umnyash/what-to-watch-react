@@ -1,10 +1,11 @@
 import { FilmSections, FILM_TABER_ACTIVE_TAB_SEARCH_PARAM } from '../film/const';
-import { AppRoute, MAX_RATING, CommentLength } from '../../const';
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { AppRoute, CommentLength } from '../../const';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { reviewSelectors } from '../../store/review/review.selectors';
 import { submitReview } from '../../store/async-actions';
+import StarsRating from '../stars-rating';
 
 type ReviewFormProps = {
   filmId: string;
@@ -40,28 +41,11 @@ function ReviewForm({ filmId }: ReviewFormProps): JSX.Element {
 
   return (
     <form action="#" className="add-review__form" onSubmit={handleFormSubmit}>
-      <div className="rating">
-        <div className="rating__stars">
-          {Array.from({ length: MAX_RATING }, (_item, index) => {
-            const ratingValue = (MAX_RATING - index);
-
-            return (
-              <React.Fragment key={ratingValue}>
-                <input
-                  className="rating__input"
-                  id={`star-${ratingValue}`}
-                  type="radio" name="rating"
-                  value={ratingValue}
-                  checked={formData.rating === ratingValue}
-                  disabled={isSubmitting}
-                  onChange={handleFieldChange}
-                />
-                <label className="rating__label" htmlFor={`star-${ratingValue}`}>Rating {ratingValue}</label>
-              </React.Fragment>
-            );
-          })}
-        </div>
-      </div>
+      <StarsRating
+        value={formData.rating}
+        onChange={handleFieldChange}
+        disabled={isSubmitting}
+      />
 
       <div className="add-review__text">
         <textarea
