@@ -3,14 +3,15 @@ import { State } from '../../types/state';
 import { formatPlaybackDuration } from '../../util';
 
 const sliceName = SliceName.Player;
+type SliceState = Pick<State, SliceName.Player>;
 
-const duration = (state: State) => state[sliceName].duration;
-const userSelectedTime = (state: State) => state[sliceName].userSelectedTime;
+const duration = (state: SliceState) => state[sliceName].duration;
+const userSelectedTime = (state: SliceState) => state[sliceName].userSelectedTime;
 
-const remainingTime = (state: State) =>
+const remainingTime = (state: SliceState) =>
   formatPlaybackDuration(state[sliceName].duration - state[sliceName].currentTime);
 
-const playbackProgress = (state: State) =>
+const playbackProgress = (state: SliceState) =>
   (state[sliceName].currentTime / state[sliceName].duration * 100) || 0;
 
 export const playerSelectors = {

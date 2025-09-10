@@ -4,14 +4,15 @@ import { loginResponseErrorDetailMessages } from '../../services/api/const';
 import { validationErrorMessages } from '../../validation';
 
 const sliceName = SliceName.User;
+type SliceState = Pick<State, SliceName.User>;
 
-const authorizationStatus = (state: State) => state[sliceName].authorizationStatus;
-const isAuthChecked = (state: State) => state[sliceName].authorizationStatus !== AuthorizationStatus.Unknown;
-const isAuth = (state: State) => state[sliceName].authorizationStatus === AuthorizationStatus.Auth;
-const isNoAuth = (state: State) => state[sliceName].authorizationStatus === AuthorizationStatus.NoAuth;
-const isLoggingIn = (state: State) => state[sliceName].loggingInStatus === RequestStatus.Pending;
+const authorizationStatus = (state: SliceState) => state[sliceName].authorizationStatus;
+const isAuthChecked = (state: SliceState) => state[sliceName].authorizationStatus !== AuthorizationStatus.Unknown;
+const isAuth = (state: SliceState) => state[sliceName].authorizationStatus === AuthorizationStatus.Auth;
+const isNoAuth = (state: SliceState) => state[sliceName].authorizationStatus === AuthorizationStatus.NoAuth;
+const isLoggingIn = (state: SliceState) => state[sliceName].loggingInStatus === RequestStatus.Pending;
 
-const loginErrorMessage = (state: State) => {
+const loginErrorMessage = (state: SliceState) => {
   const error = state[sliceName].loginError;
 
   if (!error) {
@@ -50,7 +51,7 @@ const loginErrorMessage = (state: State) => {
   return ERROR_PLACEHOLDER_MESSAGE;
 };
 
-const user = (state: State) => state[sliceName].user;
+const user = (state: SliceState) => state[sliceName].user;
 
 export const userSelectors = {
   authorizationStatus,

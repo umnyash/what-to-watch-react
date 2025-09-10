@@ -4,13 +4,14 @@ import { SliceName, RequestStatus, GENRES_MAX_COUNT } from '../../const';
 import { groupBy } from '../../util';
 
 const sliceName = SliceName.Catalog;
+type SliceState = Pick<State, SliceName.Catalog>;
 
-const films = (state: State) => state[sliceName].films;
-const isFilmsLoading = (state: State) => state[sliceName].filmsLoadingStatus === RequestStatus.Pending;
-const isFilmsLoaded = (state: State) => state[sliceName].filmsLoadingStatus === RequestStatus.Success;
-const isFilmsLoadFailed = (state: State) => state[sliceName].filmsLoadingStatus === RequestStatus.Error;
-const genreFilter = (state: State) => state[sliceName].filter.genre;
-const displayedFilmsMaxCount = (state: State) => state[sliceName].displayedFilmsMaxCount;
+const films = (state: SliceState) => state[sliceName].films;
+const isFilmsLoading = (state: SliceState) => state[sliceName].filmsLoadingStatus === RequestStatus.Pending;
+const isFilmsLoaded = (state: SliceState) => state[sliceName].filmsLoadingStatus === RequestStatus.Success;
+const isFilmsLoadFailed = (state: SliceState) => state[sliceName].filmsLoadingStatus === RequestStatus.Error;
+const genreFilter = (state: SliceState) => state[sliceName].filter.genre;
+const displayedFilmsMaxCount = (state: SliceState) => state[sliceName].displayedFilmsMaxCount;
 
 const filmsGroupedByGenre = createSelector(
   [films],

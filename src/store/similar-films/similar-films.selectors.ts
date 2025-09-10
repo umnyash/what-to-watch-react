@@ -4,12 +4,13 @@ import { RequestStatus, SliceName, SIMILAR_FILMS_MAX_COUNT } from '../../const';
 import { getUniqueRandomArrayItems } from '../../util';
 
 const sliceName = SliceName.SimilarFilms;
+type SliceState = Pick<State, SliceName.SimilarFilms>;
 
-const filmId = (state: State) => state[sliceName].filmId;
-const isLoading = (state: State) => state[sliceName].loadingStatus === RequestStatus.Pending;
-const isLoaded = (state: State) => state[sliceName].loadingStatus === RequestStatus.Success;
-const isLoadFailed = (state: State) => state[sliceName].loadingStatus === RequestStatus.Error;
-const films = (state: State) => state[sliceName].films;
+const filmId = (state: SliceState) => state[sliceName].filmId;
+const isLoading = (state: SliceState) => state[sliceName].loadingStatus === RequestStatus.Pending;
+const isLoaded = (state: SliceState) => state[sliceName].loadingStatus === RequestStatus.Success;
+const isLoadFailed = (state: SliceState) => state[sliceName].loadingStatus === RequestStatus.Error;
+const films = (state: SliceState) => state[sliceName].films;
 
 const someRandomFilms = createSelector(
   [films],
