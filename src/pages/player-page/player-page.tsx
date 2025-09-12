@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
-import { useLocation, Location, useParams, generatePath } from 'react-router-dom';
-import { LocationState } from '../../types/location';
-import { AppRoute, PageTitle } from '../../const';
-import { Helmet } from 'react-helmet-async';
+import { useParams } from 'react-router-dom';
+import { PageTitle } from '../../const';
 import { filmSelectors } from '../../store/film/film.selectors';
 import { promoFilmSelectors } from '../../store/promo-film/promo-film.selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -11,15 +9,10 @@ import { fetchFilm } from '../../store/async-actions';
 import LoadingPage from '../loading-page';
 import NotFoundPage from '../not-found-page';
 import ErrorPage from '../error-page';
-import Player from '../../components/player';
-import withVideo from '../../hocs/with-video/with-video';
-
-const PlayerWrapped = withVideo(Player);
+import PlayerPageContent from '../../components/player-page-content';
 
 function PlayerPage(): JSX.Element {
-  const location = useLocation() as Location<LocationState>;
   const filmId = useParams().id as string;
-  const filmPageLink = generatePath(AppRoute.Film, { id: filmId });
 
   const film = useAppSelector(filmSelectors.film);
   const promoFilm = useAppSelector(promoFilmSelectors.film);
@@ -49,14 +42,7 @@ function PlayerPage(): JSX.Element {
   }, [filmId, dispatch]);
 
   if (targetFilm) {
-    return (
-      <>
-        <Helmet>
-          <title>{PageTitle.Player}</title>
-        </Helmet>
-        <PlayerWrapped film={targetFilm} previousPage={location.state?.from || filmPageLink} />
-      </>
-    );
+    return <PlayerPageContent film={targetFilm} />;
   }
 
   if (requestedFilmId === filmId && isFilmLoadFailed) {

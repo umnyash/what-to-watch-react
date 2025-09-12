@@ -1,17 +1,15 @@
 import { useEffect } from 'react';
-import { useParams, generatePath } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { filmSelectors } from '../../store/film/film.selectors';
 import { promoFilmSelectors } from '../../store/promo-film/promo-film.selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFilm } from '../../store/async-actions';
-import { AppRoute, PageTitle } from '../../const';
+import { PageTitle } from '../../const';
 
 import LoadingPage from '../loading-page';
 import NotFoundPage from '../not-found-page';
 import ErrorPage from '../error-page';
-import { Helmet } from 'react-helmet-async';
-import SiteHeader from '../../components/site-header';
-import ReviewForm from '../../components/review-form';
+import ReviewPageContent from '../../components/review-page-content';
 
 function ReviewPage(): JSX.Element {
   const filmId = useParams().id as string;
@@ -44,35 +42,7 @@ function ReviewPage(): JSX.Element {
   }, [filmId, dispatch]);
 
   if (targetFilm) {
-    const { name, posterImage, backgroundImage } = targetFilm;
-    const filmPageRoute = generatePath(AppRoute.Film, { id: filmId });
-
-    const breadcrumbs = [
-      { text: name, href: filmPageRoute },
-      { text: 'Add review' }
-    ];
-
-    return (
-      <section className="film-card film-card--full">
-        <Helmet>
-          <title>{PageTitle.Review}</title>
-        </Helmet>
-        <div className="film-card__header">
-          <div className="film-card__bg">
-            <img src={backgroundImage} alt={name} />
-          </div>
-          <h1 className="visually-hidden">WTW</h1>
-          <SiteHeader breadcrumbs={breadcrumbs} withUserNavigation />
-          <div className="film-card__poster film-card__poster--small">
-            <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
-          </div>
-        </div>
-
-        <div className="add-review">
-          <ReviewForm filmId={filmId} />
-        </div>
-      </section>
-    );
+    return <ReviewPageContent film={targetFilm} />;
   }
 
   if (requestedFilmId === filmId && isFilmLoadFailed) {
