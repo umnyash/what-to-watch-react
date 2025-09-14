@@ -4,30 +4,32 @@ export const SECONDS_PER_MINUTE = 60;
 export const MINUTES_PER_HOUR = 60;
 export const GENRES_MAX_COUNT = 9;
 export const MAX_RATING = 10;
-
-const ROUTE_PARAM_ID = ':id';
-const ROUTE_PARAM_FLAG = ':flag';
 export const ERROR_PLACEHOLDER_MESSAGE = 'Something went wrong...';
+
+enum RouteParam {
+  Id = ':id',
+  Flag = ':flag',
+}
 
 export enum AppRoute {
   Root = '/',
   Login = '/login',
   MyList = '/mylist',
-  Film = `/films/${ROUTE_PARAM_ID}`,
-  Review = `/films/${ROUTE_PARAM_ID}/review`,
-  Player = `/player/${ROUTE_PARAM_ID}`,
+  Film = `/films/${RouteParam.Id}`,
+  Review = `/films/${RouteParam.Id}/review`,
+  Player = `/player/${RouteParam.Id}`,
 }
 
 export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Films = '/films',
-  SimilarFilms = `/films/${ROUTE_PARAM_ID}/similar`,
-  Film = `/films/${ROUTE_PARAM_ID}`,
+  SimilarFilms = `/films/${RouteParam.Id}/similar`,
+  Film = `/films/${RouteParam.Id}`,
   Promo = '/promo',
   Favorites = '/favorite',
-  FavoriteStatus = `/favorite/${ROUTE_PARAM_ID}/${ROUTE_PARAM_FLAG}`,
-  Reviews = `/comments/${ROUTE_PARAM_ID}`,
+  FavoriteStatus = `/favorite/${RouteParam.Id}/${RouteParam.Flag}`,
+  Reviews = `/comments/${RouteParam.Id}`,
 }
 
 export enum RequestStatus {
