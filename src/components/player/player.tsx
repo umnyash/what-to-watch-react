@@ -48,7 +48,7 @@ function Player({ film, previousPage, renderVideo }: PlayerProps) {
     dispatch(playerActions.setCurrentTime(videoElement.currentTime));
   };
 
-  const handlePlaybackError = () => {
+  const handleVideoPlaybackError = () => {
     setIsVideoPlaying(false);
   };
 
@@ -65,7 +65,7 @@ function Player({ film, previousPage, renderVideo }: PlayerProps) {
         onLoadedMetadata: handleVideoLoadedMetadata,
         onTimeUpdate: handleVideoTimeUpdate,
         onEnded: handleVideoEnded,
-        onPlaybackError: handlePlaybackError,
+        onPlaybackError: handleVideoPlaybackError,
       })}
 
       <Link
