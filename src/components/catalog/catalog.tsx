@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector, useLoadFilms } from '../../hooks';
 import { catalogSelectors } from '../../store/catalog/catalog.selectors';
 import { catalogActions } from '../../store/catalog/catalog.slice';
 import { fetchFilms } from '../../store/async-actions';
@@ -11,25 +11,9 @@ function Catalog(): JSX.Element {
   const isFilmsLoading = useAppSelector(catalogSelectors.isFilmsLoading);
   const isFilmsLoaded = useAppSelector(catalogSelectors.isFilmsLoaded);
   const isFilmsLoadFailed = useAppSelector(catalogSelectors.isFilmsLoadFailed);
-
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (isFilmsLoaded || isFilmsLoading) {
-      return;
-    }
-
-    dispatch(fetchFilms());
-
-    // The effect loads films data only on mount.
-    // If the films are already loading or loaded, no new request is sent.
-    //
-    // Excluded from dependencies on purpose:
-    // • isFilmsLoaded — would trigger an extra run when no request is needed (the condition above prevents it).
-    // • isFilmsLoading — could cause an infinite loop of requests on loading error.
-    //
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  useLoadFilms();
 
   useEffect(() => {
     dispatch(catalogActions.resetDisplayedFilmsMaxCount());
