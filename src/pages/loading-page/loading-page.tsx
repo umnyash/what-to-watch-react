@@ -9,7 +9,10 @@ function LoadingPage(): JSX.Element {
         <title>{PageTitle.Loading}</title>
       </Helmet>
 
-      <div style={{ display: 'grid', alignItems: 'center', flexGrow: 1 }}>
+      <div
+        style={{ display: 'grid', alignItems: 'center', flexGrow: 1 }}
+        data-testid="spinner-wrapper"
+      >
         <Spinner />
       </div>
     </div>
