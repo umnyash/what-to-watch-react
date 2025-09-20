@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { playerSelectors } from '../../store/player/player.selectors';
 import { playerActions } from '../../store/player/player.slice';
-import { PromoFilm, PageFilm } from '../../types/films';
+import { PromoFilm } from '../../types/films';
 import { VideoProps } from '../video/types';
 import style from './player.module.css';
 import ProgressBar from '../progress-bar';
 
 type PlayerProps = {
-  film: PromoFilm | PageFilm;
+  film: PromoFilm;
   previousPage: string;
   renderVideo: (options: VideoProps) => JSX.Element;
 }
