@@ -1,6 +1,6 @@
 import FilmCard from '../film-card';
 import { Films } from '../../types/films';
-import withVideo from '../../hocs/with-video/with-video';
+import withVideo from '../../hocs/with-video';
 
 const FilmCardWrapped = withVideo(FilmCard);
 

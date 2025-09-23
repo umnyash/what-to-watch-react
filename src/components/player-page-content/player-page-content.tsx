@@ -5,7 +5,7 @@ import { AppRoute, PageTitle } from '../../const';
 import { LocationState } from '../../types/location';
 import { PromoFilm } from '../../types/films';
 import Player from '../player';
-import withVideo from '../../hocs/with-video/with-video';
+import withVideo from '../../hocs/with-video';
 
 type PlayerPageContentProps = {
   film: PromoFilm;
