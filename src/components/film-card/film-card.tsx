@@ -29,20 +29,20 @@ function FilmCard({ film, renderVideo }: FilmCardProps): JSX.Element {
       setIsVideoPlaying(true);
     }, DELAY_BEFORE_PLAY);
 
-    return () => {
-      clearTimeout(timerId);
-      setIsVideoPlaying(false);
-    };
+    return () => clearTimeout(timerId);
   }, [isMouseOver]);
 
   return (
     <article
       className="small-film-card catalog__films-card"
       onMouseOver={() => setIsMouseOver(true)}
-      onMouseOut={() => setIsMouseOver(false)}
+      onMouseOut={() => {
+        setIsVideoPlaying(false);
+        setIsMouseOver(false);
+      }}
     >
       <div className="small-film-card__image">
-        {isVideoPlaying ? (
+        {isMouseOver && isVideoPlaying ? (
           renderVideo({
             src: film.previewVideoLink,
             isPlaying: true,
