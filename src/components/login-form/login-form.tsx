@@ -7,13 +7,15 @@ import Button, { ButtonType, ButtonSize } from '../button';
 import TextField from '../text-field';
 import { getValidationErrorMessage } from '../../validation';
 
-const EMAIL_FIELD_ID = 'user-email';
-const PASSWORD_FIELD_ID = 'user-password';
+enum FieldId {
+  Email = 'user-email',
+  Password = 'user-password',
+}
 
 function LoginForm(): JSX.Element {
   const emailInputElementRef = useRef<HTMLInputElement | null>(null);
   const passwordInputElementRef = useRef<HTMLInputElement | null>(null);
-  const [activeFieldId, setActiveFieldId] = useState('');
+  const [activeFieldId, setActiveFieldId] = useState<FieldId | null>(null);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -27,10 +29,10 @@ function LoginForm(): JSX.Element {
   let errorMessage: string | null = null;
 
   switch (activeFieldId) {
-    case EMAIL_FIELD_ID:
+    case FieldId.Email:
       errorMessage = emailErrorMessage;
       break;
-    case PASSWORD_FIELD_ID:
+    case FieldId.Password:
       errorMessage = passwordErrorMessage;
       break;
     default:
@@ -53,7 +55,7 @@ function LoginForm(): JSX.Element {
   };
 
   const handleFieldBlur = () => {
-    setActiveFieldId('');
+    setActiveFieldId(null);
   };
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -62,11 +64,11 @@ function LoginForm(): JSX.Element {
     switch (true) {
       case Boolean(emailErrorMessage):
         emailInputElementRef.current?.focus();
-        setActiveFieldId(EMAIL_FIELD_ID);
+        setActiveFieldId(FieldId.Email);
         break;
       case Boolean(passwordErrorMessage):
         passwordInputElementRef.current?.focus();
-        setActiveFieldId(PASSWORD_FIELD_ID);
+        setActiveFieldId(FieldId.Password);
         break;
       default:
         dispatch(loginUser(formData));
@@ -83,21 +85,21 @@ function LoginForm(): JSX.Element {
       <div className="sign-in__fields">
         <TextField
           inputRef={emailInputElementRef}
-          id={EMAIL_FIELD_ID}
+          id={FieldId.Email}
           name="email"
           label="Email address"
           type="email"
           value={formData.email}
           placeholder="Email address"
           required
-          invalid={activeFieldId === EMAIL_FIELD_ID && Boolean(emailErrorMessage)}
+          invalid={activeFieldId === FieldId.Email && Boolean(emailErrorMessage)}
           disabled={isLoggingIn}
           onChange={handleFieldChange}
           onBlur={handleFieldBlur}
         />
         <TextField
           inputRef={passwordInputElementRef}
-          id={PASSWORD_FIELD_ID}
+          id={FieldId.Password}
           name="password"
           label="Password"
           type="password"
@@ -106,7 +108,7 @@ function LoginForm(): JSX.Element {
           title="Пароль должен состоять минимум из одной буквы и цифры."
           placeholder="Password"
           required
-          invalid={activeFieldId === PASSWORD_FIELD_ID && Boolean(passwordErrorMessage)}
+          invalid={activeFieldId === FieldId.Password && Boolean(passwordErrorMessage)}
           disabled={isLoggingIn}
           onChange={handleFieldChange}
           onBlur={handleFieldBlur}
