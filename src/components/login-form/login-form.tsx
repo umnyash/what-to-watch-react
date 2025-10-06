@@ -47,7 +47,7 @@ function LoginForm(): JSX.Element {
 
   const handleFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
 
     if (loginErrorMessage) {
       dispatch(userActions.clearLoginErrorData());
