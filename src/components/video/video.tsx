@@ -40,6 +40,7 @@ function Video(props: VideoProps): JSX.Element {
       {...restProps}
       ref={videoRef}
       onLoadedData={() => setIsLoaded(true)}
+      data-testid="video"
     />
   );
 }

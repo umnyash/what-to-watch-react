@@ -78,7 +78,7 @@ function LoginForm(): JSX.Element {
   return (
     <form className="sign-in__form" method="post" action="#" noValidate onSubmit={handleFormSubmit}>
       {errorMessage && (
-        <div className="sign-in__message">
+        <div className="sign-in__message" data-testid="login-form-error-message">
           <p>{errorMessage}</p>
         </div>
       )}

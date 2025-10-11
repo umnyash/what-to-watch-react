@@ -25,14 +25,14 @@ function Logo({ isLight }: LogoProps): JSX.Element {
   );
 
   return (
-    <div className="logo">
+    <div className="logo" data-testid="logo">
       {isDisabled
         ? (
-          <span className={logoLinkClassName}>
+          <span className={logoLinkClassName} data-testid="logo-inner">
             <LogoText />
           </span>
         ) : (
-          <Link className={logoLinkClassName} to={AppRoute.Root}>
+          <Link className={logoLinkClassName} to={AppRoute.Root} data-testid="logo-inner">
             <LogoText />
           </Link>
         )}

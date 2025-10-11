@@ -10,7 +10,7 @@ type StarsRatingProps = {
 function StarsRating({ value, onChange, disabled }: StarsRatingProps): JSX.Element {
   return (
     <div className="rating">
-      <div className="rating__stars">
+      <div className="rating__stars" data-testid="rating-stars">
         {Array.from({ length: MAX_RATING }, (_item, index) => {
           const ratingValue = (MAX_RATING - index);
 

@@ -21,7 +21,7 @@ function UserNavigation(): JSX.Element {
   };
 
   return (
-    <ContainerTag className="user-block">
+    <ContainerTag className="user-block" data-testid="user-navigation">
       {isAuth && user && (
         <>
           <li className="user-block__item">

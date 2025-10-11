@@ -37,13 +37,13 @@ function FavoriteButton({ filmId, isActive }: FavoriteButtonProps): JSX.Element 
         onClick={handleFavoriteButtonClick}
       >
         {isActive && (
-          <svg viewBox="0 0 18 14" width="18" height="14">
+          <svg viewBox="0 0 18 14" width="18" height="14" data-testid="active-icon">
             <use href="#in-list" />
           </svg>
         )}
 
         {!isActive && (
-          <svg viewBox="0 0 19 20" width="19" height="20">
+          <svg viewBox="0 0 19 20" width="19" height="20" data-testid="inactive-icon">
             <use href="#add" />
           </svg>
         )}

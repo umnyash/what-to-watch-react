@@ -33,7 +33,7 @@ function FilmDetails({ film }: FilmDetailsProps): JSX.Element {
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
-          <span className="film-card__details-value">
+          <span className="film-card__details-value" data-testid="film-details-starring">
             {starring.map((item, index) => (
               <Fragment key={item}>
                 {(index === starring.length - 1)

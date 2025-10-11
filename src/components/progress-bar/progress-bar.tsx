@@ -38,7 +38,13 @@ function ProgressBar() {
           max="100"
           onClick={handleProgressBarClick}
         />
-        <div className="player__toggler" style={{ left: `${playbackProgress}%` }}>Toggler</div>
+        <div
+          className="player__toggler"
+          style={{ left: `${playbackProgress}%` }}
+          data-testid="progress-bar-thumb"
+        >
+          Toggler
+        </div>
       </div>
       <div className="player__time-value">-{remainingTime}</div>
     </div>

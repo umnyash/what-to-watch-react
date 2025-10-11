@@ -86,11 +86,11 @@ function Player({ film, previousPage, renderVideo }: PlayerProps) {
             onClick={handlePlayButtonClick}
           >
             {isVideoPlaying ? (
-              <svg viewBox="0 0 14 21" width="14" height="21">
+              <svg viewBox="0 0 14 21" width="14" height="21" data-testid="pause-icon">
                 <use href="#pause"></use>
               </svg>
             ) : (
-              <svg viewBox="0 0 19 19" width="19" height="19">
+              <svg viewBox="0 0 19 19" width="19" height="19" data-testid="play-icon">
                 <use href="#play-s" />
               </svg>
             )}
